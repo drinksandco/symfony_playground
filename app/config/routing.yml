@@ -1,3 +1,7 @@
+users_cache_listing:
+    resource: "@UsersCacheListingBundle/Resources/config/routing.yml"
+    prefix:   /
+
 users_management:
     resource: "@UsersManagementBundle/Resources/config/routing.yml"
     prefix:   /

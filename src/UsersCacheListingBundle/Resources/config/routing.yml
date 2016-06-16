@@ -1,0 +1,3 @@
+users_cache_listing_homepage:
+    path:     /
+    defaults: { _controller: UsersCacheListingBundle:Default:index }
