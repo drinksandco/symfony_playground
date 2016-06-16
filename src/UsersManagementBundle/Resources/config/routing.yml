@@ -1,3 +1,3 @@
 users_management_homepage:
-    path:     /
+    path:     /users
     defaults: { _controller: UsersManagementBundle:Default:index }
