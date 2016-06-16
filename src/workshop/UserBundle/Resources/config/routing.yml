@@ -1,0 +1,7 @@
+workshop_user_homepage:
+    path:     /
+    defaults: { _controller: workshopUserBundle:Default:index }
+
+get_users:
+    path:     /getusers
+    defaults: { _controller: workshopUserBundle:GetUsers:index }

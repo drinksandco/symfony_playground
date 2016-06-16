@@ -1,0 +1,4 @@
+services:
+#    workshop_user.example:
+#        class: workshop\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
