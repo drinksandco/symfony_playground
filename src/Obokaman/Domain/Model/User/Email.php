@@ -22,8 +22,8 @@ class Email
         return $this->email;
     }
 
-    public function equals($an_email)
+    public function equals(self $an_email)
     {
-        return $this->email === mb_strtolower($an_email);
+        return $this->email == $an_email->email();
     }
 }

@@ -6,7 +6,9 @@ use Doctrine\ORM\EntityManager;
 use OboBundle\Entity\User as DoctrineUser;
 use OboBundle\Repository\UserRepository as DoctrineUserRepository;
 use Obokaman\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
+use Obokaman\Domain\Kernel\EventStore;
 use Obokaman\Domain\Model\User\Email;
+use Obokaman\Domain\Model\User\Event\UserRemoved;
 use Obokaman\Domain\Model\User\User;
 use Obokaman\Domain\Model\User\UserId;
 
@@ -81,6 +83,8 @@ class UserRepository implements UserRepositoryContract
         {
             $this->flush();
         }
+
+        EventStore::instance()->storeEvent(new UserRemoved((string) $a_user_id));
     }
 
     public function flush()
