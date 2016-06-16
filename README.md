@@ -14,4 +14,8 @@ insert test data. Since the database is single phisical file, you can version it
 The first time you execute a `composer install` your own parameters.yml will be created based on
 parameters.yml.dist values.
 
+### Albert branch: startup steps:
+* `bin/console doctrine:database:drop --force`
+* `bin/console doctrine:schema:update --force`
+
 Go & play. ;-)
