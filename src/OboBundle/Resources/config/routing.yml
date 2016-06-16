@@ -1,0 +1,3 @@
+obo_homepage:
+    path:     /
+    defaults: { _controller: OboBundle:Default:index }
