@@ -5,10 +5,10 @@ namespace Obokaman\Infrastructure\Repository\Doctrine\User;
 use Doctrine\ORM\EntityManager;
 use OboBundle\Entity\User as DoctrineUser;
 use OboBundle\Repository\UserRepository as DoctrineUserRepository;
-use Obokaman\Domain\User\Email;
-use Obokaman\Domain\User\User;
-use Obokaman\Domain\User\UserId;
 use Obokaman\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
+use Obokaman\Domain\Model\User\Email;
+use Obokaman\Domain\Model\User\User;
+use Obokaman\Domain\Model\User\UserId;
 
 class UserRepository implements UserRepositoryContract
 {

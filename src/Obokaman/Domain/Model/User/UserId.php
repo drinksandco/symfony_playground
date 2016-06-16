@@ -1,6 +1,6 @@
 <?php
 
-namespace Obokaman\Domain\User;
+namespace Obokaman\Domain\Model\User;
 
 use Ramsey\Uuid\Uuid;
 

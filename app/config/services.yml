@@ -10,17 +10,28 @@ services:
 
     obokaman.application.service.user.add:
         class: Obokaman\Application\Service\User\AddUser
-        arguments: ["@obokaman.repository.user"]
+        arguments:
+            - "@obokaman.repository.user"
+            - "@obokaman.infrastructure.event_dispatcher"
 
     obokaman.application.service.user.edit:
         class: Obokaman\Application\Service\User\EditUser
-        arguments: ["@obokaman.repository.user"]
+        arguments:
+            - "@obokaman.repository.user"
+            - "@obokaman.infrastructure.event_dispatcher"
 
     obokaman.application.service.user.remove:
         class: Obokaman\Application\Service\User\RemoveUser
-        arguments: ["@obokaman.repository.user"]
+        arguments:
+            - "@obokaman.repository.user"
+            - "@obokaman.infrastructure.event_dispatcher"
 
     obokaman.repository.user:
         class: Obokaman\Infrastructure\Repository\Doctrine\User\UserRepository
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    obokaman.infrastructure.event_dispatcher:
+        class: Obokaman\Infrastructure\Event\Symfony\EventDispatcher
+        arguments:
+            - "@event_dispatcher"

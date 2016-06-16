@@ -4,9 +4,9 @@ namespace OboCacheBundle\Repository;
 
 use Doctrine\Common\Cache\PhpFileCache;
 use Obokaman\Domain\Infrastructure\Repository\User\UserRepository;
-use Obokaman\Domain\User\Email;
-use Obokaman\Domain\User\User;
-use Obokaman\Domain\User\UserId;
+use Obokaman\Domain\Model\User\Email;
+use Obokaman\Domain\Model\User\User;
+use Obokaman\Domain\Model\User\UserId;
 
 class CachedUserRepository implements UserRepository
 {
@@ -54,22 +54,16 @@ class CachedUserRepository implements UserRepository
 
     public function persist(User $a_user, $flush = true)
     {
-        $this->cache->delete(self::LIST_CACHE_KEY);
-
         return $this->original_repo->persist($a_user, $flush);
     }
 
     public function remove(UserId $a_user_id, $flush = true)
     {
-        $this->cache->delete(self::LIST_CACHE_KEY);
-
         return $this->original_repo->remove($a_user_id, $flush);
     }
 
     public function flush()
     {
-        $this->cache->delete(self::LIST_CACHE_KEY);
-
         return $this->original_repo->flush();
     }
 

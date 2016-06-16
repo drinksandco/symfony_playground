@@ -2,9 +2,9 @@
 
 namespace Obokaman\Domain\Infrastructure\Repository\User;
 
-use Obokaman\Domain\User\Email;
-use Obokaman\Domain\User\User;
-use Obokaman\Domain\User\UserId;
+use Obokaman\Domain\Model\User\Email;
+use Obokaman\Domain\Model\User\User;
+use Obokaman\Domain\Model\User\UserId;
 
 interface UserRepository
 {
