@@ -6,8 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function getUsersAction()
     {
-        return $this->render('UserBundle:Default:index.html.twig');
+        $repo = $this->get('user_bundle.user_persistence');
+        $results = $repo->getAllUsers();
+
+        return $this->render('base.html.twig', [
+            'results' => $results
+        ]);
     }
 }
