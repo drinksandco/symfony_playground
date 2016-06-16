@@ -1,4 +1,17 @@
 services:
-#    obo_cache.example:
-#        class: OboCacheBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+
+    cache_service:
+        class: Doctrine\Common\Cache\PhpFileCache
+        arguments:
+            - "%kernel.cache_dir%"
+
+    obokaman.repository.user.original:
+        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserRepository
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    obokaman.repository.user:
+        class: OboCacheBundle\Repository\CachedUserRepository
+        arguments:
+            - "@obokaman.repository.user.original"
+            - "@cache_service"
