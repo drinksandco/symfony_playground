@@ -1,0 +1,3 @@
+user_cache_homepage:
+    path:     /
+    defaults: { _controller: UserCacheBundle:Default:index }
