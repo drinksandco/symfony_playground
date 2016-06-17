@@ -18,19 +18,25 @@ class User
     /** @var Email */
     private $email;
 
-    public function __construct(UserId $a_user_id, $a_name, Email $an_email)
+    /** @var \DateTimeImmutable */
+    private $creation_date;
+
+    public function __construct(UserId $a_user_id, $a_name, Email $an_email, \DateTimeImmutable $a_datetime)
     {
-        $this->user_id = $a_user_id;
-        $this->name    = $a_name;
-        $this->email   = $an_email;
+        $this->user_id       = $a_user_id;
+        $this->name          = $a_name;
+        $this->email         = $an_email;
+        $this->creation_date = $a_datetime;
     }
 
     public static function create($a_name, Email $an_email)
     {
-        $user_id = UserId::generateUniqueId();
-        $user    = new self($user_id, $a_name, $an_email);
+        $user_id  = UserId::generateUniqueId();
+        $datetime = new \DateTimeImmutable('now');
 
-        EventStore::instance()->storeEvent(new UserCreated((string) $user_id));
+        $user = new self($user_id, $a_name, $an_email, $datetime);
+
+        EventStore::instance()->storeEvent(new UserCreated((string) $user_id, $datetime));
 
         return $user;
     }
@@ -48,6 +54,11 @@ class User
     public function email()
     {
         return $this->email;
+    }
+
+    public function creationDate()
+    {
+        return $this->creation_date;
     }
 
     public function changeName($a_name)
@@ -68,9 +79,9 @@ class User
         {
             return;
         }
-        
+
         EventStore::instance()->storeEvent(new UserEmailChanged((string) $this->user_id));
-        
+
         $this->email = $an_email;
     }
 }

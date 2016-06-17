@@ -30,11 +30,6 @@ class CachedUserRepository implements UserRepository
         return $this->original_repo->find($a_user_id);
     }
 
-    public function findByEmail(Email $an_user_email)
-    {
-        return $this->original_repo->findByEmail($an_user_email);
-    }
-
     public function findAll()
     {
         if ($this->cache->contains(self::LIST_CACHE_KEY))

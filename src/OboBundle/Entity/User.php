@@ -8,7 +8,7 @@ namespace OboBundle\Entity;
 class User
 {
     /**
-     * @var int
+     * @var guid
      */
     private $id;
 
@@ -22,11 +22,16 @@ class User
      */
     private $email;
 
+    /**
+     * @var \DateTime
+     */
+    private $creation_date;
+
 
     /**
      * Set id
      *
-     * @param string $id
+     * @param guid $id
      *
      * @return User
      */
@@ -37,6 +42,11 @@ class User
         return $this;
     }
 
+    /**
+     * Get id
+     *
+     * @return guid
+     */
     public function getId()
     {
         return $this->id;
@@ -88,6 +98,30 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set creationDate
+     *
+     * @param \DateTime $creationDate
+     *
+     * @return User
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creation_date = $creationDate;
+
+        return $this;
+    }
+
+    /**
+     * Get creationDate
+     *
+     * @return \DateTime
+     */
+    public function getCreationDate()
+    {
+        return $this->creation_date;
     }
 }
 

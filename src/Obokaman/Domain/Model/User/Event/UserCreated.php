@@ -11,10 +11,10 @@ final class UserCreated extends DomainEvent
     /** @var string */
     private $user_id;
 
-    public function __construct($a_user_id)
+    public function __construct($a_user_id, \DateTimeImmutable $a_datetime)
     {
-        parent::__construct();
-        $this->user_id = $a_user_id;
+        $this->user_id     = $a_user_id;
+        $this->occurred_on = $a_datetime;
     }
 
     public function userId()

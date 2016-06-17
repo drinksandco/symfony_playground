@@ -33,13 +33,6 @@ class UserRepository implements UserRepositoryContract
         return $this->hydrateItem($result);
     }
 
-    public function findByEmail(Email $an_user_email)
-    {
-        $result = $this->repo->findOneBy(['email' => (string) $an_user_email]);
-
-        return $this->hydrateItem($result);
-    }
-
     public function findAll()
     {
         $results = $this->repo->findAll();
@@ -59,6 +52,7 @@ class UserRepository implements UserRepositoryContract
         $user->setId((string) $a_user->userId());
         $user->setEmail((string) $a_user->email());
         $user->setName($a_user->name());
+        $user->setCreationDate(new \DateTime($a_user->creationDate()->format('Y-m-d H:i:s')));
 
         $this->em->persist($user);
 
@@ -117,8 +111,10 @@ class UserRepository implements UserRepositoryContract
             return null;
         }
 
+        $creation_date = \DateTimeImmutable::createFromMutable($result->getCreationDate());
+
         $user = new User(
-            new UserId($result->getId()), $result->getName(), new Email($result->getEmail())
+            new UserId($result->getId()), $result->getName(), new Email($result->getEmail()), $creation_date
         );
 
         return $user;

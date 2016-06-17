@@ -45,9 +45,19 @@ services:
             - "@obokaman.domain.event_dispatcher"
 
     obokaman.repository.user:
+        alias: obokaman.repository.orm.user
+
+    obokaman.repository.orm.user:
+        public: false
         class: Obokaman\Infrastructure\Repository\Doctrine\User\UserRepository
         arguments:
             - "@doctrine.orm.entity_manager"
+
+    obokaman.repository.dbal.user:
+        public: false
+        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserDbalRepository
+        arguments:
+            - "@doctrine.dbal.default_connection"
 
     obokaman.domain.event_dispatcher:
         class: Obokaman\Infrastructure\Event\Symfony\EventDispatcher

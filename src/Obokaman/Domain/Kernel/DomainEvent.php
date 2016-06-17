@@ -7,7 +7,7 @@ abstract class DomainEvent
     const EVENT_KEY = 'should.redefine.in.children';
 
     /** @var \DateTimeImmutable */
-    private $occurred_on;
+    protected $occurred_on;
 
     public function __construct()
     {

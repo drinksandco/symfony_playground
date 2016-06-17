@@ -11,9 +11,6 @@ interface UserRepository
     /** @return User */
     public function find(UserId $a_user_id);
 
-    /** @return User */
-    public function findByEmail(Email $an_user_email);
-
     /** @return User[] */
     public function findAll();
 
