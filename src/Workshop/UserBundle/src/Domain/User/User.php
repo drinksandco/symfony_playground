@@ -33,6 +33,7 @@ final class User
 
     public static function register($a_name, $a_surname, $a_username, Email $an_email)
     {
-        return new self(new UserId(null), $a_name, $a_surname, $a_username, $an_email);
+        $new_user_id = UserId::generate();
+        return new self($new_user_id, $a_name, $a_surname, $a_username, $an_email);
     }
 }
