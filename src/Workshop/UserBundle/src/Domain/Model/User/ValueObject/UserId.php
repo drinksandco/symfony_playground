@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserBundle\src\Domain\User\ValueObject;
+namespace Workshop\UserBundle\src\Domain\Model\User\ValueObject;
 
 final class UserId
 {

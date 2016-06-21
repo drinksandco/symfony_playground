@@ -1,9 +1,9 @@
 <?php
 
-namespace Workshop\UserBundle\src\Domain\User;
+namespace Workshop\UserBundle\src\Domain\Model\User;
 
-use Workshop\UserBundle\src\Domain\Email\Email;
-use Workshop\UserBundle\src\Domain\User\ValueObject\UserId;
+use Workshop\UserBundle\src\Domain\Model\Email\Email;
+use Workshop\UserBundle\src\Domain\Model\User\ValueObject\UserId;
 
 final class User
 {
@@ -22,7 +22,7 @@ final class User
     /** @var Email */
     private $email;
 
-    public function __construct(UserId $a_user_id, $a_name, $a_surname, $a_username, Email $an_email)
+    private function __construct(UserId $a_user_id, $a_name, $a_surname, $a_username, Email $an_email)
     {
         $this->user_id = $a_user_id;
         $this->name = $a_name;
@@ -35,5 +35,30 @@ final class User
     {
         $new_user_id = UserId::generate();
         return new self($new_user_id, $a_name, $a_surname, $a_username, $an_email);
+    }
+
+    public function userId()
+    {
+        return $this->user_id;
+    }
+
+    public function name()
+    {
+        return $this->name;
+    }
+
+    public function surname()
+    {
+        return $this->surname;
+    }
+
+    public function username()
+    {
+        return $this->username;
+    }
+    
+    public function email()
+    {
+        return $this->email;
     }
 }

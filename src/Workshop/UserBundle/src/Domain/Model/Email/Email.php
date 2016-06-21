@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserBundle\src\Domain\Email;
+namespace Workshop\UserBundle\src\Domain\Model\Email;
 
 final class Email
 {
@@ -16,5 +16,10 @@ final class Email
     {
         $valid_email = filter_var($an_email, FILTER_VALIDATE_EMAIL);
         $this->email = $valid_email;
+    }
+
+    public function email()
+    {
+        return $this->email;
     }
 }
