@@ -2,14 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Home</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        {% endblock %}
+
+        <title>Workshop|{% block title %}{% endblock %}</title>
     </head>
     <body>
-       <h1>Title</h1>
-        <ul>
-            {% for result in results %}
-                <li>{{ dump(result) }}</li>
-            {% endfor %}
-        </ul>
+        {% block body %}{% endblock %}
     </body>
 </html>

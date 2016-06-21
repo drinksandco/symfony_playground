@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="row col-md-12">
+            <h1>Sign up a user</h1>
+
+            {{ form_start(form) }}
+            <div class="col-md-6">
+                {{ form_widget(form.name, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'name'
+                    }
+                }) }}
+                <br>
+                {{ form_widget(form.surname, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'surname'
+                    }
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.username, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'username'
+                    }
+                })}}
+                <br>
+                {{ form_widget(form.email, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'email'
+                    }
+                })}}
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                {{ form_widget(form.submit, {
+                    'attr': {
+                        'class': 'btn btn-primary'
+                    }
+                }) }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
