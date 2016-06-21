@@ -1,4 +1,9 @@
 services:
-#    user.example:
-#        class: Workshop\UserBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    user_bundle.application.service.user.add.add_user_use_case:
+        class: Workshop\UserBundle\src\Application\Service\User\Add\AddUserUseCase
+        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+
+    user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository:
+        public: false
+        class: Workshop\UserBundle\src\Infrastructure\Repository\Doctrine\Dbal\User\UserRepository
+        arguments: ["@doctrine.dbal.default_connection"]
