@@ -17,7 +17,7 @@ final class UserRepository implements UserRepositoryContract
     {
         $this->dbal_connection = $a_dbal_connection;
     }
-    
+
     public function findAll()
     {
         $query = <<<SQL
@@ -109,7 +109,7 @@ SQL;
             $statement->execute();
 
             $this->dbal_connection->commit();
-            
+
             return $this->dbal_connection->lastInsertId();
         }
         catch (PDOException $exception)
@@ -125,6 +125,32 @@ SQL;
 
     public function delete(UserId $user_id)
     {
-        // TODO: Implement delete() method.
+        $user_id_to_delete = $user_id->userId();
+
+        $query = <<<SQL
+DELETE FROM 
+    users
+WHERE
+    id = :user_id
+SQL;
+
+        try
+        {
+            $this->dbal_connection->beginTransaction();
+
+            $statement = $this->dbal_connection->prepare($query);
+
+            $statement->bindParam(':user_id', $user_id_to_delete, \PDO::PARAM_STR);
+
+            $statement->execute();
+
+            $this->dbal_connection->commit();
+
+            return true;
+        }
+        catch (PDOException $exception)
+        {
+            return false;
+        }
     }
 }

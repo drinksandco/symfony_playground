@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Workshop\UserBundle\src\Application\Service\User\Add\AddUserRequest;
+use Workshop\UserBundle\src\Application\Service\User\Delete\DeleteUserRequest;
 use Workshop\UserBundle\src\Application\Service\User\GetAll\GetAllUsersRequest;
 
 class UserController extends Controller
@@ -17,9 +18,9 @@ class UserController extends Controller
         $users = $this->get('user_bundle.application.service.user.get_all.get_all_users_use_case')->__invoke(
             new GetAllUsersRequest()
         );
-        
+
         return $this->render('UserBundle:User:list.html.twig', [
-            'users' => $users 
+            'users' => $users
         ]);
     }
 
@@ -45,7 +46,7 @@ class UserController extends Controller
                     $form->get('username')->getData()
                 )
             );
-            
+
             $this->addFlash('success', 'User registered successfully');
 
             return $this->redirectToRoute('user_list');
@@ -54,5 +55,12 @@ class UserController extends Controller
         return $this->render('UserBundle:User:register.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    public function deleteAction($user_id)
+    {
+        $this->get('user_bundle.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
+
+        return $this->redirectToRoute('user_list');
     }
 }

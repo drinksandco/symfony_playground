@@ -1,10 +1,12 @@
 {% extends '::base.html.twig' %}
 
+{% block title %} {{ parent() }}Register{% endblock %}
+
 {% block body %}
 
     <div class="container-fluid">
         <div class="row col-md-12">
-            <h1>Sign up a user</h1>
+            <h1>Register a user</h1>
 
             {{ form_start(form) }}
             <div class="col-md-6">
