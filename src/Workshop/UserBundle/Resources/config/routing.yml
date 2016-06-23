@@ -2,3 +2,8 @@ user_register:
     path:     /register
     defaults:
         _controller: UserBundle:User:register
+
+user_list:
+    path: /
+    defaults:
+        _controller: UserBundle:User:list

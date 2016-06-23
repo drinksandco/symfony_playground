@@ -2,7 +2,7 @@
 
 namespace Workshop\UserBundle\src\Infrastructure\Repository\Doctrine\Dbal\User;
 
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOException;
 use Workshop\UserBundle\src\Domain\Repository\User\UserRepository as UserRepositoryContract;
 use Workshop\UserBundle\src\Domain\Model\User\User;
@@ -20,10 +20,7 @@ final class UserRepository implements UserRepositoryContract
     
     public function findAll()
     {
-        try
-        {
-            $this->dbal_connection->beginTransaction();
-            $query = <<<SQL
+        $query = <<<SQL
 SELECT 
   u.id,
   u.name,
@@ -34,22 +31,15 @@ SELECT
 FROM users u;
 
 SQL;
-            $this->dbal_connection->exec($query);
-            $this->dbal_connection->commit();
 
-            $this->dbal_connection->query()->fetchAll();
+        $result = $this->dbal_connection->fetchAll($query);
 
-            if (empty($result))
-            {
-                return [];
-            }
-
-            return $result;
-        }
-        catch (PDOException $exception)
+        if (empty($result))
         {
-            $this->dbal_connection->rollBack();
+            return [];
         }
+
+        return $result;
     }
 
     public function findById(UserId $user_id)

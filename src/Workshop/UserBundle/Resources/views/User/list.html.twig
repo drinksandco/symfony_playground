@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        {% for user in users %}
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div><label>Name:</label> {{ user.name }}</div>
+                        <div><label>Surname:</label> {{ user.surname }}</div>
+                        <div><label>Username:</label> {{ user.username }}</div>
+                        <div><label>Email:</label> {{ user.email }}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

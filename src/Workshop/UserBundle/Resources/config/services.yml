@@ -1,8 +1,30 @@
 services:
+    ########################
+    # Application Services #
+    ########################
     user_bundle.application.service.user.add.add_user_use_case:
         class: Workshop\UserBundle\src\Application\Service\User\Add\AddUserUseCase
         arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
 
+    user_bundle.application.service.user.update.update_user_use_case:
+        class: Workshop\UserBundle\src\Application\Service\User\Update\UpdateUserUseCase
+        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+
+    user_bundle.application.service.user.delete.delete_user_use_case:
+        class: Workshop\UserBundle\src\Application\Service\User\Delete\DeleteUserUseCase
+        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+
+    user_bundle.application.service.user.get_all.get_all_users_use_case:
+        class: Workshop\UserBundle\src\Application\Service\User\GetAll\GetAllUsersUseCase
+        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+
+    user_bundle.application.service.user.get_by_id.get_user_by_id_use_case:
+        class: Workshop\UserBundle\src\Application\Service\User\GetById\GetUserByIdUseCase
+        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+
+    ##################
+    # Infrastructure #
+    ##################
     user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository:
         public: false
         class: Workshop\UserBundle\src\Infrastructure\Repository\Doctrine\Dbal\User\UserRepository
