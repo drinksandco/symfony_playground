@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title>Título de la página</title>
+</head>
+<body>
+<p><a href="{{ url('obo_homepage') }}">Users list</a></p>
+
+<ul>
+   <li><a href="{{ url('obo_user_add') }}">Add new user [+]</a></li>
+</ul>
+
+<ul>
+    {% for user in users %}
+        <li>
+            <strong>{{ user.name }}</strong> ({{ user.email }})
+            - <a href="{{ path('obo_user_remove', {'user_id': user.userId}) }}">Remove</a>
+            - <a href="{{ path('obo_user_edit', {'user_id': user.userId, 'email': 'alternative' ~ random(5000) ~ '@gmail.com', 'name': user.name}) }}">Edit</a>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

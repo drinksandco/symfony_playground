@@ -4,7 +4,65 @@ parameters:
 #    parameter_name: value
 
 services:
-    appbundle.test_repository:
-        class: AppBundle\Repository\TestRepository
+    obokaman.application.service.user.list:
+        class: Obokaman\Application\Service\User\ListUsers
+        arguments: ["@obokaman.repository.user"]
+
+    obokaman.application.service.user.add:
+        class: Obokaman\Application\Service\User\AddUser
+        arguments:
+            - "@obokaman.repository.user"
+
+    obokaman.application.service.user.add.with_event_handling:
+        class: Obokaman\Application\Service\EventAwareApplicationServiceDecorator
+        decorates: obokaman.application.service.user.add
+        decoration_inner_name: obokaman.application.service.user.add.raw
+        arguments:
+            - "@obokaman.application.service.user.add.raw"
+            - "@obokaman.domain.event_dispatcher"
+
+    obokaman.application.service.user.edit:
+        class: Obokaman\Application\Service\User\EditUser
+        arguments:
+            - "@obokaman.repository.user"
+
+    obokaman.application.service.user.edit.with_event_handling:
+        class: Obokaman\Application\Service\EventAwareApplicationServiceDecorator
+        decorates: obokaman.application.service.user.edit
+        decoration_inner_name: obokaman.application.service.user.edit.raw
+        arguments:
+            - "@obokaman.application.service.user.edit.raw"
+            - "@obokaman.domain.event_dispatcher"
+
+    obokaman.application.service.user.remove:
+        class: Obokaman\Application\Service\User\RemoveUser
+        arguments:
+            - "@obokaman.repository.user"
+
+    obokaman.application.service.user.remove.with_event_handling:
+        class: Obokaman\Application\Service\EventAwareApplicationServiceDecorator
+        decorates: obokaman.application.service.user.remove
+        decoration_inner_name: obokaman.application.service.user.remove.raw
+        arguments:
+            - "@obokaman.application.service.user.remove.raw"
+            - "@obokaman.domain.event_dispatcher"
+
+    obokaman.repository.user:
+        alias: obokaman.repository.orm.user
+
+    obokaman.repository.orm.user:
+        public: false
+        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserRepository
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    obokaman.repository.dbal.user:
+        public: false
+        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserDbalRepository
         arguments:
             - "@doctrine.dbal.default_connection"
+
+    obokaman.domain.event_dispatcher:
+        class: Obokaman\Infrastructure\Event\Symfony\EventDispatcher
+        arguments:
+            - "@event_dispatcher"
