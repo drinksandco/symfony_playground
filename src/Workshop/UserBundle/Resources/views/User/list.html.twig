@@ -5,6 +5,10 @@
 {% block body %}
 
     <div class="container">
+
+        <h1>User's List</h1>
+        <div class="row"><a href="{{ path('user_register') }}" class="btn btn-primary pull-right">Register</a></div>
+
         {% for user in users %}
             <div class="row">
                 <div class="panel panel-default">

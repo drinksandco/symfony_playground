@@ -61,6 +61,8 @@ class UserController extends Controller
     {
         $this->get('user_bundle.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
 
+        $this->addFlash('success', 'User removed successfully');
+        
         return $this->redirectToRoute('user_list');
     }
 }
