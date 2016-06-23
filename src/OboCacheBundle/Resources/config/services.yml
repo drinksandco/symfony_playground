@@ -5,22 +5,12 @@ services:
         arguments:
             - "%kernel.cache_dir%"
 
-    obokaman.repository.orm.user.original:
-        public: false
-        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserRepository
-        arguments:
-            - "@doctrine.orm.entity_manager"
-
-    obokaman.repository.dbal.user.original:
-        public: false
-        class: Obokaman\Infrastructure\Repository\Doctrine\User\UserDbalRepository
-        arguments:
-            - "@doctrine.dbal.default_connection"
-
-    obokaman.repository.user:
+    obokaman.repository.user.cached:
         class: OboCacheBundle\Repository\CachedUserRepository
+        decorates: obokaman.repository.user
+        decoration_inner_name: obokaman.repository.user.original
         arguments:
-            - "@obokaman.repository.orm.user.original"
+            - "@obokaman.repository.user.original"
             - "@obocache.cache_service"
 
     obocache.user.subscriber:
