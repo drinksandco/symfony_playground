@@ -1,0 +1,3 @@
+cache_homepage:
+    path:     /
+    defaults: { _controller: CacheBundle:Default:index }

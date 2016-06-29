@@ -15,16 +15,16 @@ final class AddUserUseCase
     {
         $this->user_repository = $a_user_repository;
     }
-    
+
     public function __invoke(AddUserRequest $a_request)
     {
         $new_user = User::register(
             $a_request->name(),
             $a_request->surname(),
-            $a_request->username(), 
+            $a_request->username(),
             new Email($a_request->email())
         );
-        
+
         return $this->user_repository->add($new_user);
     }
 }
