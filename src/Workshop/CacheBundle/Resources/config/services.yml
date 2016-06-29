@@ -4,11 +4,11 @@ services:
         arguments:
             - "%cache.filesystem.path%"
 
-    #cache.infrastructure.repository.user:
-    #    public: false
-    #    class: Workshop\CacheBundle\src\Domain\Infrastructure\Repository\UserCacheRepository
-    #    decorates: user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository
-    #    decoration_inner_name: user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository
-    #    arguments:
-    #        - "@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"
-    #        - "@cache.infrastructure.cache.filesystem_cache"
+    cache.infrastructure.repository.user:
+        public: false
+        class: Workshop\CacheBundle\src\Domain\Infrastructure\Repository\UserCacheRepository
+        decorates: user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository
+        decoration_inner_name: user_bundle.infrastructure.repository.user
+        arguments:
+            - "@user_bundle.infrastructure.repository.user"
+            - "@cache.infrastructure.cache.filesystem_cache"
