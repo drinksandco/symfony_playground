@@ -23,7 +23,7 @@ class UserCacheRepository implements UserRepository
     {
         $cache_key = 'user_repository_findAll';
         $content = $this->cache_service->get($cache_key);
-
+        
         if (false === $content)
         {
             $content = $this->user_repository->findAll();

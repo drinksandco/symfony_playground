@@ -21,20 +21,26 @@ class FilesystemCache implements Cache
     public function get($key)
     {
         $string_content = file_get_contents($this->cache_file_path);
-        
+
         $value = json_decode($string_content, true)[$key];
-        
+
         if (empty($value))
         {
             return false;
         }
-        
+
         return $value;
     }
 
     public function set($key, $value)
     {
-        // TODO: Implement set() method.
+        $string_content = file_get_contents($this->cache_file_path);
+
+        $array_content = json_decode($string_content, true);
+
+        $array_content[$key] = $value;
+
+        file_put_contents($this->cache_file_path, json_encode($array_content));
     }
 
     public function remove($key)
