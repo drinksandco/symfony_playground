@@ -13,9 +13,13 @@ final class AddUserUseCase
     /** @var UserRepository */
     private $user_repository;
 
-    public function __construct(UserRepository $a_user_repository)
+    /** @var DomainEventDispatcher */
+    private $event_dispatcher;
+
+    public function __construct(UserRepository $a_user_repository, DomainEventDispatcher $an_event_dispatcher)
     {
         $this->user_repository = $a_user_repository;
+        $this->event_dispatcher = $an_event_dispatcher;
     }
 
     public function __invoke(AddUserRequest $a_request)
@@ -29,7 +33,6 @@ final class AddUserUseCase
 
         $new_user_id = $this->user_repository->add($new_user);
 
-        $user_added_event = new UserAdded($new_user_id);
-        $this->event_dispatcher->dispatch($user_added_event);
+        $this->event_dispatcher->dispatch(new UserAdded($new_user_id));
     }
 }

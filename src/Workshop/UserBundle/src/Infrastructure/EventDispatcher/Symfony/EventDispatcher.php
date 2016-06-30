@@ -5,6 +5,7 @@ namespace Workshop\UserBundle\src\Infrastructure\EventDispatcher\Symfony;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Workshop\UserBundle\src\Domain\Event\DomainEvent;
 use Workshop\UserBundle\src\Domain\EventDispatcher\DomainEventDispatcher;
+use Workshop\UserBundle\src\Infrastructure\Event\Symfony\Event;
 
 class EventDispatcher implements DomainEventDispatcher
 {
@@ -18,10 +19,8 @@ class EventDispatcher implements DomainEventDispatcher
 
     public function dispatch(DomainEvent $an_event)
     {
-        $event_name = $an_event->eventName();
-        
-        new 
+        $symfony_event = new Event($an_event);
 
-        $this->event_dispatcher->dispatch($event_name, $symfony_event);
+        $this->event_dispatcher->dispatch(Event::NAME, $symfony_event);
     }
 }

@@ -4,7 +4,9 @@ services:
     ########################
     user_bundle.application.service.user.add.add_user_use_case:
         class: Workshop\UserBundle\src\Application\Service\User\Add\AddUserUseCase
-        arguments: ["@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"]
+        arguments:
+            - "@user_bundle.infrastructure.repository.doctrine.dbal.user.user_repository"
+            - "@user_bundle.infrastructure.event_dispatcher.symfony"
 
     user_bundle.application.service.user.update.update_user_use_case:
         class: Workshop\UserBundle\src\Application\Service\User\Update\UpdateUserUseCase
@@ -29,3 +31,8 @@ services:
         public: false
         class: Workshop\UserBundle\src\Infrastructure\Repository\Doctrine\Dbal\User\UserRepository
         arguments: ["@doctrine.dbal.default_connection"]
+
+    user_bundle.infrastructure.event_dispatcher.symfony:
+        public: false
+        class: Workshop\UserBundle\src\Infrastructure\EventDispatcher\Symfony\EventDispatcher
+        arguments: ["@event_dispatcher"]

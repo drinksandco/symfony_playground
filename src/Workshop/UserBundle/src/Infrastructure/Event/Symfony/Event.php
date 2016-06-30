@@ -7,6 +7,8 @@ use Workshop\UserBundle\src\Domain\Event\DomainEvent;
 
 class Event extends SymfonyEvent
 {
+    const NAME = 'event.test';
+    
     /** @var DomainEvent */
     private $event;
 
@@ -18,5 +20,10 @@ class Event extends SymfonyEvent
     public function event()
     {
         return $this->event;
+    }
+
+    public function name()
+    {
+        return $this->event->eventName();
     }
 }

@@ -6,6 +6,8 @@ use Workshop\UserBundle\src\Domain\Event\DomainEvent;
 
 class UserAdded implements DomainEvent
 {
+    const NAME = 'domain.event.user.added';
+    
     /** @var string */
     private $user_id;
 
@@ -21,6 +23,6 @@ class UserAdded implements DomainEvent
 
     public function eventName()
     {
-        return 'domain.event.user.added';
+        return self::NAME;
     }
 }
