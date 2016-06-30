@@ -2,11 +2,10 @@
 
 namespace UsersManagementBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\HttpFoundation\Request;
 use UsersManagementBundle\Entity\User;
-use UsersManagementBundle\Form\UserType;
+use UsersManagementBundle\Repository\UserRepository;
 
 /**
  * User controller.
@@ -14,19 +13,29 @@ use UsersManagementBundle\Form\UserType;
  */
 class UserController extends Controller
 {
+    /** @var UserRepository */
+    private $user_repository;
+
+    public function __construct()
+    {
+        $this->user_repository = $this->get('usersmanagementbundle.user_repository');
+    }
+
+
     /**
      * Lists all User entities.
      *
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $users = $this->user_repository->findAll();
 
-        $users = $em->getRepository('UsersManagementBundle:User')->findAll();
-
-        return $this->render('user/index.html.twig', array(
-            'users' => $users,
-        ));
+        return $this->render(
+            'user/index.html.twig',
+            array(
+                'users' => $users,
+            )
+        );
     }
 
     /**
@@ -39,18 +48,21 @@ class UserController extends Controller
         $form = $this->createForm('UsersManagementBundle\Form\UserType', $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->user_repository->persist($user);
+            $this->user_repository->flush();
 
             return $this->redirectToRoute('users_show', array('id' => $user->getId()));
         }
 
-        return $this->render('user/new.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            'user/new.html.twig',
+            array(
+                'user' => $user,
+                'form' => $form->createView(),
+            )
+        );
     }
 
     /**
@@ -61,10 +73,13 @@ class UserController extends Controller
     {
         $deleteForm = $this->createDeleteForm($user);
 
-        return $this->render('user/show.html.twig', array(
-            'user' => $user,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'user/show.html.twig',
+            array(
+                'user'        => $user,
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -74,22 +89,25 @@ class UserController extends Controller
     public function editAction(Request $request, User $user)
     {
         $deleteForm = $this->createDeleteForm($user);
-        $editForm = $this->createForm('UsersManagementBundle\Form\UserType', $user);
+        $editForm   = $this->createForm('UsersManagementBundle\Form\UserType', $user);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+        if ($editForm->isSubmitted() && $editForm->isValid())
+        {
+            $this->user_repository->persist($user);
+            $this->user_repository->flush();
 
             return $this->redirectToRoute('users_edit', array('id' => $user->getId()));
         }
 
-        return $this->render('user/edit.html.twig', array(
-            'user' => $user,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->render(
+            'user/edit.html.twig',
+            array(
+                'user'        => $user,
+                'edit_form'   => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            )
+        );
     }
 
     /**
@@ -101,10 +119,10 @@ class UserController extends Controller
         $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $this->user_repository->remove($user);
+            $this->user_repository->flush();
         }
 
         return $this->redirectToRoute('users_index');
@@ -119,10 +137,6 @@ class UserController extends Controller
      */
     private function createDeleteForm(User $user)
     {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('users_delete', array('id' => $user->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        return $this->createFormBuilder()->setAction($this->generateUrl('users_delete', array('id' => $user->getId())))->setMethod('DELETE')->getForm();
     }
 }
