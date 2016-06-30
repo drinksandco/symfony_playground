@@ -3,14 +3,13 @@
 namespace workshop\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use workshop\UserBundle\Repository\UserRepository;
 
 class GetUsersController extends Controller
 {
     public function indexAction()
     {
-        $users_repo = new UserRepository();
-        $users = $users_repo->getAllUsers();
+        $users_repo = new GetUsersService();
+        $users      = $users_repo->__invoke();
 
         dump($users);
 
