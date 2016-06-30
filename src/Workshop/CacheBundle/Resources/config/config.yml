@@ -1,2 +1,2 @@
 parameters:
-    cache.filesystem.path: "%kernel.root_dir%/filesystem_cache.txt"
+    cache.filesystem.path: "%kernel.cache_dir%/filesystem_cache"
