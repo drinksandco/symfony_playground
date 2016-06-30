@@ -1,3 +1,7 @@
+users_management_users:
+    resource: "@UsersManagementBundle/Resources/config/routing/user.yml"
+    prefix:   /users
+
 users_management_homepage:
     path:     /users
     defaults: { _controller: UsersManagementBundle:Default:index }

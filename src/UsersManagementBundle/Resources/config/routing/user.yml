@@ -1,0 +1,24 @@
+users_index:
+    path:     /
+    defaults: { _controller: "UsersManagementBundle:User:index" }
+    methods:  GET
+
+users_show:
+    path:     /{id}/show
+    defaults: { _controller: "UsersManagementBundle:User:show" }
+    methods:  GET
+
+users_new:
+    path:     /new
+    defaults: { _controller: "UsersManagementBundle:User:new" }
+    methods:  [GET, POST]
+
+users_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "UsersManagementBundle:User:edit" }
+    methods:  [GET, POST]
+
+users_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "UsersManagementBundle:User:delete" }
+    methods:  DELETE
