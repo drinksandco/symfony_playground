@@ -4,12 +4,6 @@
         <meta charset="UTF-8" />
         <title>Home</title>
     </head>
-    <body>
-       <h1>Title</h1>
-        <ul>
-            {% for result in results %}
-                <li>{{ dump(result) }}</li>
-            {% endfor %}
-        </ul>
-    </body>
+    {% block body %}
+    {% endblock %}
 </html>

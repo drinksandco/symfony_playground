@@ -1,0 +1,18 @@
+UsersManagementBundle\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: UsersManagementBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

@@ -1,0 +1,11 @@
+parameters:
+    usersmanagementbundle.user: UsersManagementBundle:User
+    usersmanagementbundle.class: UsersManagementBundle\Entity\User
+    default_repository.class: Doctrine\ORM\EntityRepository
+
+services:
+    usersmanagementbundle.user_repository:
+        class: UsersManagementBundle\Repository\UserRepository
+        factory: ["@doctrine.orm.default_entity_manager", "getRepository"]
+        arguments:
+            - "%usersmanagementbundle.user%"
