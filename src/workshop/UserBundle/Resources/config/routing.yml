@@ -5,3 +5,7 @@ workshop_user_homepage:
 get_users:
     path:     /getusers
     defaults: { _controller: workshopUserBundle:GetUsers:index }
+
+signin_user:
+    path:     /signinuser
+    defaults: { _controller: workshopUserBundle:SignInUser:index }
