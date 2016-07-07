@@ -1,6 +1,6 @@
 <?php
 
-namespace UserManager\Domain\Infrastructure\Repository\User\Cache;
+namespace UserManager\Infrastructure\Repository\Cache\User;
 
 use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Model\User\User;
@@ -23,7 +23,7 @@ class UserCacheRepository implements UserRepository
     {
         $cache_key = 'user_repository_findAll';
         $content = $this->cache_service->get($cache_key);
-        
+
         if (false === $content)
         {
             $content = $this->user_repository->findAll();
