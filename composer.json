@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "": "src/",
+            "UserManager\\": "src/Workshop/UserManager"
         },
         "classmap": [
             "app/AppKernel.php",

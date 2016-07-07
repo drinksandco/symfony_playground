@@ -7,15 +7,15 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use Workshop\UserBundle\src\Application\Service\User\Add\AddUserRequest;
-use Workshop\UserBundle\src\Application\Service\User\Delete\DeleteUserRequest;
-use Workshop\UserBundle\src\Application\Service\User\GetAll\GetAllUsersRequest;
+use UserManager\Application\Service\User\Add\AddUserRequest;
+use UserManager\Application\Service\User\Delete\DeleteUserRequest;
+use UserManager\Application\Service\User\GetAll\GetAllUsersRequest;
 
 class UserController extends Controller
 {
     public function listAction()
     {
-        $users = $this->get('user_bundle.application.service.user.get_all.get_all_users_use_case')->__invoke(
+        $users = $this->get('user_manager.application.service.user.get_all.get_all_users_use_case')->__invoke(
             new GetAllUsersRequest()
         );
 
@@ -38,7 +38,7 @@ class UserController extends Controller
 
         if ($form->isValid())
         {
-            $this->get('user_bundle.application.service.user.add.add_user_use_case')->__invoke(
+            $this->get('user_manager.application.service.user.add.add_user_use_case')->__invoke(
                 new AddUserRequest(
                     $form->get('name')->getData(),
                     $form->get('surname')->getData(),
@@ -59,7 +59,7 @@ class UserController extends Controller
 
     public function deleteAction($user_id)
     {
-        $this->get('user_bundle.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
+        $this->get('user_manager.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
 
         $this->addFlash('success', 'User removed successfully');
         

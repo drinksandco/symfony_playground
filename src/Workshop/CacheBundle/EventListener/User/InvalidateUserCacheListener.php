@@ -11,6 +11,4 @@ class InvalidateUserCacheListener implements DomainEventSubscriber
     {
         // TODO: Implement __invoke() method.
     }
-    
-    
 }

@@ -1,0 +1,14 @@
+services:
+    user_manager.infrastructure.cache.filesystem_cache:
+        class: UserManager\Infrastructure\Cache\FilesystemCache
+        arguments:
+            - "%cache.filesystem.path%"
+
+    user_manager.infrastructure.repository.user:
+        public: false
+        class: UserManager\Domain\Infrastructure\Repository\User\Cache\UserCacheRepository
+        decorates: user_manager.infrastructure.repository.doctrine.dbal.user.user_repository
+        decoration_inner_name: inner.infrastructure.repository.user
+        arguments:
+            - "@inner.infrastructure.repository.user"
+            - "@user_manager.infrastructure.cache.filesystem_cache"
