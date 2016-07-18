@@ -6,9 +6,7 @@ use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
 use UserManager\Domain\Infrastructure\Event\DomainEvent;
 
 class Event extends SymfonyEvent
-{
-    const NAME = 'event.test';
-    
+{    
     /** @var DomainEvent */
     private $event;
 

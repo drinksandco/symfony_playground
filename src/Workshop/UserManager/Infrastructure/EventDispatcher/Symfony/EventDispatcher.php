@@ -21,6 +21,6 @@ class EventDispatcher implements DomainEventDispatcher
     {
         $symfony_event = new Event($an_event);
 
-        $this->event_dispatcher->dispatch(Event::NAME, $symfony_event);
+        $this->event_dispatcher->dispatch($symfony_event->name(), $symfony_event);
     }
 }

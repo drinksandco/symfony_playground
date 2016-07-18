@@ -22,14 +22,14 @@ class FilesystemCache implements Cache
     {
         $string_content = file_get_contents($this->cache_file_path);
 
-        $value = json_decode($string_content, true)[$key];
+        $array_content = json_decode($string_content, true);
 
-        if (empty($value))
+        if (empty($array_content[$key]))
         {
             return false;
         }
 
-        return $value;
+        return $array_content[$key];
     }
 
     public function set($key, $value)
@@ -45,6 +45,15 @@ class FilesystemCache implements Cache
 
     public function remove($key)
     {
-        // TODO: Implement remove() method.
+        $string_content = file_get_contents($this->cache_file_path);
+
+        $array_content = json_decode($string_content, true);
+
+        if ($this->get($key))
+        {
+            unset($array_content[$key]);
+        }
+
+        file_put_contents($this->cache_file_path, json_encode($array_content));
     }
 }

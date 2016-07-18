@@ -12,3 +12,10 @@ services:
         arguments:
             - "@inner.infrastructure.repository.user"
             - "@user_manager.infrastructure.cache.filesystem_cache"
+
+    user_manager.infrastructure.event_subscriber.symfony:
+        class: UserManager\Infrastructure\EventSubscriber\Symfony\InvalidateUserCacheSubscriber
+        arguments: ["@user_manager.infrastructure.cache.filesystem_cache"]
+        tags:
+            - { name: kernel.event_subscriber }
+
