@@ -13,6 +13,11 @@ user_view:
     defaults:
         _controller: UserBundle:User:view
 
+user_update:
+    path: /update/{user_id}
+    defaults:
+        _controller: UserBundle:User:update
+
 user_delete:
     path: /delete/{user_id}
     defaults:

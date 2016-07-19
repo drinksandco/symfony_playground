@@ -7,7 +7,7 @@ use UserManager\Domain\Infrastructure\EventDispatcher\DomainEventDispatcher;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 
-class DeleteUserUseCase
+final class DeleteUserUseCase
 {
     /** @var UserRepository */
     private $user_repository;

@@ -7,6 +7,7 @@ use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
 use UserManager\Infrastructure\Event\Symfony\Event;
+use Workshop\UserManager\Domain\Infrastructure\Event\User\UserUpdated;
 
 class InvalidateUserCacheSubscriber implements EventSubscriberInterface
 {
@@ -22,6 +23,7 @@ class InvalidateUserCacheSubscriber implements EventSubscriberInterface
     {
         return [
               UserAdded::NAME => 'userAddedInvalidationCache',
+              UserUpdated::NAME => 'userUpdatedInvalidationCache',
               UserDeleted::NAME => 'userDeletedInvalidationCache'
         ];
     }
@@ -29,6 +31,15 @@ class InvalidateUserCacheSubscriber implements EventSubscriberInterface
     public function userAddedInvalidationCache(Event $event)
     {
         $this->cache_service->remove('user_repository_findAll');
+    }
+
+    public function userUpdatedInvalidationCache(Event $event)
+    {
+        /** @var UserUpdated $domain_event */
+        $domain_event = $event->event();
+
+        $this->cache_service->remove('user_repository_findAll');
+        $this->cache_service->remove('user_repository_findById_' . $domain_event->userId());
     }
 
     public function userDeletedInvalidationCache(Event $event)

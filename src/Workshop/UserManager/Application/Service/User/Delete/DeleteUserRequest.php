@@ -2,7 +2,7 @@
 
 namespace UserManager\Application\Service\User\Delete;
 
-class DeleteUserRequest
+final class DeleteUserRequest
 {
     /** @var string */
     private $user_id;

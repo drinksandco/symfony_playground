@@ -37,6 +37,11 @@ final class User
         return new self($new_user_id, $a_name, $a_surname, $a_username, $an_email);
     }
 
+    public static function fromExistent(UserId $a_user_id, $a_name, $a_surname, $a_username, Email $an_email)
+    {
+        return new self($a_user_id, $a_name, $a_surname, $a_username, $an_email);
+    }
+
     public function userId()
     {
         return $this->user_id;

@@ -2,7 +2,7 @@
 
 namespace UserManager\Application\Service\User\Add;
 
-class AddUserRequest
+final class AddUserRequest
 {
     /** @var string */
     private $name;

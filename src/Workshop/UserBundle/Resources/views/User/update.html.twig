@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{ parent() }}Update{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Update {{ user.username }}</h1>
+
+        <div class="row">
+            <a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to the list</a>
+
+            {{ form_start(form) }}
+            {{ form_widget(form.name, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'name',
+                    'value': user.name
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.surname, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'surname',
+                    'value': user.surname
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.username, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'username',
+                    'value': user.username
+                }
+            })}}
+            <br>
+            {{ form_widget(form.email, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'email',
+                    'value': user.email
+                }
+            })}}
+            <br>
+            {{ form_widget(form.submit, {
+                'attr': {
+                    'class': 'btn btn-primary pull-right'
+                }
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use UserManager\Application\Service\User\Add\AddUserRequest;
 use UserManager\Application\Service\User\Delete\DeleteUserRequest;
+use UserManager\Application\Service\User\Update\UpdateUserRequest;
 use UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersRequest;
 use UserManager\ReadModel\Application\Service\User\GetById\GetByIdRequest;
 
@@ -30,7 +31,7 @@ class UserController extends Controller
         $user = $this->get('user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case')->__invoke(
             new GetByIdRequest($user_id)
         );
-        
+
         return $this->render('UserBundle:User:view.html.twig', [
             'user' => $user
         ]);
@@ -66,6 +67,45 @@ class UserController extends Controller
 
         return $this->render('UserBundle:User:register.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    public function updateAction($user_id, Request $request)
+    {
+        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case')->__invoke(
+            new GetByIdRequest($user_id)
+        );
+
+        $form = $this->createFormBuilder()
+            ->add('name', TextType::class)
+            ->add('surname', TextType::class)
+            ->add('username', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('submit', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid())
+        {
+            $this->get('user_manager.application.service.user.update.update_user_use_case')->__invoke(
+                new UpdateUserRequest(
+                    $user_id,
+                    $form->get('name')->getData(),
+                    $form->get('surname')->getData(),
+                    $form->get('email')->getData(),
+                    $form->get('username')->getData()
+                )
+            );
+
+            $this->addFlash('success', 'User updated successfully');
+
+            return $this->redirectToRoute('user_list');
+        }
+
+        return $this->render('UserBundle:User:update.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user
         ]);
     }
 

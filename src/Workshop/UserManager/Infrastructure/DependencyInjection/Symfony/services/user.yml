@@ -13,7 +13,9 @@ services:
 
     user_manager.application.service.user.update.update_user_use_case:
         class: UserManager\Application\Service\User\Update\UpdateUserUseCase
-        arguments: ["@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"]
+        arguments:
+            - "@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"
+            - "@user_manager.infrastructure.event_dispatcher.symfony"
 
     user_manager.application.service.user.delete.delete_user_use_case:
         class: UserManager\Application\Service\User\Delete\DeleteUserUseCase

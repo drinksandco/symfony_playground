@@ -61,7 +61,7 @@ WHERE
     u.id = $user_id
 SQL;
         $statement = $this->dbal_connection->executeQuery($query);
-        
+
         $result = $statement->fetch();
 
         if (empty($result))
@@ -111,7 +111,47 @@ SQL;
 
     public function update(User $a_user)
     {
-        // TODO: Implement update() method.
+        $user_id = $a_user->userId()->userId();
+        $name = $a_user->name();
+        $surname = $a_user->surname();
+        $username = $a_user->username();
+        $email = $a_user->email()->email();
+
+        $query = <<<SQL
+UPDATE 
+    users
+
+SET 
+    name=:name,
+    surname=:surname,
+    username=:username,
+    email=:email 
+
+WHERE
+    id = :user_id
+
+SQL;
+        try
+        {
+            $this->dbal_connection->beginTransaction();
+
+            $statement = $this->dbal_connection->prepare($query);
+
+            $statement->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+            $statement->bindParam(':name', $name, \PDO::PARAM_STR);
+            $statement->bindParam(':surname', $surname, \PDO::PARAM_STR);
+            $statement->bindParam(':username', $username, \PDO::PARAM_STR);
+            $statement->bindParam(':email', $email, \PDO::PARAM_STR);
+
+            $statement->execute();
+
+            $this->dbal_connection->commit();
+        }
+        catch (PDOException $exception)
+        {
+            $this->dbal_connection->rollBack();
+            return false;
+        }
     }
 
     public function delete(UserId $user_id)
