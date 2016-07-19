@@ -19,8 +19,8 @@ class CacheExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('user-manager/services.yml');
-        $loader->load('config.yml');
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../../UserManager/Infrastructure/DependencyInjection/Symfony'));
+        $loader->load('services/cache.yml');
+        $loader->load('config/cache.yml');
     }
 }
