@@ -1,6 +1,6 @@
 <?php
 
-namespace UserManager\Application\Service\User\GetAll;
+namespace UserManager\ReadModel\Application\Service\User\GetAll;
 
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 

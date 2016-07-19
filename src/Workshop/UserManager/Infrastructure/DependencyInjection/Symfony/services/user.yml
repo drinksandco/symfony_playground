@@ -1,3 +1,6 @@
+imports:
+    - { resource: ../../../../ReadModel/Infrastructure/DependencyInjection/Symfony/services/user.yml }
+
 services:
     ########################
     # Application Services #
@@ -17,14 +20,6 @@ services:
         arguments:
             - "@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"
             - "@user_manager.infrastructure.event_dispatcher.symfony"
-
-    user_manager.application.service.user.get_all.get_all_users_use_case:
-        class: UserManager\Application\Service\User\GetAll\GetAllUsersUseCase
-        arguments: ["@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"]
-
-    user_manager.application.service.user.get_by_id.get_user_by_id_use_case:
-        class: UserManager\Application\Service\User\GetById\GetUserByIdUseCase
-        arguments: ["@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"]
 
     ##################
     # Infrastructure #

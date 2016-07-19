@@ -9,13 +9,13 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use UserManager\Application\Service\User\Add\AddUserRequest;
 use UserManager\Application\Service\User\Delete\DeleteUserRequest;
-use UserManager\Application\Service\User\GetAll\GetAllUsersRequest;
+use UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersRequest;
 
 class UserController extends Controller
 {
     public function listAction()
     {
-        $users = $this->get('user_manager.application.service.user.get_all.get_all_users_use_case')->__invoke(
+        $users = $this->get('user_manager.read_model.application.service.user.get_all.get_all_users_use_case')->__invoke(
             new GetAllUsersRequest()
         );
 
