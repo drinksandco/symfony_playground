@@ -7,5 +7,5 @@ services:
         arguments: ["@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"]
 
     user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case:
-        class: UserManager\ReadModel\Application\Service\User\GetById\GetUserByIdUseCase
+        class: UserManager\ReadModel\Application\Service\User\GetById\GetByIdUseCase
         arguments: ["@user_manager.infrastructure.repository.doctrine.dbal.user.user_repository"]

@@ -44,10 +44,9 @@ SQL;
 
     public function findById(UserId $user_id)
     {
-        try
-        {
-            $this->dbal_connection->beginTransaction();
-            $query = <<<SQL
+        $user_id = $user_id->userId();
+
+        $query = <<<SQL
 SELECT 
   u.id,
   u.name,
@@ -55,30 +54,22 @@ SELECT
   u.email,
   u.username
  
-FROM users u;
+FROM 
+    users u;
 
-WHERE u.id = :user_id
-
+WHERE 
+    u.id = $user_id
 SQL;
-            $statement = $this->dbal_connection->prepare($query);
-            $statement->bindParam(':user_id', $user_id->userId(), \PDO::PARAM_STR);
-            $statement->execute();
+        $statement = $this->dbal_connection->executeQuery($query);
+        
+        $result = $statement->fetch();
 
-            $this->dbal_connection->commit();
-
-            $result = $statement->fetchAll();
-
-            if (empty($result))
-            {
-                return [];
-            }
-
-            return $result;
-        }
-        catch (PDOException $exception)
+        if (empty($result))
         {
-            $this->dbal_connection->rollBack();
+            return null;
         }
+
+        return $result;
     }
 
     public function add(User $a_new_user)

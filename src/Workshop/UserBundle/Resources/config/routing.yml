@@ -8,6 +8,11 @@ user_list:
     defaults:
         _controller: UserBundle:User:list
 
+user_view:
+    path: /view/{user_id}
+    defaults:
+        _controller: UserBundle:User:view
+
 user_delete:
     path: /delete/{user_id}
     defaults:

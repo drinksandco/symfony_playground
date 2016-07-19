@@ -6,20 +6,20 @@
 
     <div class="container">
 
-        <h1>User's List</h1>
-        <div class="row"><a href="{{ path('user_register') }}" class="btn btn-primary pull-right">Register</a></div>
+        <h1>User {{ user.username }}</h1>
+        <div class="row"><a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to list</a></div>
 
-        {% for user in users %}
-            <div class="row">
+        <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
-                        <a href="{{ path('user_view', {'user_id': user.id}) }}" class="btn btn-success pull-right">View</a>
+                        <div><label>Name:</label> {{ user.name }}</div>
+                        <div><label>Surname:</label> {{ user.surname }}</div>
                         <div><label>Username:</label> {{ user.username }}</div>
+                        <div><label>Email:</label> {{ user.email }}</div>
                     </div>
                 </div>
             </div>
-        {% endfor %}
     </div>
 
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use UserManager\Application\Service\User\Add\AddUserRequest;
 use UserManager\Application\Service\User\Delete\DeleteUserRequest;
 use UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersRequest;
+use UserManager\ReadModel\Application\Service\User\GetById\GetByIdRequest;
 
 class UserController extends Controller
 {
@@ -21,6 +22,17 @@ class UserController extends Controller
 
         return $this->render('UserBundle:User:list.html.twig', [
             'users' => $users
+        ]);
+    }
+
+    public function viewAction($user_id)
+    {
+        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case')->__invoke(
+            new GetByIdRequest($user_id)
+        );
+        
+        return $this->render('UserBundle:User:view.html.twig', [
+            'user' => $user
         ]);
     }
 
@@ -62,7 +74,7 @@ class UserController extends Controller
         $this->get('user_manager.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
 
         $this->addFlash('success', 'User removed successfully');
-        
+
         return $this->redirectToRoute('user_list');
     }
 }
