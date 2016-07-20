@@ -1,0 +1,6 @@
+UserManager\Domain\Model\User\ValueObject\UserId:
+    type: embeddable
+    id:
+        user_id:
+            type: string
+            column: id
