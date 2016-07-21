@@ -29,7 +29,7 @@ class FilesystemCache implements Cache
             return false;
         }
 
-        return $array_content[$key];
+        return unserialize($array_content[$key]);
     }
 
     public function set($key, $value)
@@ -38,7 +38,7 @@ class FilesystemCache implements Cache
 
         $array_content = json_decode($string_content, true);
 
-        $array_content[$key] = $value;
+        $array_content[$key] = serialize($value);
 
         file_put_contents($this->cache_file_path, json_encode($array_content));
     }
