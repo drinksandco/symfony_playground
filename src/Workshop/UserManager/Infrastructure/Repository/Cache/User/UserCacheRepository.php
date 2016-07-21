@@ -3,6 +3,7 @@
 namespace UserManager\Infrastructure\Repository\Cache\User;
 
 use UserManager\Domain\Infrastructure\Cache\Cache;
+use UserManager\Domain\Infrastructure\Cache\CacheKey;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
@@ -21,7 +22,7 @@ class UserCacheRepository implements UserRepository
 
     public function findAll()
     {
-        $cache_key = 'user_repository_findAll';
+        $cache_key = new CacheKey('user_repository_findAll');
         $content = $this->cache_service->get($cache_key);
 
         if (false === $content)
@@ -35,7 +36,7 @@ class UserCacheRepository implements UserRepository
 
     public function findById(UserId $user_id)
     {
-        $cache_key = 'user_repository_findById_' . $user_id->userId();
+        $cache_key = new CacheKey('user_repository_findById_' . $user_id->userId());
         $content = $this->cache_service->get($cache_key);
 
         if (false === $content)

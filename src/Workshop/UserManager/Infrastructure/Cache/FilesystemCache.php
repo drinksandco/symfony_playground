@@ -3,6 +3,7 @@
 namespace UserManager\Infrastructure\Cache;
 
 use UserManager\Domain\Infrastructure\Cache\Cache;
+use UserManager\Domain\Infrastructure\Cache\CacheKey;
 
 class FilesystemCache implements Cache
 {
@@ -18,40 +19,40 @@ class FilesystemCache implements Cache
         }
     }
 
-    public function get($key)
+    public function get(CacheKey $cache_key)
     {
         $string_content = file_get_contents($this->cache_file_path);
 
         $array_content = json_decode($string_content, true);
 
-        if (empty($array_content[$key]))
+        if (empty($array_content[$cache_key->key()]))
         {
             return false;
         }
 
-        return unserialize($array_content[$key]);
+        return unserialize($array_content[$cache_key->key()]);
     }
 
-    public function set($key, $value)
+    public function set(CacheKey $cache_key, $value)
     {
         $string_content = file_get_contents($this->cache_file_path);
 
         $array_content = json_decode($string_content, true);
 
-        $array_content[$key] = serialize($value);
+        $array_content[$cache_key->key()] = serialize($value);
 
         file_put_contents($this->cache_file_path, json_encode($array_content));
     }
 
-    public function remove($key)
+    public function remove(CacheKey $cache_key)
     {
         $string_content = file_get_contents($this->cache_file_path);
 
         $array_content = json_decode($string_content, true);
 
-        if ($this->get($key))
+        if ($this->get($cache_key))
         {
-            unset($array_content[$key]);
+            unset($array_content[$cache_key->key()]);
         }
 
         file_put_contents($this->cache_file_path, json_encode($array_content));

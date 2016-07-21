@@ -4,9 +4,9 @@ namespace UserManager\Domain\Infrastructure\Cache;
 
 interface Cache
 {
-    public function get($key);
+    public function get(CacheKey $key);
 
-    public function set($key, $value);
+    public function set(CacheKey $key, $value);
 
-    public function remove($key);
+    public function remove(CacheKey $key);
 }
