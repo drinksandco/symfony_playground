@@ -27,7 +27,7 @@ services:
     # Infrastructure #
     ##################
     user_manager.infrastructure.repository.user:
-        alias: user_manager.infrastructure.repository.doctrine.orm.user
+        alias: user_manager.infrastructure.repository.doctrine.dbal.user
 
 
     # Repositories

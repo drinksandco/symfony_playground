@@ -72,7 +72,7 @@ class UserController extends Controller
 
     public function updateAction($user_id, Request $request)
     {
-        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case')->__invoke(
+        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.use_case')->__invoke(
             new GetByIdRequest($user_id)
         );
 
