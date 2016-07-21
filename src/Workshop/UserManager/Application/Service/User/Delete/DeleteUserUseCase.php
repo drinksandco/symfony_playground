@@ -27,6 +27,6 @@ final class DeleteUserUseCase
 
         $this->user_repository->delete($user_id);
 
-        $this->event_dispatcher->dispatch(new UserDeleted($user_id));
+        $this->event_dispatcher->dispatch(new UserDeleted($user_id->userId()));
     }
 }
