@@ -17,7 +17,7 @@ class UserController extends Controller
 {
     public function listAction()
     {
-        $users = $this->get('user_manager.read_model.application.service.user.get_all.get_all_users_use_case')->__invoke(
+        $users = $this->get('user_manager.read_model.application.service.user.get_all.use_case')->__invoke(
             new GetAllUsersRequest()
         );
 
@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function viewAction($user_id)
     {
-        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.get_user_by_id_use_case')->__invoke(
+        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.use_case')->__invoke(
             new GetByIdRequest($user_id)
         );
 

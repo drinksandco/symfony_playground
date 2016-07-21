@@ -9,16 +9,22 @@ class GetByIdUseCase
 {
     /** @var UserRepository */
     private $user_repository;
-    
-    public function __construct(UserRepository $a_user_repository)
+
+    /** @var GetByIdMarshaller */
+    private $get_by_id_marshaller;
+
+    public function __construct(UserRepository $a_user_repository, GetByIdMarshaller $a_get_by_id_marshaller)
     {
         $this->user_repository = $a_user_repository;
+        $this->get_by_id_marshaller = $a_get_by_id_marshaller;
     }
-    
+
     public function __invoke(GetByIdRequest $a_request)
     {
         $raw_user_id = $a_request->userId();
-        
-        return $this->user_repository->findById(new UserId($raw_user_id));
+
+        $user = $this->user_repository->findById(new UserId($raw_user_id));
+
+        return $this->get_by_id_marshaller->__invoke($user);
     }
 }

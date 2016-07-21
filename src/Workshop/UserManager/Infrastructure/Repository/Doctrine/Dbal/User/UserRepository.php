@@ -5,6 +5,7 @@ namespace UserManager\Infrastructure\Repository\Doctrine\Dbal\User;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOException;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
+use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 
@@ -69,7 +70,7 @@ SQL;
             return null;
         }
 
-        return $result;
+        return User::fromExistent(new UserId($result['id']), $result['name'], $result['surname'], $result['username'], new Email($result['email']));
     }
 
     public function add(User $a_new_user)

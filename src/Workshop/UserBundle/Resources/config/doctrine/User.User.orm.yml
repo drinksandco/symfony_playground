@@ -2,10 +2,9 @@ UserManager\Domain\Model\User\User:
     type: entity
     table: users
     fields:
-        name:
-            type: string
-        surname:
-            type: string
+        name: { type: string }
+        surname: { type: string }
+        username: { type: string }
     embedded:
         user_id:
             class: UserManager\Domain\Model\User\ValueObject\UserId
