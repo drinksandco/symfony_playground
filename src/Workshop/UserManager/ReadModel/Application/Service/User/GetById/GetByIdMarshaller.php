@@ -6,5 +6,5 @@ use UserManager\Domain\Model\User\User;
 
 interface GetByIdMarshaller
 {
-    public function __invoke(User $a_user);
+    public function __invoke(User $user);
 }

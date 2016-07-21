@@ -4,7 +4,9 @@ services:
     ########################
     user_manager.read_model.application.service.user.get_all.use_case:
         class: UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersUseCase
-        arguments: ["@user_manager.infrastructure.repository.user"]
+        arguments:
+            - "@user_manager.infrastructure.repository.user"
+            - "@user_manager.read_model.application.service.user.get_all.marshaller.user_to_array"
 
     user_manager.read_model.application.service.user.get_by_id.use_case:
         class: UserManager\ReadModel\Application\Service\User\GetById\GetByIdUseCase
@@ -12,5 +14,12 @@ services:
             - "@user_manager.infrastructure.repository.user"
             - "@user_manager.read_model.application.service.user.get_by_id.marshaller.user_to_array"
 
+    #Marshallers
     user_manager.read_model.application.service.user.get_by_id.marshaller.user_to_array:
+        public: false
         class: UserManager\ReadModel\Application\Service\User\GetById\UserToArrayMarshaller
+
+    user_manager.read_model.application.service.user.get_all.marshaller.user_to_array:
+        public: false
+        class: UserManager\ReadModel\Application\Service\User\GetAll\UserCollectionToArray
+        arguments: ["@user_manager.read_model.application.service.user.get_by_id.marshaller.user_to_array"]

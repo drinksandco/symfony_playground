@@ -4,7 +4,9 @@ namespace UserManager\Infrastructure\Repository\Doctrine\Orm\User;
 
 use Doctrine\ORM\EntityManagerInterface;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
+use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
+use UserManager\Domain\Model\User\UserCollection;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 
 class UserRepository implements UserRepositoryContract
@@ -19,7 +21,21 @@ class UserRepository implements UserRepositoryContract
 
     public function findAll()
     {
-        return $this->entity_manager->getRepository('UserManager:User\User')->findAll();
+        $result = $this->entity_manager->getRepository('UserManager:User\User')->findAll();
+
+        $user_collection = new UserCollection();
+
+        if (empty($result))
+        {
+            return $user_collection;
+        }
+
+        foreach ($result as $user)
+        {
+            $user_collection->add($user);
+        }
+
+        return $user_collection;
     }
 
     public function findById(UserId $user_id)

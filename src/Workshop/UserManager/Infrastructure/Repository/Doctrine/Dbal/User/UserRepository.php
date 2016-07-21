@@ -8,6 +8,7 @@ use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepo
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\ValueObject\UserId;
+use UserManager\Domain\Model\User\UserCollection;
 
 final class UserRepository implements UserRepositoryContract
 {
@@ -35,12 +36,19 @@ SQL;
 
         $result = $this->dbal_connection->fetchAll($query);
 
+        $user_collection = new UserCollection();
+
         if (empty($result))
         {
-            return [];
+            return $user_collection;
         }
 
-        return $result;
+        foreach ($result as $user)
+        {
+            $user_collection->add(User::fromExistent(new UserId($user['id']), $user['name'], $user['surname'], $user['username'], new Email($user['email'])));
+        }
+
+        return $user_collection;
     }
 
     public function findById(UserId $user_id)
