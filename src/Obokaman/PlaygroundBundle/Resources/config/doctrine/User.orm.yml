@@ -1,0 +1,19 @@
+Obokaman\PlaygroundBundle\Entity\User:
+    type: entity
+    repositoryClass: Obokaman\PlaygroundBundle\Repository\UserRepository
+    id:
+        id:
+            type: guid
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+            unique: true
+        creation_date:
+            type: datetime

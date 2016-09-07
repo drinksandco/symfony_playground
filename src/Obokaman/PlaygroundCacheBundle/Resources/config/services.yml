@@ -1,0 +1,20 @@
+services:
+
+    obocache.cache_service:
+        class: Doctrine\Common\Cache\PhpFileCache
+        arguments:
+            - "%kernel.cache_dir%"
+
+    obokaman.repository.user.cached:
+        class: Obokaman\PlaygroundCacheBundle\Repository\CachedUserRepository
+        decorates: obokaman.repository.user
+        decoration_inner_name: obokaman.repository.user.original
+        arguments:
+            - "@obokaman.repository.user.original"
+            - "@obocache.cache_service"
+
+    obocache.user.subscriber:
+        class: Obokaman\PlaygroundCacheBundle\EventSubscriber\UserSubscriber
+        arguments: ['@obocache.cache_service']
+        tags:
+            - { name: kernel.event_subscriber }
