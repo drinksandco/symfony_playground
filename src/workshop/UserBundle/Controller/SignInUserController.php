@@ -9,13 +9,15 @@ class SignInUserController extends Controller
 {
     public function indexAction()
     {
-        $users_repo = new UserRepository();
+        $user = ['name' => 'javieer'];
 
-        $users_repo->signInUser(['name' => 'javieer']);
+        $add_users_use_case = $this->get('workshop_user.controller.add_user_service');
+        $users              = $add_users_use_case->__invoke($user);
 
         dump('javier added!');
 
-        $users = $users_repo->getAllUsers();
+        $get_users_use_case = $this->get('workshop_user.controller.get_users_service');
+        $users              = $get_users_use_case->__invoke();
 
         dump($users);
 

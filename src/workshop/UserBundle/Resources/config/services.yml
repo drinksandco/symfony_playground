@@ -5,3 +5,7 @@ services:
 
     workshop_user.controller.get_users_service:
         class: workshop\UserBundle\Controller\GetUsersService
+
+    workshop_user.controller.add_user_service:
+        class: workshop\UserBundle\Controller\AddUserService
+        arguments: ['@event_dispatcher']
