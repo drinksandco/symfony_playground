@@ -114,7 +114,7 @@ SQL;
             $this->flush();
         }
 
-        EventStore::instance()->storeEvent(new UserRemoved((string) $a_user_id));
+        EventStore::instance()->storeEvent(new UserRemoved($a_user_id));
     }
 
     public function flush()

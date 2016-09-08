@@ -11,10 +11,14 @@ final class UserNameChanged extends DomainEvent
     /** @var string */
     private $user_id;
 
-    public function __construct($a_user_id)
+    /** @var string */
+    private $name;
+
+    public function __construct(string $a_user_id, string $a_name)
     {
         parent::__construct();
         $this->user_id = $a_user_id;
+        $this->name    = $a_name;
     }
 
     public function userId()

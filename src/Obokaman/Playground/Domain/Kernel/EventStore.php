@@ -2,8 +2,6 @@
 
 namespace Obokaman\Playground\Domain\Kernel;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-
 final class EventStore
 {
     /** @var self */
@@ -11,10 +9,6 @@ final class EventStore
 
     /** @var DomainEvent[] */
     private $events = [];
-
-    private function __construct()
-    {
-    }
 
     public static function instance()
     {

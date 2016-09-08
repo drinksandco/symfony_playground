@@ -36,7 +36,7 @@ class User
 
         $user = new self($user_id, $a_name, $an_email, $datetime);
 
-        EventStore::instance()->storeEvent(new UserCreated((string) $user_id, $datetime));
+        EventStore::instance()->storeEvent(new UserCreated($user_id, $a_name, $an_email));
 
         return $user;
     }
@@ -68,7 +68,7 @@ class User
             return;
         }
 
-        EventStore::instance()->storeEvent(new UserNameChanged((string) $this->user_id));
+        EventStore::instance()->storeEvent(new UserNameChanged($this->user_id, $a_name));
 
         $this->name = $a_name;
     }
@@ -80,7 +80,7 @@ class User
             return;
         }
 
-        EventStore::instance()->storeEvent(new UserEmailChanged((string) $this->user_id));
+        EventStore::instance()->storeEvent(new UserEmailChanged($this->user_id, $an_email));
 
         $this->email = $an_email;
     }

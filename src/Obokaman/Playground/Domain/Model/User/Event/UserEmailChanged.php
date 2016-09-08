@@ -11,14 +11,13 @@ final class UserEmailChanged extends DomainEvent
     /** @var string */
     private $user_id;
 
-    public function __construct($a_user_id)
+    /** @var string */
+    private $email;
+
+    public function __construct(string $a_user_id, string $an_email)
     {
         parent::__construct();
         $this->user_id = $a_user_id;
-    }
-
-    public function userId()
-    {
-        return $this->user_id;
+        $this->email   = $an_email;
     }
 }
