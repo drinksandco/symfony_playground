@@ -8,8 +8,8 @@ class GetUsersController extends Controller
 {
     public function indexAction()
     {
-        $users_repo = new GetUsersService();
-        $users      = $users_repo->__invoke();
+        $get_users_use_case = $this->get('workshop_user.controller.get_users_service');
+        $users              = $get_users_use_case->__invoke();
 
         dump($users);
 

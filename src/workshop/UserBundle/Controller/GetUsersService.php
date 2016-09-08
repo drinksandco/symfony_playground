@@ -13,7 +13,7 @@ class GetUsersService
     public function __invoke()
     {
         $users_repo = new UserRepository();
-        $users = $users_repo->getAllUsers();
+        $users      = $users_repo->getAllUsers();
 
 		return $users;
     }
