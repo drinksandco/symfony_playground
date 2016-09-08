@@ -23,7 +23,7 @@ class AddUserService
         $users_repo->signInUser($user);
 
         $user_added = new UserAdded();
-        $this->an_event_dispatcher->dispatch("User Added", $user_added);
+        $this->an_event_dispatcher->dispatch("user.added", $user_added);
 
 		return;
     }

@@ -3,7 +3,6 @@
 namespace workshop\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use workshop\UserBundle\Repository\UserRepository;
 
 class SignInUserController extends Controller
 {
@@ -12,7 +11,7 @@ class SignInUserController extends Controller
         $user = ['name' => 'javieer'];
 
         $add_users_use_case = $this->get('workshop_user.controller.add_user_service');
-        $users              = $add_users_use_case->__invoke($user);
+        $add_users_use_case->__invoke($user);
 
         dump('javier added!');
 
