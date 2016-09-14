@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserManager\Domain\Model\User\Exception;
+namespace UserManager\Domain\Model\User\Exception;
 
 class InvalidUsernameException extends \DomainException
 {

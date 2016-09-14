@@ -2,8 +2,11 @@
 
 namespace UserManager\Domain\Model\User;
 
+use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\ValueObject\UserId;
+use UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
+use UserManager\Domain\Model\User\ValueObject\Username;
 
 final class User
 {
@@ -16,7 +19,7 @@ final class User
     /** @var string */
     private $surname;
 
-    /** @var string */
+    /** @var Username */
     private $username;
 
     /** @var Email */
@@ -31,10 +34,14 @@ final class User
         $this->email = $an_email;
     }
 
-    public static function register($a_name, $a_surname, $a_username, Email $an_email)
+    public static function register($a_name, $a_surname, Username $a_username, Email $an_email)
     {
         $new_user_id = UserId::generate();
-        return new self($new_user_id, $a_name, $a_surname, $a_username, $an_email);
+        $new_user = new self($new_user_id, $a_name, $a_surname, $a_username, $an_email);
+
+        DomainEventRecorder::getInstance()->recordEvent(new UserAdded($new_user));
+
+        return $new_user;
     }
 
     public static function fromExistent(UserId $a_user_id, $a_name, $a_surname, $a_username, Email $an_email)
@@ -61,7 +68,7 @@ final class User
     {
         return $this->username;
     }
-    
+
     public function email()
     {
         return $this->email;

@@ -51,7 +51,7 @@ class UserController extends Controller
 
         if ($form->isValid())
         {
-            $this->get('user_manager.application.service.user.add.add_user_use_case')->__invoke(
+            $this->get('user_manager.application.service.user.add.add_user')->__invoke(
                 new AddUserRequest(
                     $form->get('name')->getData(),
                     $form->get('surname')->getData(),

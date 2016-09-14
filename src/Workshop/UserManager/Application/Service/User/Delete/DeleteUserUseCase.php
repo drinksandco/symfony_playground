@@ -6,8 +6,10 @@ use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
 use UserManager\Domain\Infrastructure\EventDispatcher\DomainEventDispatcher;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
+use Workshop\UserManager\Application\Service\Core\ApplicationService;
+use Workshop\UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
 
-final class DeleteUserUseCase
+final class DeleteUserUseCase implements ApplicationService
 {
     /** @var UserRepository */
     private $user_repository;
@@ -27,6 +29,6 @@ final class DeleteUserUseCase
 
         $this->user_repository->delete($user_id);
 
-        $this->event_dispatcher->dispatch(new UserDeleted($user_id->userId()));
+        DomainEventRecorder::getInstance()->recordEvent(new UserDeleted($user_id->userId()));
     }
 }

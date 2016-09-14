@@ -30,7 +30,7 @@ services:
     user_manager.infrastructure.repository.cache.user:
         public: false
         class: UserManager\Infrastructure\Repository\Cache\User\UserCacheRepository
-        decorates: user_manager.infrastructure.repository.user
+        decorates: user_manager.domain.infrastructure.repository.user
         decoration_inner_name: inner.infrastructure.repository.user
         arguments:
             - "@inner.infrastructure.repository.user"

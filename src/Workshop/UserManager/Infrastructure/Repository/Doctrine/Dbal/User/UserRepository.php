@@ -86,7 +86,7 @@ SQL;
         $user_id = $a_new_user->userId()->userId();
         $name = $a_new_user->name();
         $surname = $a_new_user->surname();
-        $username = $a_new_user->username();
+        $username = $a_new_user->username()->username();
         $email = $a_new_user->email()->email();
 
         $query = <<<SQL

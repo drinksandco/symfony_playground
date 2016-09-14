@@ -1,10 +1,10 @@
 <?php
 
-namespace Workshop\UserManager\Domain\Model\User\ValueObject;
+namespace UserManager\Domain\Model\User\ValueObject;
 
-use Workshop\UserManager\Domain\Model\User\Exception\InvalidUsernameException;
+use UserManager\Domain\Model\User\Exception\InvalidUsernameException;
 
-class Username
+final class Username
 {
     private $username;
 
@@ -19,10 +19,17 @@ class Username
         {
             throw new InvalidUsernameException('Username is not alphanumeric');
         }
+
+        $this->username = $raw_username;
     }
 
     private function isAlphanumeric($username)
     {
         return preg_match('/[a-z0-9]/', $username);
+    }
+
+    public function username()
+    {
+        return $this->username;
     }
 }
