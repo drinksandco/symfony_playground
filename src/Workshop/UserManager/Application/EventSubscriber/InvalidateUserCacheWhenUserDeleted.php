@@ -1,6 +1,6 @@
 <?php
 
-namespace UserManager\Infrastructure\EventSubscriber;
+namespace UserManager\Application\EventSubscriber;
 
 use UserManager\Application\Service\User\Delete\InvalidateUserCacheWhenUserDeletedUseCase;
 use UserManager\Domain\Infrastructure\Event\User\UserDeleted;

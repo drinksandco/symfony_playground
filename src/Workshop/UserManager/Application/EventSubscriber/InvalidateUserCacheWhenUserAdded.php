@@ -1,6 +1,6 @@
 <?php
 
-namespace UserManager\Infrastructure\EventSubscriber;
+namespace UserManager\Application\EventSubscriber;
 
 use UserManager\Application\Service\User\Add\InvalidateUserCacheWhenUserAddedRequest;
 use UserManager\Application\Service\User\Add\InvalidateUserCacheWhenUserAddedUseCase;
@@ -8,10 +8,10 @@ use UserManager\Application\Service\User\Add\InvalidateUserCacheWhenUserAddedUse
 class InvalidateUserCacheWhenUserAdded
 {
     const CACHE_KEY = 'user_repository_findAll';
-    
+
     /** @var InvalidateUserCacheWhenUserAddedUseCase */
     private $invalidate_user_cache_use_case;
-    
+
     public function __construct(InvalidateUserCacheWhenUserAddedUseCase $an_invalidate_user_cache_use_case)
     {
         $this->invalidate_user_cache_use_case = $an_invalidate_user_cache_use_case;

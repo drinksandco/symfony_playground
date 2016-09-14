@@ -7,9 +7,9 @@ use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
 use UserManager\Domain\Infrastructure\Event\User\UserUpdated;
 use UserManager\Infrastructure\Event\Symfony\Event;
-use UserManager\Infrastructure\EventSubscriber\InvalidateUserCacheWhenUserAdded;
-use UserManager\Infrastructure\EventSubscriber\InvalidateUserCacheWhenUserDeleted;
-use UserManager\Infrastructure\EventSubscriber\InvalidateUserCacheWhenUserUpdated;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserAdded;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserDeleted;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserUpdated;
 
 class InvalidateUserCacheSubscriber implements EventSubscriberInterface
 {

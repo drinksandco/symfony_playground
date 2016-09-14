@@ -1,4 +1,4 @@
-UserManager\Domain\Model\User\Username:
+UserManager\Domain\Model\User\ValueObject\Username:
     type: embeddable
     fields:
         username: { type: string }
