@@ -19,17 +19,30 @@ services:
             - "@user_manager.domain.infrastructure.repository.user"
 
     # Update User
-    user_manager.application.service.user.update.update_user_use_case:
+
+    user_manager.application.service.user.update.update_user:
+        class: UserManager\Application\Service\Core\DispatchEvents
+        arguments:
+            - "@user_manager.application.service.user.update.update_user_original"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    user_manager.application.service.user.update.update_user_original:
         class: UserManager\Application\Service\User\Update\UpdateUserUseCase
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
-            - "@user_manager.infrastructure.event_dispatcher.symfony"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
 
-    user_manager.application.service.user.delete.delete_user_use_case:
+    # Delete User
+    user_manager.application.service.user.delete.delete_user:
+        class: UserManager\Application\Service\Core\DispatchEvents
+        arguments:
+            - "@user_manager.application.service.user.delete.delete_user_original"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    user_manager.application.service.user.delete.delete_user_original:
         class: UserManager\Application\Service\User\Delete\DeleteUserUseCase
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
-            - "@user_manager.infrastructure.event_dispatcher.symfony"
 
     ##################
     #     Domain     #

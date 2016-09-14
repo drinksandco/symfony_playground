@@ -9,6 +9,7 @@ use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Model\User\UserCollection;
+use UserManager\Domain\Model\User\ValueObject\Username;
 
 final class UserRepository implements UserRepositoryContract
 {
@@ -45,7 +46,7 @@ SQL;
 
         foreach ($result as $user)
         {
-            $user_collection->add(User::fromExistent(new UserId($user['id']), $user['name'], $user['surname'], $user['username'], new Email($user['email'])));
+            $user_collection->add(User::fromExistent(new UserId($user['id']), $user['name'], $user['surname'], new Username($user['username']), new Email($user['email'])));
         }
 
         return $user_collection;
@@ -78,7 +79,7 @@ SQL;
             return null;
         }
 
-        return User::fromExistent(new UserId($result['id']), $result['name'], $result['surname'], $result['username'], new Email($result['email']));
+        return User::fromExistent(new UserId($result['id']), $result['name'], $result['surname'], new Username($result['username']), new Email($result['email']));
     }
 
     public function add(User $a_new_user)
@@ -123,7 +124,7 @@ SQL;
         $user_id = $a_user->userId()->userId();
         $name = $a_user->name();
         $surname = $a_user->surname();
-        $username = $a_user->username();
+        $username = $a_user->username()->username();
         $email = $a_user->email()->email();
 
         $query = <<<SQL

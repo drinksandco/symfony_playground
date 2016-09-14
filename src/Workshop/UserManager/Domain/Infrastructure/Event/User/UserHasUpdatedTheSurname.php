@@ -5,9 +5,9 @@ namespace UserManager\Domain\Infrastructure\Event\User;
 use UserManager\Domain\Infrastructure\Event\DomainEvent;
 use UserManager\Domain\Model\User\User;
 
-class UserAdded implements DomainEvent
+class UserHasUpdatedTheSurname implements DomainEvent
 {
-    const NAME = 'domain.event.user.added';
+    const NAME = 'domain.event.user.update.surname';
 
     /** @var string */
     private $user_id;

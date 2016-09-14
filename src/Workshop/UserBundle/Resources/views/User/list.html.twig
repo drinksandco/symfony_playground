@@ -15,7 +15,7 @@
                     <div class="panel-body">
                         <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
                         <a href="{{ path('user_view', {'user_id': user.id}) }}" class="btn btn-success pull-right">View</a>
-                        <div><label>Username:</label> {{ user.username }}</div>
+                        <div><label>Username:</label> {{ user.username.username }}</div>
                     </div>
                 </div>
             </div>

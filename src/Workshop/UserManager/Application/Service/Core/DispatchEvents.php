@@ -2,8 +2,8 @@
 
 namespace UserManager\Application\Service\Core;
 
-use UserManager\Domain\Infrastructure\EventDispatcher\DomainEventDispatcher;
 use UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
+use UserManager\Domain\Infrastructure\EventDispatcher\DomainEventDispatcher;
 
 final class DispatchEvents
 {
@@ -15,7 +15,7 @@ final class DispatchEvents
 
     public function __construct(ApplicationService $an_application_service, DomainEventDispatcher $a_domain_event_dispatcher)
     {
-        $this->application_service = $an_application_service;
+        $this->application_service     = $an_application_service;
         $this->domain_event_dispatcher = $a_domain_event_dispatcher;
     }
 
@@ -30,8 +30,8 @@ final class DispatchEvents
 
     public function dispatchApplicationServiceEvents()
     {
-        $recorded_events = DomainEventRecorder::getInstance()->recordedEvents();
-        DomainEventRecorder::getInstance()->eraseRecordedEvents();
+        $recorded_events = DomainEventRecorder::instance()->recordedEvents();
+        DomainEventRecorder::instance()->eraseRecordedEvents();
 
         foreach ($recorded_events as $event)
         {

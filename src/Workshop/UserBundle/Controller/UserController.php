@@ -72,14 +72,9 @@ class UserController extends Controller
 
     public function updateAction($user_id, Request $request)
     {
-        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.use_case')->__invoke(
-            new GetByIdRequest($user_id)
-        );
-
         $form = $this->createFormBuilder()
             ->add('name', TextType::class)
             ->add('surname', TextType::class)
-            ->add('username', TextType::class)
             ->add('email', EmailType::class)
             ->add('submit', SubmitType::class)
             ->getForm();
@@ -88,13 +83,12 @@ class UserController extends Controller
 
         if ($form->isValid())
         {
-            $this->get('user_manager.application.service.user.update.update_user_use_case')->__invoke(
+            $this->get('user_manager.application.service.user.update.update_user')->__invoke(
                 new UpdateUserRequest(
                     $user_id,
                     $form->get('name')->getData(),
                     $form->get('surname')->getData(),
-                    $form->get('email')->getData(),
-                    $form->get('username')->getData()
+                    $form->get('email')->getData()
                 )
             );
 
@@ -102,6 +96,10 @@ class UserController extends Controller
 
             return $this->redirectToRoute('user_list');
         }
+
+        $user = $this->get('user_manager.read_model.application.service.user.get_by_id.use_case')->__invoke(
+            new GetByIdRequest($user_id)
+        );
 
         return $this->render('UserBundle:User:update.html.twig', [
             'form' => $form->createView(),
@@ -111,7 +109,7 @@ class UserController extends Controller
 
     public function deleteAction($user_id)
     {
-        $this->get('user_manager.application.service.user.delete.delete_user_use_case')->__invoke(new DeleteUserRequest($user_id));
+        $this->get('user_manager.application.service.user.delete.delete_user')->__invoke(new DeleteUserRequest($user_id));
 
         $this->addFlash('success', 'User removed successfully');
 

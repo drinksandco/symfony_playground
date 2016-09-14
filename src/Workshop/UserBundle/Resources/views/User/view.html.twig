@@ -6,7 +6,7 @@
 
     <div class="container">
 
-        <h1>User {{ user.username }}</h1>
+        <h1>User {{ user.username.username }}</h1>
         <div class="row"><a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to list</a></div>
 
         <div class="row">
@@ -16,7 +16,7 @@
                         <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
                         <div><label>Name:</label> {{ user.name }}</div>
                         <div><label>Surname:</label> {{ user.surname }}</div>
-                        <div><label>Username:</label> {{ user.username }}</div>
+                        <div><label>Username:</label> {{ user.username.username }}</div>
                         <div><label>Email:</label> {{ user.email }}</div>
                     </div>
                 </div>
