@@ -2,9 +2,9 @@
 
 namespace Obokaman\Playground\Domain\Kernel;
 
-final class EventStore
+final class EventRecorder
 {
-    /** @var self */
+    /** @var EventRecorder */
     private static $instance;
 
     /** @var DomainEvent[] */
@@ -20,7 +20,7 @@ final class EventStore
         return static::$instance;
     }
 
-    public function storeEvent(DomainEvent $an_event)
+    public function recordEvent(DomainEvent $an_event)
     {
         array_push($this->events, $an_event);
     }

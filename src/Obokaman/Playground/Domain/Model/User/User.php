@@ -2,7 +2,7 @@
 
 namespace Obokaman\Playground\Domain\Model\User;
 
-use Obokaman\Playground\Domain\Kernel\EventStore;
+use Obokaman\Playground\Domain\Kernel\EventRecorder;
 use Obokaman\Playground\Domain\Model\User\Event\UserCreated;
 use Obokaman\Playground\Domain\Model\User\Event\UserEmailChanged;
 use Obokaman\Playground\Domain\Model\User\Event\UserNameChanged;
@@ -36,7 +36,7 @@ class User
 
         $user = new self($user_id, $a_name, $an_email, $datetime);
 
-        EventStore::instance()->storeEvent(new UserCreated($user_id, $a_name, $an_email));
+        EventRecorder::instance()->recordEvent(new UserCreated($user_id, $a_name, $an_email));
 
         return $user;
     }
@@ -68,7 +68,7 @@ class User
             return;
         }
 
-        EventStore::instance()->storeEvent(new UserNameChanged($this->user_id, $a_name));
+        EventRecorder::instance()->recordEvent(new UserNameChanged($this->user_id, $a_name));
 
         $this->name = $a_name;
     }
@@ -80,7 +80,7 @@ class User
             return;
         }
 
-        EventStore::instance()->storeEvent(new UserEmailChanged($this->user_id, $an_email));
+        EventRecorder::instance()->recordEvent(new UserEmailChanged($this->user_id, $an_email));
 
         $this->email = $an_email;
     }

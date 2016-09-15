@@ -3,7 +3,7 @@
 namespace Obokaman\Playground\Application\Service;
 
 use Obokaman\Playground\Domain\Kernel\EventDispatcher;
-use Obokaman\Playground\Domain\Kernel\EventStore;
+use Obokaman\Playground\Domain\Kernel\EventRecorder;
 
 final class EventAwareApplicationServiceDecorator implements ApplicationService
 {
@@ -28,7 +28,7 @@ final class EventAwareApplicationServiceDecorator implements ApplicationService
 
         $result = $this->invokeDecoratedApplicationService(func_get_args());
 
-        $events = EventStore::instance()->getEvents();
+        $events = EventRecorder::instance()->getEvents();
 
         $this->dispatchEvents($events);
 
@@ -52,6 +52,6 @@ final class EventAwareApplicationServiceDecorator implements ApplicationService
 
     private function clearEvents()
     {
-        EventStore::instance()->clearEvents();
+        EventRecorder::instance()->clearEvents();
     }
 }

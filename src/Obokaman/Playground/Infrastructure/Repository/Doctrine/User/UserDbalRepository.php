@@ -4,7 +4,7 @@ namespace Obokaman\Playground\Infrastructure\Repository\Doctrine\User;
 
 use Doctrine\DBAL\Connection;
 use Obokaman\Playground\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
-use Obokaman\Playground\Domain\Kernel\EventStore;
+use Obokaman\Playground\Domain\Kernel\EventRecorder;
 use Obokaman\Playground\Domain\Model\User\Email;
 use Obokaman\Playground\Domain\Model\User\Event\UserRemoved;
 use Obokaman\Playground\Domain\Model\User\User;
@@ -114,7 +114,7 @@ SQL;
             $this->flush();
         }
 
-        EventStore::instance()->storeEvent(new UserRemoved($a_user_id));
+        EventRecorder::instance()->recordEvent(new UserRemoved($a_user_id));
     }
 
     public function flush()
