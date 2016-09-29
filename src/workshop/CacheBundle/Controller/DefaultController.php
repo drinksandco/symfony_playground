@@ -1,6 +1,6 @@
 <?php
 
-namespace workshop\CacheBundle\Controller;
+namespace Workshop\CacheBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

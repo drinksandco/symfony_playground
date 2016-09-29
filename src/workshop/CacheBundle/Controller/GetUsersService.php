@@ -1,9 +1,9 @@
 <?php
 
-namespace workshop\CacheBundle\Controller;
+namespace Workshop\CacheBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use workshop\UserBundle\Controller as User;
+use Workshop\UserBundle\Controller as User;
 
 class GetUsersService extends Controller
 {

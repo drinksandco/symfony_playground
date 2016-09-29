@@ -1,6 +1,6 @@
 <?php
 
-namespace workshop\UserBundle;
+namespace Workshop\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

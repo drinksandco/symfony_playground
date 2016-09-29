@@ -1,6 +1,6 @@
 <?php
 
-namespace workshop\UserBundle\Repository;
+namespace Workshop\UserBundle\Repository;
 
 
 class UserRepository

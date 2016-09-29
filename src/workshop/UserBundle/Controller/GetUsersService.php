@@ -1,8 +1,8 @@
 <?php
 
-namespace workshop\UserBundle\Controller;
+namespace Workshop\UserBundle\Controller;
 
-use workshop\UserBundle\Repository\UserRepository;
+use Workshop\UserBundle\Repository\UserRepository;
 
 class GetUsersService
 {

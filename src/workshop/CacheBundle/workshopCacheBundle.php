@@ -1,6 +1,6 @@
 <?php
 
-namespace workshop\CacheBundle;
+namespace Workshop\CacheBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

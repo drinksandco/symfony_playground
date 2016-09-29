@@ -1,9 +1,9 @@
 <?php
 
-namespace workshop\UserBundle\Controller;
+namespace Workshop\UserBundle\Controller;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use workshop\UserBundle\Repository\UserRepository;
+use Workshop\UserBundle\Repository\UserRepository;
 
 class AddUserService
 {
