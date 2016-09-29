@@ -1,8 +1,9 @@
 <?php
 
-namespace Workshop\UserBundle\Controller;
+namespace Workshop\UserBundle\src\Application\Service;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Workshop\UserBundle\src\Domain\Model\User\UserAdded;
 use Workshop\UserBundle\Repository\UserRepository;
 
 class AddUserService
@@ -24,6 +25,9 @@ class AddUserService
 
         $user_added = new UserAdded();
         $this->an_event_dispatcher->dispatch("user.added", $user_added);
+
+        dump('User created: ');
+        dump($user);
 
 		return;
     }

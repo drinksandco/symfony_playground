@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserBundle\Controller;
+namespace Workshop\UserBundle\src\Application\Service;
 
 use Workshop\UserBundle\Repository\UserRepository;
 

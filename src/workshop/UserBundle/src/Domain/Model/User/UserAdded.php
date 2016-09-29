@@ -6,7 +6,7 @@
  * Time: 16:45
  */
 
-namespace Workshop\UserBundle\Controller;
+namespace Workshop\UserBundle\src\Domain\Model\User;
 
 use Symfony\Component\EventDispatcher\Event;
 

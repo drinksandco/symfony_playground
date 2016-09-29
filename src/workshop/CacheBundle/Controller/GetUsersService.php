@@ -8,13 +8,13 @@ use Workshop\UserBundle\Controller as User;
 class GetUsersService extends Controller
 {
     /**
-     * @var User\GetUsersService
+     * @var \Workshop\UserBundle\src\Application\Service\GetUsersService
      */
     private $get_users_use_case;
 
     public function __construct()
     {
-        $this->get_users_use_case = new User\GetUsersService();
+        $this->get_users_use_case = new \Workshop\UserBundle\src\Application\Service\GetUsersService();
     }
 
     public function __invoke()
