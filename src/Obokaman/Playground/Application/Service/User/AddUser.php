@@ -12,6 +12,14 @@ class AddUser implements ApplicationService
     /** @var UserRepository */
     private $user_repo;
 
+    const RANDOM_SKILLS = [
+        'read',
+        'swim',
+        'play soccer',
+        'programming',
+        'english'
+    ];
+
     public function __construct(UserRepository $a_user_repository)
     {
         $this->user_repo = $a_user_repository;
@@ -23,6 +31,12 @@ class AddUser implements ApplicationService
         $user_email = new Email("pepote." . rand(1, 10000) . "@gmail.com");
 
         $user = User::create($user_name, $user_email);
+
+        $quantity = rand(0, 4);
+        for ($i = 0; $i < $quantity; $i++)
+        {
+            $user->acquireSkill(self::RANDOM_SKILLS[rand(0, 4)]);
+        }
 
         $this->user_repo->persist($user);
 

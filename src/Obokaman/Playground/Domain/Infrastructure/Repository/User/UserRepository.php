@@ -2,7 +2,6 @@
 
 namespace Obokaman\Playground\Domain\Infrastructure\Repository\User;
 
-use Obokaman\Playground\Domain\Model\User\Email;
 use Obokaman\Playground\Domain\Model\User\User;
 use Obokaman\Playground\Domain\Model\User\UserId;
 

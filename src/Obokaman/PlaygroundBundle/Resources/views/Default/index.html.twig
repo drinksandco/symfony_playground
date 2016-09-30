@@ -12,9 +12,11 @@
 <ul>
     {% for user in users %}
         <li>
+            {{ dump(user) }}
             <strong>{{ user.name }}</strong> ({{ user.email }})
             - <a href="{{ path('obo_user_remove', {'user_id': user.userId}) }}">Remove</a>
             - <a href="{{ path('obo_user_edit', {'user_id': user.userId, 'email': 'alternative' ~ random(5000) ~ '@gmail.com', 'name': user.name}) }}">Edit</a>
+            {{ dump(user.skills) }}
         </li>
     {% endfor %}
 </ul>

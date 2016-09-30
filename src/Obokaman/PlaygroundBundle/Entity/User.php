@@ -8,9 +8,9 @@ namespace Obokaman\PlaygroundBundle\Entity;
 class User
 {
     /**
-     * @var guid
+     * @var string
      */
-    private $id;
+    private $user_id;
 
     /**
      * @var string
@@ -27,29 +27,41 @@ class User
      */
     private $creation_date;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $skills;
 
     /**
-     * Set id
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->skills = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set userId
      *
-     * @param guid $id
+     * @param string $userId
      *
      * @return User
      */
-    public function setId($id)
+    public function setUserId($userId)
     {
-        $this->id = $id;
+        $this->user_id = $userId;
 
         return $this;
     }
 
     /**
-     * Get id
+     * Get userId
      *
-     * @return guid
+     * @return string
      */
-    public function getId()
+    public function getUserId()
     {
-        return $this->id;
+        return $this->user_id;
     }
 
     /**
@@ -123,5 +135,43 @@ class User
     {
         return $this->creation_date;
     }
-}
 
+    /**
+     * Add skill
+     *
+     * @param \Obokaman\PlaygroundBundle\Entity\Skill $skill
+     *
+     * @return User
+     */
+    public function addSkill(\Obokaman\PlaygroundBundle\Entity\Skill $skill)
+    {
+        $this->skills[] = $skill;
+
+        return $this;
+    }
+
+    /**
+     * Remove skill
+     *
+     * @param \Obokaman\PlaygroundBundle\Entity\Skill $skill
+     */
+    public function removeSkill(\Obokaman\PlaygroundBundle\Entity\Skill $skill)
+    {
+        $this->skills->removeElement($skill);
+    }
+
+    /**
+     * Get skills
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    public function emptySkills()
+    {
+        $this->skills = null;
+    }
+}

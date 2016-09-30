@@ -23,9 +23,16 @@ class EditUser implements ApplicationService
         $user    = $this->user_repo->find($user_id);
 
         $user->changeName($an_edit_user_request->name);
+        $user->changeEmail(new Email($an_edit_user_request->email));
 
-        $email = new Email($an_edit_user_request->email);
-        $user->changeEmail($email);
+        // Acquire two new random skills.
+        $user->acquireSkill(AddUser::RANDOM_SKILLS[rand(0, 2)]);
+        $user->acquireSkill(AddUser::RANDOM_SKILLS[rand(3, 4)]);
+
+        // Forget 1 random skill.
+        $user_skills            = $user->skills();
+        $random_skill_to_forget = $user_skills[array_rand($user_skills)];
+        $user->forgetSkill($random_skill_to_forget);
 
         $this->user_repo->persist($user);
     }
