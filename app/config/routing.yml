@@ -1,3 +1,11 @@
+workshop_cache:
+    resource: "@workshopCacheBundle/Resources/config/routing.yml"
+    prefix:   /cache
+
+workshop_user:
+    resource: "@workshopUserBundle/Resources/config/routing.yml"
+    prefix:   /users
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

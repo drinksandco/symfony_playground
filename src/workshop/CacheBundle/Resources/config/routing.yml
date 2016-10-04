@@ -1,0 +1,3 @@
+workshop_cache_homepage:
+    path:     /
+    defaults: { _controller: workshopCacheBundle:Default:index }
