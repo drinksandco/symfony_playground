@@ -6,6 +6,8 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOException;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
 use UserManager\Domain\Model\Email\Email;
+use UserManager\Domain\Model\User\Skill;
+use UserManager\Domain\Model\User\SkillCollection;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\UserCollection;
 use UserManager\Domain\Model\User\UserId;
@@ -24,15 +26,17 @@ final class UserRepository implements UserRepositoryContract
     public function findAll()
     {
         $query = <<<SQL
-SELECT 
+SELECT
   u.id,
   u.name,
   u.surname,
   u.email,
-  u.username
- 
-FROM users u;
-
+  u.username,
+  GROUP_CONCAT(s.id || ',' || s.name, '|||') AS skills
+FROM
+    users u
+    LEFT JOIN users_skills us ON u.id = us.user_id
+    LEFT JOIN skills s ON us.skill_id = s.id
 SQL;
 
         $result = $this->dbal_connection->fetchAll($query);
@@ -44,9 +48,9 @@ SQL;
             return $user_collection;
         }
 
-        foreach ($result as $user)
+        foreach ($result as $raw_user)
         {
-            $user_collection->add(User::fromExistent(new UserId($user['id']), $user['name'], $user['surname'], new Username($user['username']), new Email($user['email'])));
+            $user_collection->add($this->hydrateItem($raw_user));
         }
 
         return $user_collection;
@@ -57,20 +61,24 @@ SQL;
         $user_id = $user_id->userId();
 
         $query = <<<SQL
-SELECT 
+SELECT
   u.id,
   u.name,
   u.surname,
   u.email,
-  u.username
- 
-FROM 
-    users u;
+  u.username,
+  GROUP_CONCAT(s.id || ',' || s.name, '|||') AS skills
+FROM
+    users u
+    LEFT JOIN users_skills us ON u.id = us.user_id
+    LEFT JOIN skills s ON us.skill_id = s.id
 
-WHERE 
-    u.id = $user_id
+WHERE
+    u.id = :user_id
 SQL;
-        $statement = $this->dbal_connection->executeQuery($query);
+        $statement = $this->dbal_connection->prepare($query);
+        $statement->bindParam(':user_id', $user_id, \PDO::PARAM_STR);
+        $statement->execute();
 
         $result = $statement->fetch();
 
@@ -79,7 +87,7 @@ SQL;
             return null;
         }
 
-        return User::fromExistent(new UserId($result['id']), $result['name'], $result['surname'], new Username($result['username']), new Email($result['email']));
+        return $this->hydrateItem($result);
     }
 
     public function add(User $a_new_user)
@@ -193,5 +201,21 @@ SQL;
         {
             return false;
         }
+    }
+
+    private function hydrateItem(array $result)
+    {
+        $raw_skills = $result['skills'];
+        $skill_collection = new SkillCollection();
+
+        if (!empty($raw_skills))
+        {
+            foreach ($raw_skills as $raw_skill)
+            {
+                $skill_collection->add(new Skill($raw_skill['skill_id'], $raw_skill['name']));
+            }
+        }
+
+        return new User(new UserId($result['id']), $result['name'], $result['surname'], new Username($result['username']), new Email($result['email']), $skill_collection);
     }
 }

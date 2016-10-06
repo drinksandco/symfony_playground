@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserManager\Domain\Infrastructure\Event\User;
+namespace UserManager\Domain\Infrastructure\Event\User;
 
 use UserManager\Domain\Infrastructure\Event\DomainEvent;
 use UserManager\Domain\Model\User\User;

@@ -5,6 +5,7 @@ namespace UserManager\Application\Service\User\Add;
 use UserManager\Application\Service\Core\ApplicationService;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\Email\Email;
+use UserManager\Domain\Model\User\SkillCollection;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\Username;
 
@@ -24,7 +25,8 @@ final class AddUserUseCase implements ApplicationService
             $a_request->name(),
             $a_request->surname(),
             new Username($a_request->username()),
-            new Email($a_request->email())
+            new Email($a_request->email()),
+            new SkillCollection()
         );
 
         $new_user_id = $this->user_repository->add($new_user);

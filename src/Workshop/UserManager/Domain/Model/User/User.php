@@ -8,9 +8,9 @@ use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheEmail;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheName;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheSurname;
 use UserManager\Domain\Model\Email\Email;
-use Workshop\UserManager\Domain\Infrastructure\Event\User\UserHasAddedANewSkill;
-use Workshop\UserManager\Domain\Model\User\Skill;
-use Workshop\UserManager\Domain\Model\User\SkillCollection;
+use UserManager\Domain\Infrastructure\Event\User\UserHasAddedANewSkill;
+use UserManager\Domain\Model\User\Skill;
+use UserManager\Domain\Model\User\SkillCollection;
 
 final class User
 {
@@ -32,7 +32,7 @@ final class User
     /** @var SkillCollection */
     private $skills;
 
-    private function __construct(UserId $a_user_id, $a_name, $a_surname, Username $a_username, Email $an_email, SkillCollection $some_skills)
+    public function __construct(UserId $a_user_id, $a_name, $a_surname, Username $a_username, Email $an_email, SkillCollection $some_skills)
     {
         $this->user_id = $a_user_id;
         $this->name = $a_name;
@@ -50,11 +50,6 @@ final class User
         DomainEventRecorder::instance()->recordEvent(new UserAdded($new_user));
 
         return $new_user;
-    }
-
-    public static function fromExistent(UserId $a_user_id, $a_name, $a_surname, Username $a_username, Email $an_email, SkillCollection $some_skills)
-    {
-        return new self($a_user_id, $a_name, $a_surname, $a_username, $an_email, $some_skills);
     }
 
     public function changeName($a_name)

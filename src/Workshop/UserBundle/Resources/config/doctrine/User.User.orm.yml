@@ -14,5 +14,18 @@ UserManager\Domain\Model\User\User:
         username:
             class: UserManager\Domain\Model\User\Username
             columnPrefix: false
+    manyToMany:
+        skills:
+            targetEntity: Skill
+            joinTable:
+                name: users_skills
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    skill_id:
+                        referencedColumnName: id
+                        unique: true
+
 
 

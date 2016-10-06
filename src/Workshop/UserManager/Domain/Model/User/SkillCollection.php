@@ -1,6 +1,6 @@
 <?php
 
-namespace Workshop\UserManager\Domain\Model\User;
+namespace UserManager\Domain\Model\User;
 
 final class SkillCollection
 {
