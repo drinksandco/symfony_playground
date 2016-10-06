@@ -50,7 +50,7 @@ services:
 
     # Repositories
     user_manager.domain.infrastructure.repository.user:
-        alias: user_manager.infrastructure.repository.doctrine.dbal.user
+        alias: user_manager.infrastructure.repository.doctrine.orm.user
 
     #Infrastructure
     user_manager.domain.infrastructure.event_dispatcher:

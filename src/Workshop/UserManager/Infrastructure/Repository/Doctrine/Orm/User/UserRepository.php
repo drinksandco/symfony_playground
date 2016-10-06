@@ -31,8 +31,11 @@ class UserRepository implements UserRepositoryContract
 
         foreach ($result as $user)
         {
+            dump($user->skills()->getValues());die; //TODO: Solve this due to currenty it returns a PersistentCollection Object.
             $user_collection->add($user);
         }
+
+        dump($user_collection);die;
 
         return $user_collection;
     }
