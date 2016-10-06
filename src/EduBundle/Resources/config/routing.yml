@@ -1,0 +1,3 @@
+edu_homepage:
+    path:     /
+    defaults: { _controller: EduBundle:Default:index }
