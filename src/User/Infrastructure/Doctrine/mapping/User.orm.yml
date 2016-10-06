@@ -8,5 +8,7 @@ User\Domain\User:
   fields:
     name:
       type: string
-    skill:
-      type: skill
+  oneToMany:
+    skills:
+      targetEntity: User\Domain\Skill
+      mappedBy: user

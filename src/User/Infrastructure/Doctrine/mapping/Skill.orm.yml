@@ -1,0 +1,17 @@
+User\Domain\Skill:
+  type: entity
+  repositoryClass: User\Infrastructure\Repository\Doctrine\SkillRepository
+  table: skill
+  id:
+    id:
+      type: string
+  fields:
+    name:
+      type: string
+  manyToOne:
+    user:
+      targetEntity: User\Domain\User
+      inversedBy: skills
+      joinColumn:
+        name: user_id
+        referencedColumnName: id

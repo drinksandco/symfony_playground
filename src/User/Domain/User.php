@@ -10,18 +10,18 @@ final class User
     /** @var string */
     private $name;
 
-    /** @var Skill */
-    private $skill;
+    /** @var array */
+    private $skills;
 
     public function __construct(
         UserId $an_id,
         string $a_name,
-        Skill $a_skill
+        array $some_skills
     )
     {
-        $this->id    = $an_id;
-        $this->name  = $a_name;
-        $this->skill = $a_skill;
+        $this->id     = $an_id;
+        $this->name   = $a_name;
+        $this->skills = $some_skills;
     }
 
     /**
@@ -41,11 +41,11 @@ final class User
     }
 
     /**
-     * @return Skill
+     * @return array
      */
-    public function skill()
+    public function skills()
     {
-        return $this->skill;
+        return $this->skills;
     }
 
 }

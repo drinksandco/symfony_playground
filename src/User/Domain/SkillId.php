@@ -4,7 +4,7 @@ namespace User\Domain;
 
 use Ramsey\Uuid\Uuid;
 
-final class UserId
+final class SkillId
 {
     private $id;
 
