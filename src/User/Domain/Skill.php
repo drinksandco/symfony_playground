@@ -13,11 +13,10 @@ final class Skill
     /** @var User */
     private $user;
 
-    public function __construct(SkillId $an_id, string $a_name, User $a_user)
+    public function __construct(SkillId $an_id, string $a_name)
     {
         $this->id   = $an_id;
         $this->name = $a_name;
-        $this->user = $a_user;
     }
 
     /**

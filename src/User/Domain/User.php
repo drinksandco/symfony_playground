@@ -2,6 +2,9 @@
 
 namespace User\Domain;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 final class User
 {
     /** @var UserId */
@@ -10,18 +13,17 @@ final class User
     /** @var string */
     private $name;
 
-    /** @var array */
+    /** @var Collection */
     private $skills;
 
     public function __construct(
         UserId $an_id,
-        string $a_name,
-        array $some_skills
+        string $a_name
     )
     {
         $this->id     = $an_id;
         $this->name   = $a_name;
-        $this->skills = $some_skills;
+        $this->skills = new ArrayCollection();
     }
 
     /**
@@ -41,7 +43,7 @@ final class User
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function skills()
     {
