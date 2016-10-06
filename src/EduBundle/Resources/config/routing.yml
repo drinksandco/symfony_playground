@@ -1,3 +1,16 @@
 edu_homepage:
     path:     /
     defaults: { _controller: EduBundle:Default:index }
+
+edu_user_add:
+    path:     /add-user
+    defaults: { _controller: EduBundle:Default:add }
+
+edu_user_remove:
+    path:     /remove-user/{user_id}
+    defaults: { _controller: EduBundle:Default:remove }
+
+edu_user_edit:
+    path:     /edit-user/{user_id}/{email}/{name}
+    defaults: { _controller: EduBundle:Default:edit }
+    methods: ['GET']

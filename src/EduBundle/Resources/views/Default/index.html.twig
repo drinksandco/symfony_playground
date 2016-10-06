@@ -1,1 +1,21 @@
-Hello World!
+<html>
+<head>
+    <title>Users Management</title>
+</head>
+<body>
+<p><a href="{{ url('edu_homepage') }}">Users list</a></p>
+
+<ul>
+   <li><a href="{{ url('edu_user_add') }}">Add new user [+]</a></li>
+</ul>
+
+<ul>
+    {% for user in users %}
+        <li>
+            <strong>{{ user.name }}</strong> ({{ user.email.email }})
+            - <a href="{{ path('edu_user_remove', {'user_id': user.idUser.userId}) }}">Remove</a>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

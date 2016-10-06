@@ -2,3 +2,18 @@ services:
 #    edu.example:
 #        class: EduBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]
+    edu.application_service_user.add_user:
+        class: EduBundle\Application\Service\User\AddUser
+        arguments:
+            - "@edu.user.repository"
+
+    edu.application_service_user.list_users:
+        class: EduBundle\Application\Service\User\ListUsers
+        arguments:
+            - "@edu.user.repository"
+
+
+    edu.user.repository:
+        class: EduBundle\Infrastructure\Repository\DBAL\User\UserRepository
+        arguments:
+            - "@doctrine.dbal.default_connection"

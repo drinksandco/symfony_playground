@@ -4,7 +4,4 @@ parameters:
 #    parameter_name: value
 
 services:
-    appbundle.test_repository:
-        class: AppBundle\Repository\TestRepository
-        arguments:
-            - "@doctrine.dbal.default_connection"
+
