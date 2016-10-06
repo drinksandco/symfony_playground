@@ -7,9 +7,9 @@ use Doctrine\DBAL\Driver\PDOException;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
-use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Model\User\UserCollection;
-use UserManager\Domain\Model\User\ValueObject\Username;
+use UserManager\Domain\Model\User\UserId;
+use UserManager\Domain\Model\User\Username;
 
 final class UserRepository implements UserRepositoryContract
 {

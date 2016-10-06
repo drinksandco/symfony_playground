@@ -2,11 +2,11 @@
 
 namespace UserManager\Application\Service\User\Delete;
 
-use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
-use UserManager\Domain\Model\User\ValueObject\UserId;
-use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Application\Service\Core\ApplicationService;
 use UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
+use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
+use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
+use UserManager\Domain\Model\User\UserId;
 
 final class DeleteUserUseCase implements ApplicationService
 {

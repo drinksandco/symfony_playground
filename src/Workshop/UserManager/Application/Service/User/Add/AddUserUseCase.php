@@ -2,11 +2,11 @@
 
 namespace UserManager\Application\Service\User\Add;
 
+use UserManager\Application\Service\Core\ApplicationService;
+use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
-use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
-use UserManager\Application\Service\Core\ApplicationService;
-use UserManager\Domain\Model\User\ValueObject\Username;
+use UserManager\Domain\Model\User\Username;
 
 final class AddUserUseCase implements ApplicationService
 {

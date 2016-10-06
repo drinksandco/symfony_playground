@@ -6,13 +6,13 @@ UserManager\Domain\Model\User\User:
         surname: { type: string }
     embedded:
         user_id:
-            class: UserManager\Domain\Model\User\ValueObject\UserId
+            class: UserManager\Domain\Model\User\UserId
             columnPrefix: false
         email:
             class: UserManager\Domain\Model\Email\Email
             columnPrefix: false
         username:
-            class: UserManager\Domain\Model\User\ValueObject\Username
+            class: UserManager\Domain\Model\User\Username
             columnPrefix: false
 
 

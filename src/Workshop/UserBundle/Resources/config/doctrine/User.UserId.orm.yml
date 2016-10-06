@@ -1,4 +1,4 @@
-UserManager\Domain\Model\User\ValueObject\UserId:
+UserManager\Domain\Model\User\UserId:
     type: embeddable
     id:
         user_id:

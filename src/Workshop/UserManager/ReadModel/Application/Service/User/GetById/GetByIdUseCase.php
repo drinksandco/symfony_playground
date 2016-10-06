@@ -3,7 +3,7 @@
 namespace UserManager\ReadModel\Application\Service\User\GetById;
 
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
-use UserManager\Domain\Model\User\ValueObject\UserId;
+use UserManager\Domain\Model\User\UserId;
 
 class GetByIdUseCase
 {

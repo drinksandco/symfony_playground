@@ -6,7 +6,7 @@ use UserManager\Application\Service\Core\ApplicationService;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
-use UserManager\Domain\Model\User\ValueObject\UserId;
+use UserManager\Domain\Model\User\UserId;
 
 final class UpdateUserUseCase implements ApplicationService
 {

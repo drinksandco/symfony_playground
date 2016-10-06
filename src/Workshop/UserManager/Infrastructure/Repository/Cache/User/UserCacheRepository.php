@@ -4,9 +4,9 @@ namespace UserManager\Infrastructure\Repository\Cache\User;
 
 use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Infrastructure\Cache\CacheKey;
-use UserManager\Domain\Model\User\User;
-use UserManager\Domain\Model\User\ValueObject\UserId;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
+use UserManager\Domain\Model\User\User;
+use UserManager\Domain\Model\User\UserId;
 
 class UserCacheRepository implements UserRepository
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace UserManager\Domain\Model\User\ValueObject;
+namespace UserManager\Domain\Model\User;
 
 final class UserId
 {

@@ -2,11 +2,11 @@
 
 namespace UserManager\Domain\Model\User;
 
-class UserCollection
+final class UserCollection
 {
     /** @var User[] */
     private $users;
-    
+
     public function __construct(array $some_users = [])
     {
         $this->users = $some_users;
