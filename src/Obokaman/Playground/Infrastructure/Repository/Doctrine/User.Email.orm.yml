@@ -1,0 +1,6 @@
+Obokaman\Playground\Domain\Model\User\Email:
+    type: embeddable
+    fields:
+        email:
+            type: string
+            length: 255

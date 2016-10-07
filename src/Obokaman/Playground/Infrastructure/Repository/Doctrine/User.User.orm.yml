@@ -1,20 +1,17 @@
 Obokaman\Playground\Domain\Model\User\User:
     type: entity
     repositoryClass: Obokaman\Playground\Infrastructure\Repository\Doctrine\User\UserBaseRepository
-    id:
+    embedded:
         id:
-            type: guid
-            id: true
-            generator:
-                strategy: NONE
+            class: Obokaman\Playground\Domain\Model\User\UserId
+            columnPrefix: false
+        email:
+            class: Obokaman\Playground\Domain\Model\User\Email
+            columnPrefix: false
     fields:
         name:
             type: string
             length: 255
-        email:
-            type: string
-            length: 255
-            unique: true
         creation_date:
             type: datetime
 
@@ -29,5 +26,7 @@ Obokaman\Playground\Domain\Model\User\User:
                 inverseJoinColumns:
                     skill_id:
                         referenceColumnName: id
+                        unique: true
             cascade:
                 - all
+

@@ -26,7 +26,7 @@ class UserRepository implements UserRepositoryContract
 
     public function find(UserId $a_user_id)
     {
-        return $this->repo->find((string) $a_user_id);
+        return $this->repo->find($a_user_id);
     }
 
     public function findAll()
@@ -46,7 +46,7 @@ class UserRepository implements UserRepositoryContract
 
     public function remove(UserId $a_user_id, $flush = true)
     {
-        $user = $this->repo->find((string) $a_user_id);
+        $user = $this->repo->find($a_user_id);
 
         if (null === $user)
         {

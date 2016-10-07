@@ -97,7 +97,7 @@ class User
 
     public function changeEmail(Email $an_email)
     {
-        if ((string) $this->email === (string) $an_email)
+        if ($this->email->equals($an_email))
         {
             return;
         }
