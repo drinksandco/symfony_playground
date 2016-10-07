@@ -1,0 +1,33 @@
+Obokaman\Playground\Domain\Model\User\User:
+    type: entity
+    repositoryClass: Obokaman\Playground\Infrastructure\Repository\Doctrine\User\UserBaseRepository
+    id:
+        id:
+            type: guid
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        name:
+            type: string
+            length: 255
+        email:
+            type: string
+            length: 255
+            unique: true
+        creation_date:
+            type: datetime
+
+    manyToMany:
+        skills:
+            targetEntity: Obokaman\Playground\Domain\Model\Skill\Skill
+            joinTable:
+                name: user_skill
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    skill_id:
+                        referenceColumnName: id
+            cascade:
+                - all

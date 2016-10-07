@@ -1,0 +1,13 @@
+Obokaman\Playground\Domain\Model\Skill\Skill:
+    type: entity
+    repositoryClass: Obokaman\Playground\Infrastructure\Repository\Doctrine\Skill\SkillBaseRepository
+    id:
+        id:
+            type: guid
+            id: true
+            generator:
+                strategy: NONE
+    fields:
+        description:
+            type: string
+            length: 255

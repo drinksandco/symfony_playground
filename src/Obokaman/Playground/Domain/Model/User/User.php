@@ -2,9 +2,9 @@
 
 namespace Obokaman\Playground\Domain\Model\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Obokaman\Playground\Domain\Kernel\EventRecorder;
 use Obokaman\Playground\Domain\Model\Skill\Skill;
-use Obokaman\Playground\Domain\Model\Skill\SkillId;
 use Obokaman\Playground\Domain\Model\User\Event\UserCreated;
 use Obokaman\Playground\Domain\Model\User\Event\UserEmailChanged;
 use Obokaman\Playground\Domain\Model\User\Event\UserNameChanged;
@@ -12,7 +12,7 @@ use Obokaman\Playground\Domain\Model\User\Event\UserNameChanged;
 class User
 {
     /** @var UserId */
-    private $user_id;
+    private $id;
 
     /** @var string */
     private $name;
@@ -23,7 +23,7 @@ class User
     /** @var \DateTimeImmutable */
     private $creation_date;
 
-    /** @var Skill[] */
+    /** @var ArrayCollection */
     private $skills;
 
     public function __construct(
@@ -31,10 +31,10 @@ class User
         $a_name,
         Email $an_email,
         \DateTimeImmutable $a_datetime,
-        array $skills
+        ArrayCollection $skills
     )
     {
-        $this->user_id       = $a_user_id;
+        $this->id            = $a_user_id;
         $this->name          = $a_name;
         $this->email         = $an_email;
         $this->creation_date = $a_datetime;
@@ -46,7 +46,7 @@ class User
         $user_id  = UserId::generateUniqueId();
         $datetime = new \DateTimeImmutable('now');
 
-        $user = new self($user_id, $a_name, $an_email, $datetime, []);
+        $user = new self($user_id, $a_name, $an_email, $datetime, new ArrayCollection());
 
         EventRecorder::instance()->recordEvent(new UserCreated($user_id, $a_name, $an_email));
 
@@ -55,7 +55,7 @@ class User
 
     public function userId()
     {
-        return $this->user_id;
+        return $this->id;
     }
 
     public function name()
@@ -78,9 +78,9 @@ class User
         return $this->skills;
     }
 
-    public function hasSkill(SkillId $skill_id)
+    public function hasSkill(Skill $a_skill)
     {
-        return isset($this->skills[(string) $skill_id]);
+        return $this->skills->contains($a_skill);
     }
 
     public function changeName($a_name)
@@ -90,19 +90,19 @@ class User
             return;
         }
 
-        EventRecorder::instance()->recordEvent(new UserNameChanged($this->user_id, $a_name));
+        EventRecorder::instance()->recordEvent(new UserNameChanged($this->id, $a_name));
 
         $this->name = $a_name;
     }
 
     public function changeEmail(Email $an_email)
     {
-        if ($this->email->equals($an_email))
+        if ((string) $this->email === (string) $an_email)
         {
             return;
         }
 
-        EventRecorder::instance()->recordEvent(new UserEmailChanged($this->user_id, $an_email));
+        EventRecorder::instance()->recordEvent(new UserEmailChanged($this->id, $an_email));
 
         $this->email = $an_email;
     }
@@ -111,16 +111,16 @@ class User
     {
         $skill = Skill::learn($skill_description);
 
-        $this->skills[(string) $skill->skillId()] = $skill;
+        $this->skills->add($skill);
     }
 
     public function forgetSkill(Skill $an_skill)
     {
-        unset($this->skills[(string) $an_skill->skillId()]);
+        $this->skills->removeElement($an_skill);
     }
 
     public function forgetSkills()
     {
-        $this->skills = [];
+        $this->skills->clear();
     }
 }

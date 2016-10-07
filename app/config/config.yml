@@ -60,8 +60,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-
+        auto_mapping: false
+        mappings:
+            Playground:
+                type: yml
+                dir: '%kernel.root_dir%/../src/Obokaman/Playground/Infrastructure/Repository/Doctrine'
+                is_bundle: false
+                prefix: Obokaman\Playground\Domain\Model
+                alias: Playground
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"

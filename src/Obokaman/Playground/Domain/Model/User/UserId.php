@@ -7,11 +7,11 @@ use Ramsey\Uuid\Uuid;
 class UserId
 {
     /** @var string */
-    private $user_id;
+    private $id;
 
     public function __construct(string $a_user_id)
     {
-        $this->user_id = $a_user_id;
+        $this->id = $a_user_id;
     }
 
     public static function generateUniqueId()
@@ -21,11 +21,11 @@ class UserId
 
     public function userId()
     {
-        return $this->user_id;
+        return $this->id;
     }
 
     public function __toString()
     {
-        return $this->user_id;
+        return $this->id;
     }
 }

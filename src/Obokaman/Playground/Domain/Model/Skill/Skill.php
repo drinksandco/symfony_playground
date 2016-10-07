@@ -5,14 +5,14 @@ namespace Obokaman\Playground\Domain\Model\Skill;
 final class Skill
 {
     /** @var SkillId */
-    private $skill_id;
+    private $id;
 
     /** @var string */
     private $description;
 
     public function __construct(SkillId $a_skill_id, $a_description)
     {
-        $this->skill_id    = $a_skill_id;
+        $this->id          = $a_skill_id;
         $this->description = $a_description;
     }
 
@@ -25,7 +25,7 @@ final class Skill
 
     public function skillId()
     {
-        return $this->skill_id;
+        return $this->id;
     }
 
     public function description()

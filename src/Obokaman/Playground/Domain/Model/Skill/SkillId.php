@@ -7,11 +7,11 @@ use Ramsey\Uuid\Uuid;
 final class SkillId
 {
     /** @var string */
-    private $skill_id;
+    private $id;
 
     public function __construct(string $a_skill_id)
     {
-        $this->skill_id = $a_skill_id;
+        $this->id = $a_skill_id;
     }
 
     public static function generateUniqueId()
@@ -21,11 +21,11 @@ final class SkillId
 
     public function skillId()
     {
-        return $this->skill_id;
+        return $this->id;
     }
 
     public function __toString()
     {
-        return $this->skill_id;
+        return $this->id;
     }
 }
