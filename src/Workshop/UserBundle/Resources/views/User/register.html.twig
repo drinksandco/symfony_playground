@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{ parent() }}Register{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Register a user</h1>
+
+        <div class="row">
+            <a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to the list</a>
+
+            {{ form_start(form) }}
+            {{ form_widget(form.name, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'name'
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.surname, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'surname'
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.username, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'username'
+                }
+            })}}
+            <br>
+            {{ form_widget(form.email, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'email'
+                }
+            })}}
+            <br>
+            {{ form_widget(form.submit, {
+                'attr': {
+                    'class': 'btn btn-primary pull-right'
+                }
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

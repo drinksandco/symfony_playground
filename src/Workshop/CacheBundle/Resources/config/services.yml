@@ -1,0 +1,9 @@
+services:
+    cache_bundle.event_subscriber.invalidate_user_cache:
+        class: Workshop\CacheBundle\EventSubscriber\InvalidateUserCacheSubscriber
+        arguments:
+            - "@user_manager.application.event_subscriber.invalidate_user_cache_when_user_added"
+            - "@user_manager.application.event_subscriber.invalidate_user_cache_when_user_updated"
+            - "@user_manager.application.event_subscriber.invalidate_user_cache_when_user_deleted"
+        tags:
+            - { name: kernel.event_subscriber }

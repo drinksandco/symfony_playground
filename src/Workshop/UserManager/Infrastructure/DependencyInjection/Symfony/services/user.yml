@@ -1,0 +1,78 @@
+imports:
+    - { resource: ../../../../ReadModel/Infrastructure/DependencyInjection/Symfony/services/user.yml }
+
+services:
+    ########################
+    # Application Services #
+    ########################
+
+    #Add User
+    user_manager.application.service.user.add.add_user:
+        class: UserManager\Application\Service\Core\DispatchEvents
+        arguments:
+            - "@user_manager.application.service.user.add.add_user_original"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    user_manager.application.service.user.add.add_user_original:
+        class: UserManager\Application\Service\User\Add\AddUserUseCase
+        arguments:
+            - "@user_manager.domain.infrastructure.repository.user"
+
+    # Update User
+
+    user_manager.application.service.user.update.update_user:
+        class: UserManager\Application\Service\Core\DispatchEvents
+        arguments:
+            - "@user_manager.application.service.user.update.update_user_original"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    user_manager.application.service.user.update.update_user_original:
+        class: UserManager\Application\Service\User\Update\UpdateUserUseCase
+        arguments:
+            - "@user_manager.domain.infrastructure.repository.user"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    # Delete User
+    user_manager.application.service.user.delete.delete_user:
+        class: UserManager\Application\Service\Core\DispatchEvents
+        arguments:
+            - "@user_manager.application.service.user.delete.delete_user_original"
+            - "@user_manager.domain.infrastructure.event_dispatcher"
+
+    user_manager.application.service.user.delete.delete_user_original:
+        class: UserManager\Application\Service\User\Delete\DeleteUserUseCase
+        arguments:
+            - "@user_manager.domain.infrastructure.repository.user"
+
+    ##################
+    #     Domain     #
+    ##################
+
+    # Repositories
+    user_manager.domain.infrastructure.repository.user:
+        alias: user_manager.infrastructure.repository.doctrine.orm.user
+
+    #Infrastructure
+    user_manager.domain.infrastructure.event_dispatcher:
+        alias: user_manager.infrastructure.event_dispatcher.symfony
+
+    ##################
+    # Infrastructure #
+    ##################
+
+    # Repositories
+    user_manager.infrastructure.repository.doctrine.dbal.user:
+        public: false
+        class: UserManager\Infrastructure\Repository\Doctrine\Dbal\User\UserRepository
+        arguments: ["@doctrine.dbal.default_connection"]
+
+    user_manager.infrastructure.repository.doctrine.orm.user:
+        public: false
+        class: UserManager\Infrastructure\Repository\Doctrine\Orm\User\UserRepository
+        arguments: ["@doctrine.orm.default_entity_manager"]
+
+    #Event Dispatcher
+    user_manager.infrastructure.event_dispatcher.symfony:
+        public: false
+        class: UserManager\Infrastructure\EventDispatcher\Symfony\EventDispatcher
+        arguments: ["@event_dispatcher"]

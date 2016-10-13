@@ -1,0 +1,24 @@
+user_register:
+    path:     /register
+    defaults:
+        _controller: UserBundle:User:register
+
+user_list:
+    path: /
+    defaults:
+        _controller: UserBundle:User:list
+
+user_view:
+    path: /view/{user_id}
+    defaults:
+        _controller: UserBundle:User:view
+
+user_update:
+    path: /update/{user_id}
+    defaults:
+        _controller: UserBundle:User:update
+
+user_delete:
+    path: /delete/{user_id}
+    defaults:
+        _controller: UserBundle:User:delete

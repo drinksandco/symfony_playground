@@ -1,0 +1,54 @@
+services:
+    ########################
+    #     Application      #
+    ########################
+
+    # Services
+    user_manager.application_service.user.add.invalidate_user_cache_when_user_added.use_case:
+        public: false
+        class: UserManager\Application\Service\User\Add\InvalidateUserCacheWhenUserAddedUseCase
+        arguments: ["@user_manager.infrastructure.cache"]
+
+    user_manager.application_service.user.update.invalidate_user_cache_when_user_updated.use_case:
+        public: false
+        class: UserManager\Application\Service\User\Update\InvalidateUserCacheWhenUserUpdatedUseCase
+        arguments: ["@user_manager.infrastructure.cache"]
+
+    user_manager.application_service.user.delete.invalidate_user_cache_when_user_deleted.use_case:
+        public: false
+        class: UserManager\Application\Service\User\Delete\InvalidateUserCacheWhenUserDeletedUseCase
+        arguments: ["@user_manager.infrastructure.cache"]
+
+    # Event Subscribers
+
+    user_manager.application.event_subscriber.invalidate_user_cache_when_user_added:
+        class: UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserAdded
+        arguments: ["@user_manager.application_service.user.add.invalidate_user_cache_when_user_added.use_case"]
+
+
+    user_manager.application.event_subscriber.invalidate_user_cache_when_user_updated:
+        class: UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserUpdated
+        arguments: ["@user_manager.application_service.user.update.invalidate_user_cache_when_user_updated.use_case"]
+
+    user_manager.application.event_subscriber.invalidate_user_cache_when_user_deleted:
+        class: UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserDeleted
+        arguments: ["@user_manager.application_service.user.delete.invalidate_user_cache_when_user_deleted.use_case"]
+
+    ##################
+    # Infrastructure #
+    ##################
+    user_manager.infrastructure.cache:
+        alias: user_manager.infrastructure.cache.filesystem_cache
+
+    user_manager.infrastructure.cache.filesystem_cache:
+        class: UserManager\Infrastructure\Cache\FilesystemCache
+        arguments: ["%cache.filesystem.path%"]
+
+    user_manager.infrastructure.repository.cache.user:
+        public: false
+        class: UserManager\Infrastructure\Repository\Cache\User\UserCacheRepository
+        decorates: user_manager.domain.infrastructure.repository.user
+        decoration_inner_name: inner.infrastructure.repository.user
+        arguments:
+            - "@inner.infrastructure.repository.user"
+            - "@user_manager.infrastructure.cache"
