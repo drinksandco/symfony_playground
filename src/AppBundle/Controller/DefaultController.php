@@ -26,14 +26,14 @@ class DefaultController extends Controller
         $skill_repository = $em->getRepository('User\Domain\Skill');
 
         $user_id = $user_repository->nextIdentity();
-        $skills = [];
-        $skills[] = new Skill($skill_repository->nextIdentity(), 'Be a Php Maista');
-        $user = new User($user_repository->nextIdentity(), "Marcos");
-
-        $em->persist($user);
-        $em->flush();
-
+        $skill = new Skill($skill_repository->nextIdentity(), 'Be a Php Maista');
+        $user = new User($user_id, "Marcos");
+        $user->learnSkill($skill);
+        $user_repository->add($user);
         $results = $user_repository->findById($user_id);
+
+
+//        $results = [];
 //        $repo            = $this->get('appbundle.test_repository');
 //        $results         = $repo->getAllThings();
 

@@ -12,3 +12,4 @@ User\Domain\User:
     skills:
       targetEntity: User\Domain\Skill
       mappedBy: user
+      cascade: ["persist"]

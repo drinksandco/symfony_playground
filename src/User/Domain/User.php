@@ -42,6 +42,11 @@ final class User
         return $this->name;
     }
 
+    public function learnSkill(Skill $an_skill)
+    {
+        $this->skills->add($an_skill);
+    }
+
     /**
      * @return Collection
      */

@@ -9,4 +9,6 @@ interface UserRepository
     public function findAll();
 
     public function nextIdentity() : UserId;
+
+    public function add(User $a_user);
 }
