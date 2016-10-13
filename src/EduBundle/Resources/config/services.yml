@@ -5,15 +5,21 @@ services:
     edu.application_service_user.add_user:
         class: EduBundle\Application\Service\User\AddUser
         arguments:
-            - "@edu.user.repository"
+            - "@edu.doctrine_user.repository"
 
     edu.application_service_user.list_users:
         class: EduBundle\Application\Service\User\ListUsers
         arguments:
-            - "@edu.user.repository"
+            - "@edu.dbal_user.repository"
 
 
-    edu.user.repository:
+    edu.dbal_user.repository:
         class: EduBundle\Infrastructure\Repository\DBAL\User\UserRepository
         arguments:
             - "@doctrine.dbal.default_connection"
+
+    edu.doctrine_user.repository:
+        class: EduBundle\Infrastructure\Repository\Doctrine\User\UserRepository
+        arguments:
+            - "@doctrine.orm.entity_manager"
+

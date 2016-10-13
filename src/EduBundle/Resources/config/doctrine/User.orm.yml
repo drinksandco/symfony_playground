@@ -1,0 +1,19 @@
+EduBundle\Entity\User:
+    type: entity
+    table: users
+    repositoryClass: EduBundle\Repository\UserRepository
+    id:
+        id_user:
+            type: string
+            length: '40'
+            unique: true
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: '100'
+        email:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }
