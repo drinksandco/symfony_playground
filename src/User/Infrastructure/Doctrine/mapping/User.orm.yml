@@ -1,0 +1,15 @@
+User\Domain\User:
+  type: entity
+  repositoryClass: User\Infrastructure\Repository\Doctrine\UserRepository
+  table: user
+  id:
+    id:
+      type: string
+  fields:
+    name:
+      type: string
+  oneToMany:
+    skills:
+      targetEntity: User\Domain\Skill
+      mappedBy: user
+      cascade: ["persist"]
