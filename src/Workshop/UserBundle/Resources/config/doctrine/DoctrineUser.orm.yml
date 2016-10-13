@@ -1,0 +1,24 @@
+Workshop\UserBundle\Entity\DoctrineUser:
+    type: entity
+    table: user
+    id:
+        user_id:
+            type: string
+            generator: { strategy: NONE }
+    fields:
+        name:
+            type: string
+            length: 100
+        surname:
+            type: string
+            length: 100
+        username:
+            type: string
+            length: 100
+        email:
+            type: string
+            length: 100
+    oneToMany:
+        skills:
+            targetEntity: DoctrineSkill
+            mappedBy: user

@@ -1,4 +1,0 @@
-UserManager\Domain\Model\Email\Email:
-    type: embeddable
-    fields:
-        email: { type: string }

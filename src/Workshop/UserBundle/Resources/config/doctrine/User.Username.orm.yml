@@ -1,4 +1,0 @@
-UserManager\Domain\Model\User\Username:
-    type: embeddable
-    fields:
-        username: { type: string }
