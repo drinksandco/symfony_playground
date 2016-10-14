@@ -4,7 +4,6 @@ namespace Obokaman\Playground\Application\Service\User;
 
 use Obokaman\Playground\Application\Service\ApplicationService;
 use Obokaman\Playground\Domain\Infrastructure\Repository\User\UserRepository;
-use Obokaman\Playground\Domain\Model\User\UserId;
 
 class RemoveUser implements ApplicationService
 {
@@ -16,9 +15,8 @@ class RemoveUser implements ApplicationService
         $this->user_repo = $a_user_repository;
     }
 
-    public function __invoke($a_user_id)
+    public function __invoke(RemoveUserRequest $a_request)
     {
-        $user_id = new UserId($a_user_id);
-        $this->user_repo->remove($user_id);
+        $this->user_repo->remove($a_request->userId());
     }
 }
