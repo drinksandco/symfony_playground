@@ -30,7 +30,7 @@ class EditUser implements ApplicationService
         $user->acquireSkill(AddUser::RANDOM_SKILLS[rand(3, 4)]);
 
         // Forget 1 random skill.
-        $user_skills            = $user->skills();
+        $user_skills            = $user->skills()->items();
         $random_skill_to_forget = $user_skills[array_rand($user_skills)];
         $user->forgetSkill($random_skill_to_forget);
 

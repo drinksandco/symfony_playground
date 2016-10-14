@@ -5,6 +5,7 @@ namespace Obokaman\Playground\Domain\Model\User;
 use Doctrine\Common\Collections\ArrayCollection;
 use Obokaman\Playground\Domain\Kernel\EventRecorder;
 use Obokaman\Playground\Domain\Model\Skill\Skill;
+use Obokaman\Playground\Domain\Model\Skill\SkillCollection;
 use Obokaman\Playground\Domain\Model\User\Event\UserCreated;
 use Obokaman\Playground\Domain\Model\User\Event\UserEmailChanged;
 use Obokaman\Playground\Domain\Model\User\Event\UserNameChanged;
@@ -31,14 +32,14 @@ class User
         $a_name,
         Email $an_email,
         \DateTimeImmutable $a_datetime,
-        array $skills
+        SkillCollection $skills
     )
     {
         $this->id            = $a_user_id;
         $this->name          = $a_name;
         $this->email         = $an_email;
         $this->creation_date = $a_datetime;
-        $this->skills        = new ArrayCollection($skills);
+        $this->skills        = new ArrayCollection($skills->items());
     }
 
     public static function create($a_name, Email $an_email)
@@ -46,7 +47,7 @@ class User
         $user_id  = UserId::generateUniqueId();
         $datetime = new \DateTimeImmutable('now');
 
-        $user = new self($user_id, $a_name, $an_email, $datetime, []);
+        $user = new self($user_id, $a_name, $an_email, $datetime, new SkillCollection());
 
         EventRecorder::instance()->recordEvent(new UserCreated($user_id, $a_name, $an_email));
 
@@ -75,7 +76,7 @@ class User
 
     public function skills()
     {
-        return $this->skills->toArray();
+        return new SkillCollection($this->skills->toArray());
     }
 
     public function hasSkill(Skill $a_skill)
