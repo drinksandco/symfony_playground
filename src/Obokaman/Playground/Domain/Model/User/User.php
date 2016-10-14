@@ -31,14 +31,14 @@ class User
         $a_name,
         Email $an_email,
         \DateTimeImmutable $a_datetime,
-        ArrayCollection $skills
+        array $skills
     )
     {
         $this->id            = $a_user_id;
         $this->name          = $a_name;
         $this->email         = $an_email;
         $this->creation_date = $a_datetime;
-        $this->skills        = $skills;
+        $this->skills        = new ArrayCollection($skills);
     }
 
     public static function create($a_name, Email $an_email)
@@ -46,7 +46,7 @@ class User
         $user_id  = UserId::generateUniqueId();
         $datetime = new \DateTimeImmutable('now');
 
-        $user = new self($user_id, $a_name, $an_email, $datetime, new ArrayCollection());
+        $user = new self($user_id, $a_name, $an_email, $datetime, []);
 
         EventRecorder::instance()->recordEvent(new UserCreated($user_id, $a_name, $an_email));
 
@@ -75,7 +75,7 @@ class User
 
     public function skills()
     {
-        return $this->skills;
+        return $this->skills->toArray();
     }
 
     public function hasSkill(Skill $a_skill)
