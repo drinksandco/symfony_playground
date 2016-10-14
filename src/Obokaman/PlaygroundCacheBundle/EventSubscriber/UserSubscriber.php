@@ -3,7 +3,7 @@
 namespace Obokaman\PlaygroundCacheBundle\EventSubscriber;
 
 use Doctrine\Common\Cache\PhpFileCache;
-use Obokaman\Playground\Infrastructure\Event\Symfony\SymfonyEvent;
+use Obokaman\Playground\Infrastructure\MessageBus\Symfony\SymfonyEvent;
 use Obokaman\PlaygroundCacheBundle\Repository\CachedUserRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

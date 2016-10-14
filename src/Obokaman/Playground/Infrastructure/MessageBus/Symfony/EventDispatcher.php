@@ -1,6 +1,6 @@
 <?php
 
-namespace Obokaman\Playground\Infrastructure\Event\Symfony;
+namespace Obokaman\Playground\Infrastructure\MessageBus\Symfony;
 
 use Obokaman\Playground\Domain\Kernel\DomainEvent;
 use Obokaman\Playground\Domain\Kernel\EventDispatcher as EventDispatcherContract;

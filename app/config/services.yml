@@ -63,6 +63,11 @@ services:
             - "@doctrine.dbal.default_connection"
 
     obokaman.domain.event_dispatcher:
-        class: Obokaman\Playground\Infrastructure\Event\Symfony\EventDispatcher
+        class: Obokaman\Playground\Infrastructure\MessageBus\Symfony\EventDispatcher
         arguments:
             - "@event_dispatcher"
+
+    obokaman.domain.command_bus:
+        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\CommandBus
+        arguments:
+            - "@command_bus"
