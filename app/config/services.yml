@@ -61,3 +61,11 @@ services:
             - "@obokaman.domain.event_dispatcher"
         tags:
             - { name: command_bus_middleware, priority: 100 }
+
+    obokaman.domain.command_bus.middleware.db_transaction:
+        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\DBTransactionalityCommandBusMiddleware
+        public: false
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        tags:
+            - { name: command_bus_middleware, priority: 100 }
