@@ -15,8 +15,8 @@ class RemoveUser implements ApplicationService
         $this->user_repo = $a_user_repository;
     }
 
-    public function __invoke(RemoveUserRequest $a_request)
+    public function __invoke(RemoveUserCommand $a_command)
     {
-        $this->user_repo->remove($a_request->userId());
+        $this->user_repo->remove($a_command->userId());
     }
 }

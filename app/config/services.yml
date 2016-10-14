@@ -12,6 +12,8 @@ services:
         class: Obokaman\Playground\Application\Service\User\AddUser
         arguments:
             - "@obokaman.repository.user"
+        tags:
+            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\AddUserCommand }
 
     obokaman.application.service.user.add.with_event_handling:
         class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator
@@ -25,6 +27,8 @@ services:
         class: Obokaman\Playground\Application\Service\User\EditUser
         arguments:
             - "@obokaman.repository.user"
+        tags:
+            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\EditUserCommand }
 
     obokaman.application.service.user.edit.with_event_handling:
         class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator
@@ -38,6 +42,8 @@ services:
         class: Obokaman\Playground\Application\Service\User\RemoveUser
         arguments:
             - "@obokaman.repository.user"
+        tags:
+            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\RemoveUserCommand }
 
     obokaman.application.service.user.remove.with_event_handling:
         class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator

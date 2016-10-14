@@ -17,13 +17,12 @@ class EditUser implements ApplicationService
         $this->user_repo = $a_user_repository;
     }
 
-    public function __invoke(EditUserRequest $an_edit_user_request)
+    public function __invoke(EditUserCommand $a_command)
     {
-        $user_id = new UserId($an_edit_user_request->user_id);
-        $user    = $this->user_repo->find($user_id);
+        $user    = $this->user_repo->find($a_command->userId());
 
-        $user->changeName($an_edit_user_request->name);
-        $user->changeEmail(new Email($an_edit_user_request->email));
+        $user->changeName($a_command->name());
+        $user->changeEmail($a_command->email());
 
         // Acquire two new random skills.
         $user->acquireSkill(AddUser::RANDOM_SKILLS[rand(0, 2)]);

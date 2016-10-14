@@ -24,11 +24,11 @@ class AddUser implements ApplicationService
         $this->user_repo = $a_user_repository;
     }
 
-    public function __invoke(AddUserRequest $a_request)
+    public function __invoke(AddUserCommand $a_command)
     {
-        $user = User::create($a_request->name(), $a_request->email());
+        $user = User::create($a_command->name(), $a_command->email());
 
-        foreach ($a_request->skills() as $skill)
+        foreach ($a_command->skills() as $skill)
         {
             $user->acquireSkill($skill);
         }

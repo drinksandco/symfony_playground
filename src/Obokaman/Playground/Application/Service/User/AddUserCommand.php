@@ -4,7 +4,7 @@ namespace Obokaman\Playground\Application\Service\User;
 
 use Obokaman\Playground\Domain\Model\User\Email;
 
-final class AddUserRequest
+final class AddUserCommand
 {
     /** @var string */
     private $name;

@@ -3,9 +3,9 @@
 namespace Obokaman\PlaygroundBundle\Controller;
 
 use Obokaman\Playground\Application\Service\User\AddUser;
-use Obokaman\Playground\Application\Service\User\AddUserRequest;
-use Obokaman\Playground\Application\Service\User\EditUserRequest;
-use Obokaman\Playground\Application\Service\User\RemoveUserRequest;
+use Obokaman\Playground\Application\Service\User\AddUserCommand;
+use Obokaman\Playground\Application\Service\User\EditUserCommand;
+use Obokaman\Playground\Application\Service\User\RemoveUserCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
@@ -30,31 +30,29 @@ class DefaultController extends Controller
             $skills[] = AddUser::RANDOM_SKILLS[rand(0, 4)];
         }
 
-        $add_user_request = new AddUserRequest(
+        $add_user_command = new AddUserCommand(
             'Pepote ' . rand(1, 10000),
             'pepote.' . rand(1, 10000) . '@gmail.com',
             $skills
         );
 
-        $this->get('obokaman.application.service.user.add')->__invoke($add_user_request);
+        $this->get('obokaman.domain.command_bus')->handle($add_user_command);
 
         return $this->redirectToRoute('obo_homepage');
     }
 
     public function removeAction($user_id)
     {
-        $remove_user_request = new RemoveUserRequest($user_id);
-        $this->get('obokaman.application.service.user.remove')->__invoke($remove_user_request);
+        $remove_user_command = new RemoveUserCommand($user_id);
+        $this->get('obokaman.domain.command_bus')->handle($remove_user_command);
 
         return $this->redirectToRoute('obo_homepage');
     }
 
     public function editAction($user_id, $name, $email)
     {
-        $app_service = $this->get('obokaman.application.service.user.edit');
-
-        $request = new EditUserRequest($user_id, $name, $email);
-        $app_service->__invoke($request);
+        $edit_user_command = new EditUserCommand($user_id, $name, $email);
+        $this->get('obokaman.domain.command_bus')->handle($edit_user_command);
 
         return $this->redirectToRoute('obo_homepage');
     }

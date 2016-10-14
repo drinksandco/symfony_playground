@@ -4,7 +4,7 @@ namespace Obokaman\Playground\Application\Service\User;
 
 use Obokaman\Playground\Domain\Model\User\UserId;
 
-final class RemoveUserRequest
+final class RemoveUserCommand
 {
     /** @var string */
     private $user_id;
