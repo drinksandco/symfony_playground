@@ -2,10 +2,9 @@
 
 namespace Obokaman\Playground\Application\Service\User;
 
-use Obokaman\Playground\Application\Service\ApplicationService;
 use Obokaman\Playground\Domain\Infrastructure\Repository\User\UserRepository;
 
-class ListUsers implements ApplicationService
+class ListUsers
 {
     /** @var UserRepository */
     private $user_repo;

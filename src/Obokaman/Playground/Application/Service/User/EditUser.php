@@ -2,12 +2,9 @@
 
 namespace Obokaman\Playground\Application\Service\User;
 
-use Obokaman\Playground\Application\Service\ApplicationService;
 use Obokaman\Playground\Domain\Infrastructure\Repository\User\UserRepository;
-use Obokaman\Playground\Domain\Model\User\Email;
-use Obokaman\Playground\Domain\Model\User\UserId;
 
-class EditUser implements ApplicationService
+class EditUser
 {
     /** @var UserRepository */
     private $user_repo;
@@ -19,7 +16,7 @@ class EditUser implements ApplicationService
 
     public function __invoke(EditUserCommand $a_command)
     {
-        $user    = $this->user_repo->find($a_command->userId());
+        $user = $this->user_repo->find($a_command->userId());
 
         $user->changeName($a_command->name());
         $user->changeEmail($a_command->email());

@@ -15,14 +15,6 @@ services:
         tags:
             - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\AddUserCommand }
 
-    obokaman.application.service.user.add.with_event_handling:
-        class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator
-        decorates: obokaman.application.service.user.add
-        decoration_inner_name: obokaman.application.service.user.add.raw
-        arguments:
-            - "@obokaman.application.service.user.add.raw"
-            - "@obokaman.domain.event_dispatcher"
-
     obokaman.application.service.user.edit:
         class: Obokaman\Playground\Application\Service\User\EditUser
         arguments:
@@ -30,28 +22,12 @@ services:
         tags:
             - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\EditUserCommand }
 
-    obokaman.application.service.user.edit.with_event_handling:
-        class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator
-        decorates: obokaman.application.service.user.edit
-        decoration_inner_name: obokaman.application.service.user.edit.raw
-        arguments:
-            - "@obokaman.application.service.user.edit.raw"
-            - "@obokaman.domain.event_dispatcher"
-
     obokaman.application.service.user.remove:
         class: Obokaman\Playground\Application\Service\User\RemoveUser
         arguments:
             - "@obokaman.repository.user"
         tags:
             - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\RemoveUserCommand }
-
-    obokaman.application.service.user.remove.with_event_handling:
-        class: Obokaman\Playground\Application\Service\EventAwareApplicationServiceDecorator
-        decorates: obokaman.application.service.user.remove
-        decoration_inner_name: obokaman.application.service.user.remove.raw
-        arguments:
-            - "@obokaman.application.service.user.remove.raw"
-            - "@obokaman.domain.event_dispatcher"
 
     obokaman.repository.user:
         alias: obokaman.repository.orm.user
@@ -77,3 +53,11 @@ services:
         class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\CommandBus
         arguments:
             - "@command_bus"
+
+    obokaman.domain.command_bus.middleware.event_aware:
+        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\EventAwareCommandBusMiddleware
+        public: false
+        arguments:
+            - "@obokaman.domain.event_dispatcher"
+        tags:
+            - { name: command_bus_middleware, priority: 100 }
