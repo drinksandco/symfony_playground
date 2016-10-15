@@ -3,6 +3,14 @@
     <title>Título de la página</title>
 </head>
 <body>
+{% for flash_message in app.session.flashBag.get('success') %}
+    <p><strong style="color:green">{{ flash_message }}</strong></p>
+{% endfor %}
+
+{% for flash_message in app.session.flashBag.get('error') %}
+    <p><strong style="color:red">{{ flash_message }}</strong></p>
+{% endfor %}
+
 <p><a href="{{ url('obo_homepage') }}">Users list</a></p>
 
 <ul>

@@ -42,14 +42,13 @@ class User
         $this->skills        = new ArrayCollection($skills->items());
     }
 
-    public static function create($a_name, Email $an_email)
+    public static function create(UserId $a_user_id, $a_name, Email $an_email)
     {
-        $user_id  = UserId::generateUniqueId();
         $datetime = new \DateTimeImmutable('now');
 
-        $user = new self($user_id, $a_name, $an_email, $datetime, new SkillCollection());
+        $user = new self($a_user_id, $a_name, $an_email, $datetime, new SkillCollection());
 
-        EventRecorder::instance()->recordEvent(new UserCreated($user_id, $a_name, $an_email));
+        EventRecorder::instance()->recordEvent(new UserCreated($a_user_id, $a_name, $an_email));
 
         return $user;
     }

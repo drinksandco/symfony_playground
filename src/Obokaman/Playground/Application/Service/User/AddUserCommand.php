@@ -3,9 +3,13 @@
 namespace Obokaman\Playground\Application\Service\User;
 
 use Obokaman\Playground\Domain\Model\User\Email;
+use Obokaman\Playground\Domain\Model\User\UserId;
 
 final class AddUserCommand
 {
+    /** @var UserId */
+    private $user_id;
+
     /** @var string */
     private $name;
 
@@ -17,9 +21,15 @@ final class AddUserCommand
 
     public function __construct($a_name, $an_email, array $some_skills)
     {
-        $this->name   = $a_name;
-        $this->email  = $an_email;
-        $this->skills = $some_skills;
+        $this->user_id = UserId::generateUniqueId();
+        $this->name    = $a_name;
+        $this->email   = $an_email;
+        $this->skills  = $some_skills;
+    }
+
+    public function userId()
+    {
+        return $this->user_id;
     }
 
     public function name()

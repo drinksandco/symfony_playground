@@ -36,7 +36,15 @@ class DefaultController extends Controller
             $skills
         );
 
-        $this->get('obokaman.domain.command_bus')->handle($add_user_command);
+        try
+        {
+            $this->get('obokaman.domain.command_bus')->handle($add_user_command);
+            $this->addFlash('success', 'Added new user with ID: ' . $add_user_command->userId());
+        }
+        catch (\Exception $e)
+        {
+            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+        }
 
         return $this->redirectToRoute('obo_homepage');
     }
@@ -44,7 +52,15 @@ class DefaultController extends Controller
     public function removeAction($user_id)
     {
         $remove_user_command = new RemoveUserCommand($user_id);
-        $this->get('obokaman.domain.command_bus')->handle($remove_user_command);
+        try
+        {
+            $this->get('obokaman.domain.command_bus')->handle($remove_user_command);
+            $this->addFlash('success', 'Removed user with ID: ' . $remove_user_command->userId());
+        }
+        catch (\Exception $e)
+        {
+            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+        }
 
         return $this->redirectToRoute('obo_homepage');
     }
@@ -52,7 +68,17 @@ class DefaultController extends Controller
     public function editAction($user_id, $name, $email)
     {
         $edit_user_command = new EditUserCommand($user_id, $name, $email);
-        $this->get('obokaman.domain.command_bus')->handle($edit_user_command);
+
+        try
+        {
+            $this->get('obokaman.domain.command_bus')->handle($edit_user_command);
+            $this->addFlash('success', 'Edited succesfully user with ID: ' . $edit_user_command->userId());
+        }
+        catch (\Exception $e)
+        {
+            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+        }
+
 
         return $this->redirectToRoute('obo_homepage');
     }

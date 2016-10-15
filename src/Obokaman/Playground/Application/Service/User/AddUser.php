@@ -25,7 +25,7 @@ class AddUser
 
     public function __invoke(AddUserCommand $a_command)
     {
-        $user = User::create($a_command->name(), $a_command->email());
+        $user = User::create($a_command->userId(), $a_command->name(), $a_command->email());
 
         foreach ($a_command->skills() as $skill)
         {

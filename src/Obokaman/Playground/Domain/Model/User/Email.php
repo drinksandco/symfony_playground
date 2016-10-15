@@ -9,7 +9,14 @@ class Email
 
     public function __construct(string $an_email)
     {
-        $this->email = mb_strtolower($an_email);
+        $email = mb_strtolower($an_email);
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            throw new \InvalidArgumentException('Email "' . $email . '" has an invalid format');
+        }
+
+        $this->email = $email;
     }
 
     public function email()
@@ -24,6 +31,6 @@ class Email
 
     public function equals(self $an_email)
     {
-        return $this->email == $an_email->email();
+        return $this->email === $an_email->email();
     }
 }
