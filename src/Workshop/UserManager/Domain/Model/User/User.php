@@ -2,6 +2,7 @@
 
 namespace UserManager\Domain\Model\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
 use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheEmail;
@@ -9,10 +10,8 @@ use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheName;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheSurname;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Infrastructure\Event\User\UserHasAddedANewSkill;
-use UserManager\Domain\Model\User\Skill;
-use UserManager\Domain\Model\User\SkillCollection;
 
-final class User
+class User
 {
     /** @var UserId */
     private $user_id;
@@ -39,7 +38,7 @@ final class User
         $this->surname = $a_surname;
         $this->username = $a_username;
         $this->email = $an_email;
-        $this->skills = $some_skills;
+        $this->skills = new ArrayCollection($some_skills->items());
     }
 
     public static function register($a_name, $a_surname, Username $a_username, Email $an_email, SkillCollection $some_skills)
@@ -121,7 +120,7 @@ final class User
 
     public function skills()
     {
-        return $this->skills;
+        return new SkillCollection($this->skills->toArray());
     }
 
     public function addSkill(Skill $a_skill)

@@ -32,7 +32,7 @@ final class UserCollection
         return (count($this->users) === 0);
     }
 
-    public function users()
+    public function items()
     {
         return $this->users;
     }

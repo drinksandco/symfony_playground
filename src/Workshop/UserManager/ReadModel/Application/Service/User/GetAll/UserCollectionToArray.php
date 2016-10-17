@@ -24,7 +24,7 @@ class UserCollectionToArray implements GetAllMarshaller
 
         $user_array = [];
 
-        foreach ($user_collection->users() as $user)
+        foreach ($user_collection->items() as $user)
         {
             $user_array[] = $this->user_to_array_marshmaller->__invoke($user);
         }

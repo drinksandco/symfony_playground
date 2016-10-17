@@ -23,7 +23,7 @@ class UserRepository implements UserRepositoryContract
 
     public function findAll()
     {
-        $result = $this->entity_manager->getRepository('UserManager:User\User')->findAll();
+        $result = $this->entity_manager->getRepository(User::class)->findAll();
 
         if (empty($result))
         {
@@ -35,7 +35,7 @@ class UserRepository implements UserRepositoryContract
 
     public function findById(UserId $user_id)
     {
-        $result = $this->entity_manager->getRepository('UserManager:User\User')->find($user_id->userId());
+        $result = $this->entity_manager->getRepository(User::class)->find($user_id->userId());
 
         if (empty($result))
         {
@@ -47,26 +47,19 @@ class UserRepository implements UserRepositoryContract
 
     public function add(User $a_new_user)
     {
-        $a_doctrine_user = $this->hydrateDoctrineUser($a_new_user);
-        $this->entity_manager->persist($a_doctrine_user);
+        $this->entity_manager->persist($a_new_user);
         $this->entity_manager->flush();
     }
 
     public function update(User $a_user)
     {
-        $a_doctrine_user = $this->hydrateDoctrineUser($a_user);
-        $this->entity_manager->persist($a_doctrine_user);
+        $this->entity_manager->persist($a_user);
         $this->entity_manager->flush();
     }
 
     public function delete(UserId $user_id)
     {
-        $user = $this->findById($user_id);
-
-        if (!$user instanceof User)
-        {
-            return false;
-        }
+        $user = $this->entity_manager->getReference(User::class, $user_id->userId());
 
         $this->entity_manager->remove($user);
         $this->entity_manager->flush();
@@ -97,31 +90,7 @@ class UserRepository implements UserRepositoryContract
             $doctrine_user->surname(),
             $doctrine_user->username(),
             $doctrine_user->email(),
-            $this->hydrateSkillsCollection($doctrine_user->skills())
+            $doctrine_user->skills()
         );
-    }
-
-    private function hydrateDoctrineUser(User $user)
-    {
-        return new User(
-            $user->userId(),
-            $user->name(),
-            $user->surname(),
-            $user->username(),
-            $user->email(),
-            new ArrayCollection($user->skills()->skills())
-        );
-    }
-
-    private function hydrateSkillsCollection(PersistentCollection $skills)
-    {
-        $skills_collection = new SkillCollection();
-
-        foreach ($skills as $skill)
-        {
-            $skills_collection->add($skill);
-        }
-
-        return $skills_collection;
     }
 }

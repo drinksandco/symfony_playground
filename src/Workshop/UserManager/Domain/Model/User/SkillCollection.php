@@ -32,7 +32,7 @@ final class SkillCollection
         return (count($this->skills) === 0);
     }
 
-    public function skills()
+    public function items()
     {
         return $this->skills;
     }
