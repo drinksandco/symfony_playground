@@ -1,0 +1,10 @@
+UserManager\Domain\Model\User\Skill:
+    type: entity
+    table: skills
+    fields:
+        name: { type: string }
+    embedded:
+        skill_id:
+            class: UserManager\Domain\Model\User\SkillId
+            columnPrefix: false
+

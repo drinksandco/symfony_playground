@@ -9,6 +9,8 @@ use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheName;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheSurname;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Infrastructure\Event\User\UserHasAddedANewSkill;
+use UserManager\Domain\Model\User\Skill;
+use UserManager\Domain\Model\User\SkillCollection;
 
 final class User
 {
