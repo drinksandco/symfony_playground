@@ -60,8 +60,6 @@ class UserRepository implements UserRepositoryContract
 
         $this->entity_manager->remove($user);
         $this->entity_manager->flush();
-
-        return true;
     }
 
     private function hydrateUsers($result)
