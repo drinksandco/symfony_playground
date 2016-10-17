@@ -2,14 +2,14 @@ services:
     ########################
     # Application Services #
     ########################
-    user_manager.read_model.application.service.user.get_all.use_case:
-        class: UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersUseCase
+    user_manager.read_model.application.service.user.get_all:
+        class: UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsers
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
             - "@user_manager.read_model.application.service.user.get_all.marshaller.user_to_array"
 
-    user_manager.read_model.application.service.user.get_by_id.use_case:
-        class: UserManager\ReadModel\Application\Service\User\GetById\GetByIdUseCase
+    user_manager.read_model.application.service.user.get_by_id:
+        class: UserManager\ReadModel\Application\Service\User\GetById\GetById
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
             - "@user_manager.read_model.application.service.user.get_by_id.marshaller.user_to_array"

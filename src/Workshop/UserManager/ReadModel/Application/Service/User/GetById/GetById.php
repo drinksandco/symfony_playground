@@ -5,7 +5,7 @@ namespace UserManager\ReadModel\Application\Service\User\GetById;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\User\UserId;
 
-class GetByIdUseCase
+class GetById
 {
     /** @var UserRepository */
     private $user_repository;
@@ -15,7 +15,7 @@ class GetByIdUseCase
 
     public function __construct(UserRepository $a_user_repository, GetByIdMarshaller $a_get_by_id_marshaller)
     {
-        $this->user_repository = $a_user_repository;
+        $this->user_repository      = $a_user_repository;
         $this->get_by_id_marshaller = $a_get_by_id_marshaller;
     }
 

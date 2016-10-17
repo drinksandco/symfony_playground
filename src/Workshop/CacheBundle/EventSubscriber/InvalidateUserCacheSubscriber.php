@@ -3,9 +3,9 @@
 namespace Workshop\CacheBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserAdded;
-use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserDeleted;
-use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserUpdated;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserAddedSubscriber;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserDeletedSubscriber;
+use UserManager\Application\EventSubscriber\InvalidateUserCacheWhenUserUpdatedSubscriber;
 use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheEmail;
@@ -16,19 +16,19 @@ use UserManager\Infrastructure\Event\Symfony\Event;
 
 class InvalidateUserCacheSubscriber implements EventSubscriberInterface
 {
-    /** @var InvalidateUserCacheWhenUserAdded */
+    /** @var InvalidateUserCacheWhenUserAddedSubscriber */
     private $invalidate_user_cache_when_user_added_domain_subscriber;
 
-    /** @var InvalidateUserCacheWhenUserUpdated */
+    /** @var InvalidateUserCacheWhenUserUpdatedSubscriber */
     private $invalidate_user_cache_when_user_updated_domain_subscriber;
 
-    /** @var InvalidateUserCacheWhenUserDeleted */
+    /** @var InvalidateUserCacheWhenUserDeletedSubscriber */
     private $invalidate_user_cache_when_user_deleted_domain_subscriber;
 
     public function __construct(
-        InvalidateUserCacheWhenUserAdded $an_invalidate_user_cache_when_user_added_domain_subscriber,
-        InvalidateUserCacheWhenUserUpdated $an_invalidate_user_cache_when_user_updated_domain_subscriber,
-        InvalidateUserCacheWhenUserDeleted $an_invalidate_user_cache_when_user_deleted_domain_subscriber
+        InvalidateUserCacheWhenUserAddedSubscriber $an_invalidate_user_cache_when_user_added_domain_subscriber,
+        InvalidateUserCacheWhenUserUpdatedSubscriber $an_invalidate_user_cache_when_user_updated_domain_subscriber,
+        InvalidateUserCacheWhenUserDeletedSubscriber $an_invalidate_user_cache_when_user_deleted_domain_subscriber
     )
     {
         $this->invalidate_user_cache_when_user_added_domain_subscriber   = $an_invalidate_user_cache_when_user_added_domain_subscriber;

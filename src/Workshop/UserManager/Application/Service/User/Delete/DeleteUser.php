@@ -8,7 +8,7 @@ use UserManager\Domain\Infrastructure\Event\User\UserDeleted;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\User\UserId;
 
-final class DeleteUserUseCase implements ApplicationService
+final class DeleteUser implements ApplicationService
 {
     /** @var UserRepository */
     private $user_repository;

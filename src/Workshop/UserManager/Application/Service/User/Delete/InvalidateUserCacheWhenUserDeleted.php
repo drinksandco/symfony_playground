@@ -5,7 +5,7 @@ namespace UserManager\Application\Service\User\Delete;
 use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Infrastructure\Cache\CacheKey;
 
-class InvalidateUserCacheWhenUserDeletedUseCase
+class InvalidateUserCacheWhenUserDeleted
 {
     private $cache_service;
 

@@ -6,7 +6,7 @@ use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Infrastructure\Cache\CacheKey;
 use UserManager\Application\Service\Core\ApplicationService;
 
-class InvalidateUserCacheWhenUserAddedUseCase implements ApplicationService
+class InvalidateUserCacheWhenUserAdded implements ApplicationService
 {
     /** @var Cache */
     private $cache_service;

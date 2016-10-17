@@ -2,11 +2,8 @@
 
 namespace UserManager\Infrastructure\Repository\Doctrine\Orm\User;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\PersistentCollection;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
-use UserManager\Domain\Model\User\SkillCollection;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\UserCollection;
 use UserManager\Domain\Model\User\UserId;
@@ -75,7 +72,6 @@ class UserRepository implements UserRepositoryContract
         {
             $user = $this->hydrateUser($doctrine_user);
 
-
             $user_collection->add($user);
         }
 
@@ -85,12 +81,7 @@ class UserRepository implements UserRepositoryContract
     private function hydrateUser(User $doctrine_user)
     {
         return new User(
-            $doctrine_user->userId(),
-            $doctrine_user->name(),
-            $doctrine_user->surname(),
-            $doctrine_user->username(),
-            $doctrine_user->email(),
-            $doctrine_user->skills()
+            $doctrine_user->userId(), $doctrine_user->name(), $doctrine_user->surname(), $doctrine_user->username(), $doctrine_user->email(), $doctrine_user->skills()
         );
     }
 }

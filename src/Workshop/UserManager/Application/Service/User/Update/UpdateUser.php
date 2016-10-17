@@ -8,7 +8,7 @@ use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\UserId;
 
-final class UpdateUserUseCase implements ApplicationService
+final class UpdateUser implements ApplicationService
 {
     /** @var UserRepository */
     private $user_repository;

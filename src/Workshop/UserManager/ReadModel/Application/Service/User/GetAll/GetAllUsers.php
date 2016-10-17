@@ -4,7 +4,7 @@ namespace UserManager\ReadModel\Application\Service\User\GetAll;
 
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 
-final class GetAllUsersUseCase
+final class GetAllUsers
 {
     /** @var UserRepository */
     private $user_repository;
@@ -14,7 +14,7 @@ final class GetAllUsersUseCase
 
     public function __construct(UserRepository $a_user_repository, GetAllMarshaller $a_get_all_marshaller)
     {
-        $this->user_repository = $a_user_repository;
+        $this->user_repository    = $a_user_repository;
         $this->get_all_marshaller = $a_get_all_marshaller;
     }
 

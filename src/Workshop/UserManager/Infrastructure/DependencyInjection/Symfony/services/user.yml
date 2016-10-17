@@ -7,40 +7,40 @@ services:
     ########################
 
     #Add User
-    user_manager.application.service.user.add.add_user:
+    user_manager.application.service.user.add:
         class: UserManager\Application\Service\Core\DispatchEvents
         arguments:
             - "@user_manager.application.service.user.add.add_user_original"
             - "@user_manager.domain.infrastructure.event_dispatcher"
 
     user_manager.application.service.user.add.add_user_original:
-        class: UserManager\Application\Service\User\Add\AddUserUseCase
+        class: UserManager\Application\Service\User\Add\AddUser
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
 
     # Update User
 
-    user_manager.application.service.user.update.update_user:
+    user_manager.application.service.user.update:
         class: UserManager\Application\Service\Core\DispatchEvents
         arguments:
             - "@user_manager.application.service.user.update.update_user_original"
             - "@user_manager.domain.infrastructure.event_dispatcher"
 
     user_manager.application.service.user.update.update_user_original:
-        class: UserManager\Application\Service\User\Update\UpdateUserUseCase
+        class: UserManager\Application\Service\User\Update\UpdateUser
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
             - "@user_manager.domain.infrastructure.event_dispatcher"
 
     # Delete User
-    user_manager.application.service.user.delete.delete_user:
+    user_manager.application.service.user.delete:
         class: UserManager\Application\Service\Core\DispatchEvents
         arguments:
             - "@user_manager.application.service.user.delete.delete_user_original"
             - "@user_manager.domain.infrastructure.event_dispatcher"
 
     user_manager.application.service.user.delete.delete_user_original:
-        class: UserManager\Application\Service\User\Delete\DeleteUserUseCase
+        class: UserManager\Application\Service\User\Delete\DeleteUser
         arguments:
             - "@user_manager.domain.infrastructure.repository.user"
 

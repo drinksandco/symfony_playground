@@ -9,7 +9,7 @@ use UserManager\Domain\Model\User\SkillCollection;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\Username;
 
-final class AddUserUseCase implements ApplicationService
+final class AddUser implements ApplicationService
 {
     /** @var UserRepository */
     private $user_repository;

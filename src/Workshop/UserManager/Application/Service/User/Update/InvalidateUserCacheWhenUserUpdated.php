@@ -5,7 +5,7 @@ namespace UserManager\Application\Service\User\Update;
 use UserManager\Domain\Infrastructure\Cache\Cache;
 use UserManager\Domain\Infrastructure\Cache\CacheKey;
 
-class InvalidateUserCacheWhenUserUpdatedUseCase
+class InvalidateUserCacheWhenUserUpdated
 {
     /** @var Cache */
     private $cache_service;
@@ -14,7 +14,7 @@ class InvalidateUserCacheWhenUserUpdatedUseCase
     {
         $this->cache_service = $a_cache_service;
     }
-    
+
     public function __invoke(InvalidateUserCacheWhenUserUpdatedRequest $a_request)
     {
         $this->cache_service->remove(new CacheKey($a_request->specificUserCacheKey()));
