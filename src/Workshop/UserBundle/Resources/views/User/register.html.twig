@@ -2,6 +2,10 @@
 
 {% block title %} {{ parent() }}Register{% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('bundles/user/js/add-skill.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
     <div class="container">
@@ -9,7 +13,7 @@
 
         <div class="row">
             <a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to the list</a>
-
+            <br>
             {{ form_start(form) }}
             {{ form_widget(form.name, {
                 'attr': {
@@ -30,15 +34,25 @@
                     'class': 'form-control',
                     'placeholder': 'username'
                 }
-            })}}
+            }) }}
             <br>
             {{ form_widget(form.email, {
                 'attr': {
                     'class': 'form-control',
                     'placeholder': 'email'
                 }
-            })}}
+            }) }}
             <br>
+            <h3>Add some skills</h3>
+
+            {{ form_widget(form.skills.name, {
+                 'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'skill name'
+                }
+            }) }}
+            <br>
+
             {{ form_widget(form.submit, {
                 'attr': {
                     'class': 'btn btn-primary pull-right'

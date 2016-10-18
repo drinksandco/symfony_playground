@@ -12,6 +12,7 @@ use UserManager\Application\Service\User\Delete\DeleteUserRequest;
 use UserManager\Application\Service\User\Update\UpdateUserRequest;
 use UserManager\ReadModel\Application\Service\User\GetAll\GetAllUsersRequest;
 use UserManager\ReadModel\Application\Service\User\GetById\GetByIdRequest;
+use Workshop\UserBundle\Form\UserType;
 
 class UserController extends Controller
 {
@@ -39,13 +40,7 @@ class UserController extends Controller
 
     public function registerAction(Request $request)
     {
-        $form = $this->createFormBuilder()
-            ->add('name', TextType::class)
-            ->add('surname', TextType::class)
-            ->add('username', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(UserType::class);
 
         $form->handleRequest($request);
 
@@ -72,12 +67,7 @@ class UserController extends Controller
 
     public function updateAction($user_id, Request $request)
     {
-        $form = $this->createFormBuilder()
-            ->add('name', TextType::class)
-            ->add('surname', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(UserType::class);
 
         $form->handleRequest($request);
 
