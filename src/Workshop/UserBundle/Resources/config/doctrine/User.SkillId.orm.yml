@@ -1,0 +1,6 @@
+UserManager\Domain\Model\User\SkillId:
+    type: embeddable
+    id:
+        skill_id:
+            type: string
+            column: id

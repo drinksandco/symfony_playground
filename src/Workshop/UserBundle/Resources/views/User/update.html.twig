@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{ parent() }}Update{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/user/js/user/add-skill.js') }}"></script>
+    <script src="{{ asset('bundles/user/js/user/update-skills.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>Update {{ user.username.username }}</h1>
+
+        <div class="row">
+            <a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to the list</a>
+
+            {{ form_start(form) }}
+            {{ form_widget(form.name, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'name',
+                    'value': user.name
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.surname, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'surname',
+                    'value': user.surname
+                }
+            }) }}
+            <br>
+            {{ form_widget(form.email, {
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'email',
+                    'value': user.email
+                }
+            })}}
+            <br>
+
+            <h3>Add some skills</h3>
+
+            <ul style="list-style-type: none;" id="skills-list" data-prototype="
+                {% filter escape %}
+                    {{ include('UserBundle:User/Prototype:skill_prototype.html.twig', {'form': form.skills.vars.prototype}) }}
+                {% endfilter %}">
+                {% for skill in user.skills %}
+                    <li>{{ skill.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <button id="add-skill" class="btn btn-primary">Add Skill</button>
+
+            {{ form_widget(form.submit, {
+                'attr': {
+                    'class': 'btn btn-primary pull-right'
+                }
+            }) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

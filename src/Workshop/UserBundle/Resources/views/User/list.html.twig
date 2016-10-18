@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{ parent() }}List{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1>User's List</h1>
+        <div class="row"><a href="{{ path('user_register') }}" class="btn btn-primary pull-right">Register</a></div>
+
+        {% for user in users %}
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
+                        <a href="{{ path('user_view', {'user_id': user.id}) }}" class="btn btn-success pull-right">View</a>
+                        <div><label>Username:</label> {{ user.username.username }}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

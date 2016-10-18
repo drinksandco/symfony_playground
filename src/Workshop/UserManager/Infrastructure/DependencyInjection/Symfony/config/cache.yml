@@ -1,0 +1,2 @@
+parameters:
+    cache.filesystem.path: "%kernel.cache_dir%/filesystem_cache"
