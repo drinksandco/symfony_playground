@@ -5,6 +5,9 @@ namespace UserManager\Application\Service\User\Update;
 use UserManager\Application\Service\Core\ApplicationService;
 use UserManager\Domain\Infrastructure\Repository\User\UserRepository;
 use UserManager\Domain\Model\Email\Email;
+use UserManager\Domain\Model\User\Skill;
+use UserManager\Domain\Model\User\SkillCollection;
+use UserManager\Domain\Model\User\SkillId;
 use UserManager\Domain\Model\User\User;
 use UserManager\Domain\Model\User\UserId;
 
@@ -31,6 +34,26 @@ final class UpdateUser implements ApplicationService
         $user->changeSurname($a_request->surname());
         $user->changeEmail(new Email($a_request->email()));
 
-        $this->user_repository->update($user);
+        $skills_collection = $this->getSkillCollection($a_request->skills());
+        $user->changeSkills($skills_collection);
+
+        $this->user_repository->persist($user);
+    }
+
+    private function getSkillCollection($raw_skills)
+    {
+        $skill_collection = new SkillCollection();
+
+        if (empty($raw_skills))
+        {
+            return $skill_collection;
+        }
+
+        foreach ($raw_skills as $raw_skill)
+        {
+            $skill_collection->add(new Skill(new SkillId($raw_skill['skill_id']), $raw_skill['name']));
+        }
+
+        return $skill_collection;
     }
 }

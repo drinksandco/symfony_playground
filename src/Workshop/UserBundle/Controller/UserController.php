@@ -3,9 +3,6 @@
 namespace Workshop\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use UserManager\Application\Service\User\Add\AddUserRequest;
 use UserManager\Application\Service\User\Delete\DeleteUserRequest;
@@ -40,7 +37,7 @@ class UserController extends Controller
 
     public function registerAction(Request $request)
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(UserType::class, $data = null, $options = ['data' => ['is_an_insert' => true]]);
 
         $form->handleRequest($request);
 
@@ -51,7 +48,8 @@ class UserController extends Controller
                     $form->get('name')->getData(),
                     $form->get('surname')->getData(),
                     $form->get('email')->getData(),
-                    $form->get('username')->getData()
+                    $form->get('username')->getData(),
+                    $form->get('skills')->getData()
                 )
             );
 
@@ -67,7 +65,7 @@ class UserController extends Controller
 
     public function updateAction($user_id, Request $request)
     {
-        $form = $this->createForm(UserType::class);
+        $form = $this->createForm(UserType::class, $data = null, $options = ['data' => ['is_an_insert' => false]]);
 
         $form->handleRequest($request);
 
@@ -78,7 +76,8 @@ class UserController extends Controller
                     $user_id,
                     $form->get('name')->getData(),
                     $form->get('surname')->getData(),
-                    $form->get('email')->getData()
+                    $form->get('email')->getData(),
+                    $form->get('skills')->getData()
                 )
             );
 

@@ -12,15 +12,17 @@ class UserRepository implements UserRepositoryContract
 {
     /** @var EntityManagerInterface */
     private $entity_manager;
+    private $repo;
 
     public function __construct(EntityManagerInterface $an_entity_manager)
     {
         $this->entity_manager = $an_entity_manager;
+        $this->repo = $this->entity_manager->getRepository(User::class);
     }
 
     public function findAll()
     {
-        $result = $this->entity_manager->getRepository(User::class)->findAll();
+        $result = $this->repo->findAll();
 
         if (empty($result))
         {
@@ -32,25 +34,23 @@ class UserRepository implements UserRepositoryContract
 
     public function findById(UserId $user_id)
     {
-        $result = $this->entity_manager->getRepository(User::class)->find($user_id->userId());
+        $result = $this->repo->find($user_id->userId());
 
         if (empty($result))
         {
             return null;
         }
 
-        return $this->hydrateUser($result);
+        return $result;
     }
 
-    public function add(User $a_new_user)
+    public function persist(User $a_user, $needs_persist = false)
     {
-        $this->entity_manager->persist($a_new_user);
-        $this->entity_manager->flush();
-    }
+        if ($needs_persist)
+        {
+            $this->entity_manager->persist($a_user);
+        }
 
-    public function update(User $a_user)
-    {
-        $this->entity_manager->persist($a_user);
         $this->entity_manager->flush();
     }
 
@@ -66,20 +66,11 @@ class UserRepository implements UserRepositoryContract
     {
         $user_collection = new UserCollection();
 
-        foreach ($result as $doctrine_user)
+        foreach ($result as $user)
         {
-            $user = $this->hydrateUser($doctrine_user);
-
             $user_collection->add($user);
         }
 
         return $user_collection;
-    }
-
-    private function hydrateUser(User $doctrine_user)
-    {
-        return new User(
-            $doctrine_user->userId(), $doctrine_user->name(), $doctrine_user->surname(), $doctrine_user->username(), $doctrine_user->email(), $doctrine_user->skills()
-        );
     }
 }

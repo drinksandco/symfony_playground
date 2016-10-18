@@ -11,9 +11,7 @@ interface UserRepository
 
     public function findById(UserId $user_id);
 
-    public function add(User $a_new_user);
-
-    public function update(User $a_user);
+    public function persist(User $a_user, $needs_persist = false);
 
     public function delete(UserId $user_id);
 }

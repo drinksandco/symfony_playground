@@ -10,17 +10,34 @@
         <div class="row"><a href="{{ path('user_list') }}" class="btn btn-warning pull-right">Back to list</a></div>
 
         <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <a href="{{ path('user_update', {'user_id': user.id}) }}" class="btn btn-success pull-right">Update</a>
-                        <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
-                        <div><label>Name:</label> {{ user.name }}</div>
-                        <div><label>Surname:</label> {{ user.surname }}</div>
-                        <div><label>Username:</label> {{ user.username.username }}</div>
-                        <div><label>Email:</label> {{ user.email }}</div>
-                    </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{{ path('user_update', {'user_id': user.id}) }}" class="btn btn-success pull-right">Update</a>
+                    <a href="{{ path('user_delete', {'user_id': user.id}) }}" class="btn btn-danger pull-right">Delete</a>
+                    <div><label>Name:</label> {{ user.name }}</div>
+                    <div><label>Surname:</label> {{ user.surname }}</div>
+                    <div><label>Username:</label> {{ user.username.username }}</div>
+                    <div><label>Email:</label> {{ user.email }}</div>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Skills</h3>
+                    {% if user.skills|length > 0 %}
+                        <ul>
+                        {% for skill in user.skills %}
+                            <li>{{ skill.name }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% else %}
+                        No skills yet
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

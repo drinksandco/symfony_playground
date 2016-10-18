@@ -9,7 +9,10 @@ final class SkillCollection
 
     public function __construct(array $some_skills = [])
     {
-        $this->skills = $some_skills;
+        foreach ($some_skills as $skill)
+        {
+            $this->add($skill);
+        }
     }
 
     public function first()
@@ -46,12 +49,15 @@ final class SkillCollection
     {
         $raw_skills = [];
 
-        foreach ($this->skills as $skill)
+        if (!empty($this->skills))
         {
-            $raw_skills[] = [
-                'skill_id' => $skill->skillId()->skillId(),
-                'name'     => $skill->name()
-            ];
+            foreach ($this->skills as $skill)
+            {
+                $raw_skills[] = [
+                    'skill_id' => $skill->skillId()->skillId(),
+                    'name'     => $skill->name()
+                ];
+            }
         }
 
         return $raw_skills;

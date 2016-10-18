@@ -2,6 +2,12 @@
 
 {% block title %} {{ parent() }}Update{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/user/js/user/add-skill.js') }}"></script>
+    <script src="{{ asset('bundles/user/js/user/update-skills.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
     <div class="container">
@@ -35,6 +41,20 @@
                 }
             })}}
             <br>
+
+            <h3>Add some skills</h3>
+
+            <ul style="list-style-type: none;" id="skills-list" data-prototype="
+                {% filter escape %}
+                    {{ include('UserBundle:User/Prototype:skill_prototype.html.twig', {'form': form.skills.vars.prototype}) }}
+                {% endfilter %}">
+                {% for skill in user.skills %}
+                    <li>{{ skill.name }}</li>
+                {% endfor %}
+            </ul>
+
+            <button id="add-skill" class="btn btn-primary">Add Skill</button>
+
             {{ form_widget(form.submit, {
                 'attr': {
                     'class': 'btn btn-primary pull-right'

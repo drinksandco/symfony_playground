@@ -49,14 +49,9 @@ class UserCacheRepository implements UserRepository
         return $content;
     }
 
-    public function add(User $a_new_user)
+    public function persist(User $a_user, $needs_persist = false)
     {
-        return $this->user_repository->add($a_new_user);
-    }
-
-    public function update(User $a_user)
-    {
-        return $this->user_repository->update($a_user);
+        $this->user_repository->persist($a_user, $needs_persist);
     }
 
     public function delete(UserId $user_id)

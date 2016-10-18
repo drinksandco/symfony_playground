@@ -7,6 +7,7 @@ use UserManager\Domain\Infrastructure\Event\DomainEventRecorder;
 use UserManager\Domain\Infrastructure\Event\User\UserAdded;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheEmail;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheName;
+use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheSkills;
 use UserManager\Domain\Infrastructure\Event\User\UserHasUpdatedTheSurname;
 use UserManager\Domain\Model\Email\Email;
 use UserManager\Domain\Infrastructure\Event\User\UserHasAddedANewSkill;
@@ -91,6 +92,12 @@ class User
         DomainEventRecorder::instance()->recordEvent(new UserHasUpdatedTheEmail($this));
 
         return $this;
+    }
+
+    public function changeSkills(SkillCollection $some_skills)
+    {
+        $this->skills = new ArrayCollection($some_skills->toArray());
+        DomainEventRecorder::instance()->recordEvent(new UserHasUpdatedTheSkills($this));
     }
 
     public function userId()

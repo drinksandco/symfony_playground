@@ -26,6 +26,5 @@ UserManager\Domain\Model\User\User:
                     skill_id:
                         referencedColumnName: id
                         unique: true
-
-
-
+            cascade:
+                - all
