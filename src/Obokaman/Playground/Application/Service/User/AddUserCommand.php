@@ -7,7 +7,7 @@ use Obokaman\Playground\Domain\Model\User\UserId;
 
 final class AddUserCommand
 {
-    /** @var UserId */
+    /** @var string */
     private $user_id;
 
     /** @var string */
@@ -21,7 +21,7 @@ final class AddUserCommand
 
     public function __construct($a_name, $an_email, array $some_skills)
     {
-        $this->user_id = UserId::generateUniqueId();
+        $this->user_id = (string) UserId::generateUniqueId();
         $this->name    = $a_name;
         $this->email   = $an_email;
         $this->skills  = $some_skills;
@@ -29,7 +29,7 @@ final class AddUserCommand
 
     public function userId()
     {
-        return $this->user_id;
+        return new UserId($this->user_id);
     }
 
     public function name()
