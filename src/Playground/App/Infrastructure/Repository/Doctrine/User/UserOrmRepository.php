@@ -10,7 +10,7 @@ use Playground\App\Domain\Model\User\User;
 use Playground\App\Domain\Model\User\UserId;
 use Playground\App\Infrastructure\Repository\Doctrine\User\UserBaseRepository as DoctrineUserRepository;
 
-class UserRepository implements UserRepositoryContract
+class UserOrmRepository implements UserRepositoryContract
 {
     /** @var EntityManager */
     private $em;
@@ -21,7 +21,7 @@ class UserRepository implements UserRepositoryContract
     public function __construct(EntityManager $an_entity_manager)
     {
         $this->em   = $an_entity_manager;
-        $this->repo = $this->em->getRepository("Playground:User\User");
+        $this->repo = $this->em->getRepository(User::class);
     }
 
     public function find(UserId $a_user_id)

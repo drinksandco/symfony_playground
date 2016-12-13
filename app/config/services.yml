@@ -34,7 +34,7 @@ services:
 
     playground.repository.orm.user:
         public: false
-        class: Playground\App\Infrastructure\Repository\Doctrine\User\UserRepository
+        class: Playground\App\Infrastructure\Repository\Doctrine\User\UserOrmRepository
         arguments:
             - "@doctrine.orm.entity_manager"
 
