@@ -1,0 +1,16 @@
+obo_homepage:
+    path:     /
+    defaults: { _controller: MainBundle:Default:index }
+
+obo_user_add:
+    path:     /add-user
+    defaults: { _controller: MainBundle:Default:add }
+
+obo_user_remove:
+    path:     /remove-user/{user_id}
+    defaults: { _controller: MainBundle:Default:remove }
+
+obo_user_edit:
+    path:     /edit-user/{user_id}/{email}/{name}
+    defaults: { _controller: MainBundle:Default:edit }
+    methods: ['GET']

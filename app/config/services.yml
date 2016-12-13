@@ -4,66 +4,66 @@ parameters:
 #    parameter_name: value
 
 services:
-    obokaman.application.service.user.list:
-        class: Obokaman\Playground\Application\Service\User\ListUsers
-        arguments: ["@obokaman.repository.user"]
+    playground.application.service.user.list:
+        class: Playground\App\Application\Service\User\ListUsers
+        arguments: ["@playground.repository.user"]
 
-    obokaman.application.service.user.add:
-        class: Obokaman\Playground\Application\Service\User\AddUser
+    playground.application.service.user.add:
+        class: Playground\App\Application\Service\User\AddUser
         arguments:
-            - "@obokaman.repository.user"
+            - "@playground.repository.user"
         tags:
-            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\AddUserCommand }
+            - { name: command_handler, handles: Playground\App\Application\Service\User\AddUserCommand }
 
-    obokaman.application.service.user.edit:
-        class: Obokaman\Playground\Application\Service\User\EditUser
+    playground.application.service.user.edit:
+        class: Playground\App\Application\Service\User\EditUser
         arguments:
-            - "@obokaman.repository.user"
+            - "@playground.repository.user"
         tags:
-            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\EditUserCommand }
+            - { name: command_handler, handles: Playground\App\Application\Service\User\EditUserCommand }
 
-    obokaman.application.service.user.remove:
-        class: Obokaman\Playground\Application\Service\User\RemoveUser
+    playground.application.service.user.remove:
+        class: Playground\App\Application\Service\User\RemoveUser
         arguments:
-            - "@obokaman.repository.user"
+            - "@playground.repository.user"
         tags:
-            - { name: command_handler, handles: Obokaman\Playground\Application\Service\User\RemoveUserCommand }
+            - { name: command_handler, handles: Playground\App\Application\Service\User\RemoveUserCommand }
 
-    obokaman.repository.user:
-        alias: obokaman.repository.orm.user
+    playground.repository.user:
+        alias: playground.repository.orm.user
 
-    obokaman.repository.orm.user:
+    playground.repository.orm.user:
         public: false
-        class: Obokaman\Playground\Infrastructure\Repository\Doctrine\User\UserRepository
+        class: Playground\App\Infrastructure\Repository\Doctrine\User\UserRepository
         arguments:
             - "@doctrine.orm.entity_manager"
 
-    obokaman.repository.dbal.user:
+    playground.repository.dbal.user:
         public: false
-        class: Obokaman\Playground\Infrastructure\Repository\Doctrine\User\UserDbalRepository
+        class: Playground\App\Infrastructure\Repository\Doctrine\User\UserDbalRepository
         arguments:
             - "@doctrine.dbal.default_connection"
 
-    obokaman.domain.event_dispatcher:
-        class: Obokaman\Playground\Infrastructure\MessageBus\Symfony\EventDispatcher
+    playground.domain.event_dispatcher:
+        class: Playground\App\Infrastructure\MessageBus\Symfony\EventDispatcher
         arguments:
             - "@event_dispatcher"
 
-    obokaman.domain.command_bus:
-        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\CommandBus
+    playground.domain.command_bus:
+        class: Playground\App\Infrastructure\MessageBus\SimpleBus\CommandBus
         arguments:
             - "@command_bus"
 
-    obokaman.domain.command_bus.middleware.event_aware:
-        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\EventAwareCommandBusMiddleware
+    playground.domain.command_bus.middleware.event_aware:
+        class: Playground\App\Infrastructure\MessageBus\SimpleBus\EventAwareCommandBusMiddleware
         public: false
         arguments:
-            - "@obokaman.domain.event_dispatcher"
+            - "@playground.domain.event_dispatcher"
         tags:
             - { name: command_bus_middleware, priority: 100 }
 
-    obokaman.domain.command_bus.middleware.db_transaction:
-        class: Obokaman\Playground\Infrastructure\MessageBus\SimpleBus\DBTransactionalityCommandBusMiddleware
+    playground.domain.command_bus.middleware.db_transaction:
+        class: Playground\App\Infrastructure\MessageBus\SimpleBus\DBTransactionalityCommandBusMiddleware
         public: false
         arguments:
             - "@doctrine.orm.entity_manager"

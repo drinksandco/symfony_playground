@@ -1,7 +1,0 @@
-Obokaman\Playground\Domain\Model\Skill\SkillId:
-    type: embeddable
-    id:
-        id:
-            type: guid
-            generator:
-                strategy: NONE

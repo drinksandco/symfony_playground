@@ -1,0 +1,7 @@
+Playground\App\Domain\Model\User\UserId:
+    type: embeddable
+    id:
+        id:
+            type: guid
+            generator:
+                strategy: NONE

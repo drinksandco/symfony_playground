@@ -1,0 +1,11 @@
+Playground\App\Domain\Model\Skill\Skill:
+    type: entity
+    repositoryClass: Playground\App\Infrastructure\Repository\Doctrine\Skill\SkillBaseRepository
+    embedded:
+        id:
+            class: Playground\App\Domain\Model\Skill\SkillId
+            columnPrefix: false
+    fields:
+        description:
+            type: string
+            length: 255
