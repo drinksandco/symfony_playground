@@ -15,7 +15,6 @@ class UserDbalRepository implements UserRepositoryContract
     /** @var Connection */
     private $db;
 
-
     public function __construct(Connection $a_dbal_connection)
     {
         $this->db = $a_dbal_connection;

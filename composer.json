@@ -1,42 +1,37 @@
 {
-    "name": "marcossegovia/symfony_playground",
-    "license": "proprietary",
+    "name": "uvinum/symfony_playground",
+    "license": "MIT",
     "type": "project",
+    "description": "A simple playground to test and learn about Symfony usage.",
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
+        "psr-4": { "Tests\\": "tests/" },
+        "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
-        "php": ">=5.5.9",
-        "symfony/symfony": "^3.1",
-        "doctrine/orm": "^2.5",
+        "php": ">=7.1",
         "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/monolog-bundle": "^2.8",
-        "symfony/polyfill-apcu": "^1.0",
+        "doctrine/orm": "^2.5",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "ramsey/uuid": "^3.6",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "ramsey/uuid": "^3.4",
-        "simple-bus/symfony-bridge": "^4.1"
+        "simple-bus/symfony-bridge": "^4.1",
+        "symfony/monolog-bundle": "^3.1.0",
+        "symfony/polyfill-apcu": "^1.0",
+        "symfony/swiftmailer-bundle": "^2.3.10",
+        "symfony/symfony": "3.3.x-dev",
+        "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {
-        "post-install-cmd": [
+        "symfony-scripts": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
@@ -44,14 +39,19 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
+        "post-install-cmd": [
+            "@symfony-scripts"
+        ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "@symfony-scripts"
         ]
+    },
+    "config": {
+        "platform": {
+            "php": "7.1"
+        },
+        "optimize-autoloader": true,
+        "sort-packages": true
     },
     "extra": {
         "symfony-app-dir": "app",
@@ -62,6 +62,9 @@
         "symfony-assets-install": "relative",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "3.3-dev"
         }
     }
 }

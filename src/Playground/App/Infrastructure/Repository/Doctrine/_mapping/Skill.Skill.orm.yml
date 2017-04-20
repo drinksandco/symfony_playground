@@ -1,0 +1,9 @@
+Playground\App\Domain\Model\Skill\Skill:
+    type: entity
+    id:
+        id:
+            type: skill_id
+    fields:
+        description:
+            type: string
+            length: 255

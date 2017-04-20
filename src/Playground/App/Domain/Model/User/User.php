@@ -12,41 +12,36 @@ use Playground\App\Domain\Model\User\Event\UserNameChanged;
 
 class User
 {
-    /** @var UserId */
     private $id;
-
-    /** @var string */
     private $name;
-
-    /** @var Email */
     private $email;
-
-    /** @var \DateTimeImmutable */
     private $creation_date;
-
-    /** @var ArrayCollection */
+    private $update_date;
     private $skills;
 
     public function __construct(
         UserId $a_user_id,
-        $a_name,
+        string $a_name,
         Email $an_email,
-        \DateTimeImmutable $a_datetime,
+        \DateTimeImmutable $a_creation_date,
+        \DateTimeImmutable $an_update_date,
         SkillCollection $skills
     )
     {
         $this->id            = $a_user_id;
         $this->name          = $a_name;
         $this->email         = $an_email;
-        $this->creation_date = $a_datetime;
+        $this->creation_date = $a_creation_date;
+        $this->update_date   = $an_update_date;
         $this->skills        = new ArrayCollection($skills->items());
     }
 
     public static function create(UserId $a_user_id, $a_name, Email $an_email)
     {
-        $datetime = new \DateTimeImmutable('now');
+        $creation_date = new \DateTimeImmutable();
+        $update_date   = clone $creation_date;
 
-        $user = new self($a_user_id, $a_name, $an_email, $datetime, new SkillCollection());
+        $user = new self($a_user_id, $a_name, $an_email, $creation_date, $update_date, new SkillCollection());
 
         EventRecorder::instance()->recordEvent(new UserCreated($a_user_id, $a_name, $an_email));
 
@@ -93,6 +88,7 @@ class User
         EventRecorder::instance()->recordEvent(new UserNameChanged($this->id, $a_name));
 
         $this->name = $a_name;
+        $this->refreshUpdateDate();
     }
 
     public function changeEmail(Email $an_email)
@@ -105,6 +101,7 @@ class User
         EventRecorder::instance()->recordEvent(new UserEmailChanged($this->id, $an_email));
 
         $this->email = $an_email;
+        $this->refreshUpdateDate();
     }
 
     public function acquireSkill($skill_description)
@@ -112,15 +109,23 @@ class User
         $skill = Skill::learn($skill_description);
 
         $this->skills->add($skill);
+        $this->refreshUpdateDate();
     }
 
     public function forgetSkill(Skill $an_skill)
     {
         $this->skills->removeElement($an_skill);
+        $this->refreshUpdateDate();
     }
 
     public function forgetSkills()
     {
         $this->skills->clear();
+        $this->refreshUpdateDate();
+    }
+
+    private function refreshUpdateDate()
+    {
+        $this->update_date = new \DateTimeImmutable();
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
@@ -17,14 +17,18 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle(),
             new Playground\MainBundle\MainBundle(),
-            new Playground\CacheBundle\CacheBundle(),
+//            new Playground\CacheBundle\CacheBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
-            $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+
+            if ('dev' === $this->getEnvironment()) {
+                $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
+                $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
+            }
         }
 
         return $bundles;

@@ -18,6 +18,11 @@ class EditUser
     {
         $user = $this->user_repo->find($a_command->userId());
 
+        if (null === $user)
+        {
+            throw new \DomainException('Requested user ' . $a_command->userId() . ' doesn\'t exists.');
+        }
+
         $user->changeName($a_command->name());
         $user->changeEmail($a_command->email());
 

@@ -12,7 +12,7 @@ We have two CommandBus middlewares (`DBTransactionality` and `EventAware`) that 
  
 There are two example implementations for the `User` aggregate repository. One using Doctrime ORM (`Playground\App\Infrastructure\Repository\Doctrine\User\UserOrmRepository`) and another one using raw DBAL connection (`Playground\App\Infrastructure\Repository\Doctrine\User\UserDbalRepository`). In the ORM case, we don't work directly with the Doctrine repos. Instead of this, we inject the Entity Manager to our repo, so we can decouple from Doctrine's implementation and prevent our app to access all public methods available on Doctrine repos.
 
-All Doctrine ORM mapping config files will be found on `src/Playground/App/Infrastructure/Repository/Doctrine/User/*.yml`
+All Doctrine ORM mapping config files will be found on `src/Playground/App/Infrastructure/Repository/Doctrine/_mapping/*.yml`
 
 You can re-create the needed schema (the app is configured to use sqlite, so you don't need to install or run MySQL or any other DB) with the following commands: 
 * `bin/console doctrine:database:drop --force` (in order to remove any previous DB in the project)

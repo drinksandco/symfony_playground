@@ -11,20 +11,21 @@
     <p><strong style="color:red">{{ flash_message }}</strong></p>
 {% endfor %}
 
-<p><a href="{{ url('obo_homepage') }}">Users list</a></p>
+<p>{{ 'now'|date('H:i:s') }} (hora en plantilla)</p>
+
+<p><a href="{{ url('app_homepage') }}">Users list</a></p>
 
 <ul>
-   <li><a href="{{ url('obo_user_add') }}">Add new user [+]</a></li>
+   <li><a href="{{ url('app_user_add') }}">Add new user [+]</a></li>
 </ul>
 
 <ul>
     {% for user in users %}
         <li>
-            {{ dump(user) }}
             <strong>{{ user.name }}</strong> ({{ user.email }})
-            - <a href="{{ path('obo_user_remove', {'user_id': user.userId}) }}">Remove</a>
-            - <a href="{{ path('obo_user_edit', {'user_id': user.userId, 'email': 'alternative' ~ random(5000) ~ '@gmail.com', 'name': user.name}) }}">Edit</a>
-            {{ dump(user.skills) }}
+            - <a href="{{ path('app_user_remove', {'user_id': user.userId}) }}">Remove</a>
+            - <a href="{{ path('app_user_edit', {'user_id': user.userId, 'email': 'alternative' ~ random(5000) ~ '@gmail.com', 'name': user.name}) }}">Edit</a>
+            <ul><li>{% for skill in user.skills %}{{ skill.description }}{% if false == loop.last %}, {% endif %}{% endfor %}</li></ul>
         </li>
     {% endfor %}
 </ul>

@@ -1,23 +1,23 @@
 Playground\App\Domain\Model\User\User:
     type: entity
-    repositoryClass: Playground\App\Infrastructure\Repository\Doctrine\User\UserBaseRepository
-    embedded:
+    id:
         id:
-            class: Playground\App\Domain\Model\User\UserId
-            columnPrefix: false
-        email:
-            class: Playground\App\Domain\Model\User\Email
-            columnPrefix: false
+            type: user_id
     fields:
+        email:
+            type: email
         name:
             type: string
             length: 255
         creation_date:
             type: datetime
+        update_date:
+            type: datetime
 
     manyToMany:
         skills:
             targetEntity: Playground\App\Domain\Model\Skill\Skill
+            fetch: EAGER
             joinTable:
                 name: user_skill
                 joinColumns:

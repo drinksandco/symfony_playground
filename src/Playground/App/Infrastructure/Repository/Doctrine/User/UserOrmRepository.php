@@ -8,14 +8,12 @@ use Playground\App\Domain\Kernel\EventRecorder;
 use Playground\App\Domain\Model\User\Event\UserRemoved;
 use Playground\App\Domain\Model\User\User;
 use Playground\App\Domain\Model\User\UserId;
-use Playground\App\Infrastructure\Repository\Doctrine\User\UserBaseRepository as DoctrineUserRepository;
+use Playground\App\Domain\Model\User\UserNotFoundException;
 
 class UserOrmRepository implements UserRepositoryContract
 {
-    /** @var EntityManager */
     private $em;
 
-    /** @var DoctrineUserRepository */
     private $repo;
 
     public function __construct(EntityManager $an_entity_manager)
@@ -50,7 +48,7 @@ class UserOrmRepository implements UserRepositoryContract
 
         if (null === $user)
         {
-            return;
+            throw new UserNotFoundException($a_user_id);
         }
 
         $this->em->remove($user);
