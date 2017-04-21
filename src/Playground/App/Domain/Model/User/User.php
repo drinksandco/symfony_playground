@@ -12,6 +12,9 @@ use Playground\App\Domain\Model\User\Event\UserNameChanged;
 
 class User
 {
+    /**
+     * @var UserId
+     */
     private $id;
     private $name;
     private $email;
@@ -127,5 +130,10 @@ class User
     private function refreshUpdateDate()
     {
         $this->update_date = new \DateTimeImmutable();
+    }
+
+    public function updateDate()
+    {
+        return $this->update_date;
     }
 }
