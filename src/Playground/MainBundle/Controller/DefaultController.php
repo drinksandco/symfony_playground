@@ -22,6 +22,9 @@ class DefaultController extends Controller
         $app_service = $this->get('playground.application.service.user.list');
         $users_list  = $app_service->__invoke();
 
+        $hash_content = serialize($users_list);
+        $response->setEtag(md5($hash_content));
+
         return $this->render('MainBundle:Default:index.html.twig', ['users' => $users_list], $response);
     }
 }
