@@ -68,6 +68,11 @@ class User
         return $this->creation_date;
     }
 
+    public function updatedDate()
+    {
+        return $this->update_date;
+    }
+
     public function skills()
     {
         return new SkillCollection($this->skills->toArray());
