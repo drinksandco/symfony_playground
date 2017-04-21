@@ -61,4 +61,9 @@ class CachedUserRepository implements UserRepository
         return $this->original_repo->flush();
     }
 
+    public function getLastModifiedUserDate()
+    {
+        // TODO: Implement getLastModifiedUserDate() method.
+    }
+
 }

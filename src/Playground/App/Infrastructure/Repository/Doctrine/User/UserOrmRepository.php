@@ -32,6 +32,21 @@ class UserOrmRepository implements UserRepositoryContract
         return $this->repo->findAll();
     }
 
+    public function getLastModifiedUserDate()
+    {
+        $date = $this->em
+            ->createQuery('SELECT u.update_date FROM ' . User::class . ' u ORDER BY u.update_date DESC')
+            ->setMaxResults(1)
+            ->getOneOrNullResult();
+
+        if (empty($date))
+        {
+            return null;
+        }
+
+        return $date['update_date'];
+    }
+
     public function persist(User $a_user, $flush = true)
     {
         $this->em->persist($a_user);

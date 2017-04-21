@@ -18,4 +18,6 @@ interface UserRepository
     public function remove(UserId $a_user_id, $flush = true);
 
     public function flush();
+
+    public function getLastModifiedUserDate();
 }

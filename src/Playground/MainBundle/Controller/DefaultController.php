@@ -12,14 +12,17 @@ class DefaultController extends Controller
     {
         $response = new Response();
 
-        $app_service = $this->get('playground.application.service.user.list');
-        $users_list  = $app_service->__invoke();
+        $users_repo = $this->get('playground.repository.user');
+        $last_modified_date = $users_repo->getLastModifiedUserDate();
 
-        $response->setEtag(md5(serialize($users_list)));
+        $response->setLastModified($last_modified_date);
         if ($response->isNotModified($request))
         {
             return $response;
         }
+
+        $app_service = $this->get('playground.application.service.user.list');
+        $users_list  = $app_service->__invoke();
 
         return $this->render('MainBundle:Default:index.html.twig', ['users' => $users_list], $response);
     }

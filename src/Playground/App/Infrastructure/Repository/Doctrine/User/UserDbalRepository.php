@@ -142,4 +142,9 @@ SQL;
 
         return $user;
     }
+
+    public function getLastModifiedUserDate()
+    {
+        // TODO: Implement getLastModifiedUserDate() method.
+    }
 }
