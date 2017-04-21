@@ -12,7 +12,12 @@ class DefaultController extends Controller
     {
         $response = new Response();
         $response->setPrivate();
-        $response->setExpires(new \DateTime('tomorrow'));
+
+        // cache for 10 seconds
+        $response->setSharedMaxAge(10);
+
+        // (optional) set a custom Cache-Control directive
+        $response->headers->addCacheControlDirective('must-revalidate', true);
 
         $app_service = $this->get('playground.application.service.user.list');
         $users_list  = $app_service->__invoke();
