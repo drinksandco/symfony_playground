@@ -11,8 +11,8 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $response = new Response();
-        $response->setPrivate();
-        $response->setExpires(new \DateTime('tomorrow'));
+        $response->setPublic();
+        $response->setSharedMaxAge(10);
 
         $app_service = $this->get('playground.application.service.user.list');
         $users_list  = $app_service->__invoke();
