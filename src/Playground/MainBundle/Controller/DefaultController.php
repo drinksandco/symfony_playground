@@ -27,6 +27,15 @@ class DefaultController extends Controller
         $app_service = $this->get('playground.application.service.user.list');
         $users_list  = $app_service->__invoke();
 
-        return $this->render('MainBundle:Default:index.html.twig', ['users' => $users_list], $response);
+        return $this->render('@Main/Default/index.html.twig', ['users' => $users_list], $response);
+    }
+
+    public function currentTimeAction()
+    {
+        $response = new Response();
+        $response->setPrivate();
+        $current_time = (new \DateTime())->format('H:i:s');
+
+        return $this->render('@Main/Default/time.html.twig', ['current_time' => $current_time]);
     }
 }

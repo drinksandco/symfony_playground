@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Título de la página</title>
+    <script src="{{ asset('js/hinclude.js') }}"></script>
 </head>
 <body>
 {% for flash_message in app.session.flashBag.get('success') %}
@@ -12,6 +13,8 @@
 {% endfor %}
 
 <p>{{ 'now'|date('H:i:s') }} (hora en plantilla)</p>
+{#{{ render_esi(controller('MainBundle:Default:currentTime')) }}#}
+{{ render_hinclude(controller('MainBundle:Default:currentTime'), {'default': 'Loading...'}) }}
 
 <p><a href="{{ url('app_homepage') }}">Users list</a></p>
 
