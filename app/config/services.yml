@@ -44,7 +44,6 @@ services:
         arguments:
             - "@doctrine.dbal.default_connection"
 
-
     playground.domain.event_dispatcher:
         class: Playground\App\Infrastructure\MessageBus\Symfony\EventDispatcher
         arguments:
@@ -70,3 +69,10 @@ services:
             - "@doctrine.orm.entity_manager"
         tags:
             - { name: command_bus_middleware, priority: 100 }
+
+    playground.user.subscriber:
+        class: Playground\MainBundle\EventSubscriber\UserSubscriber
+        arguments: ['@cache.app']
+        tags:
+            - { name: kernel.event_subscriber }
+

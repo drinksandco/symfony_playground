@@ -12,10 +12,13 @@ class DefaultController extends Controller
     {
         $response = new Response();
 
-        $users_repo = $this->get('playground.repository.user');
-        $last_modified_date = $users_repo->getLastModifiedUserDate();
+        $cache              = $this->get('cache.app');
+        $last_modified_date = $cache->getItem('stats.user_lsat_modification');
+        if ($last_modified_date->isHit())
+        {
+            $response->setLastModified($last_modified_date->get());
+        }
 
-        $response->setLastModified($last_modified_date);
         if ($response->isNotModified($request))
         {
             return $response;
