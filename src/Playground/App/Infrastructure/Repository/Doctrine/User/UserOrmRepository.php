@@ -2,6 +2,7 @@
 
 namespace Playground\App\Infrastructure\Repository\Doctrine\User;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Playground\App\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
 use Playground\App\Domain\Kernel\EventRecorder;
@@ -59,6 +60,20 @@ class UserOrmRepository implements UserRepositoryContract
         }
 
         EventRecorder::instance()->recordEvent(new UserRemoved($a_user_id));
+    }
+
+    public function findLastModified()
+    {
+        $criteria = Criteria::create()->orderBy(['update_date' => 'DESC']);
+
+        $last_user_modified = $this->repo->matching($criteria)->first();
+
+        if (!$last_user_modified instanceof User)
+        {
+            return null;
+        }
+
+        return $last_user_modified;
     }
 
     public function flush()

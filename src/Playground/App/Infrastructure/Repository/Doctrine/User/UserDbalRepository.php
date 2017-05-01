@@ -5,6 +5,7 @@ namespace Playground\App\Infrastructure\Repository\Doctrine\User;
 use Doctrine\DBAL\Connection;
 use Playground\App\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
 use Playground\App\Domain\Kernel\EventRecorder;
+use Playground\App\Domain\Model\Skill\SkillCollection;
 use Playground\App\Domain\Model\User\Email;
 use Playground\App\Domain\Model\User\Event\UserRemoved;
 use Playground\App\Domain\Model\User\User;
@@ -42,6 +43,23 @@ SQL;
         return $this->hydrateItem($results[0]);
     }
 
+    public function findLastModified()
+    {
+        $sql       = <<<SQL
+SELECT * FROM user ORDER BY update_date DESC LIMIT 1;
+SQL;
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $result = $statement->fetch();
+
+        if (empty($result))
+        {
+            return null;
+        }
+
+        return $this->hydrateItem($result);
+    }
+
     public function findAll()
     {
         $sql = <<<SQL
@@ -68,7 +86,7 @@ SQL;
         }
 
         $sql = <<<SQL
-REPLACE INTO user (id, name, email, creation_date) VALUES (:user_id, :name, :email, :creation_date);
+REPLACE INTO user (id, name, email, creation_date, update_date) VALUES (:user_id, :name, :email, :creation_date, :update_date);
 SQL;
 
         $statement = $this->db->prepare($sql);
@@ -77,10 +95,12 @@ SQL;
         $name          = $a_user->name();
         $email         = (string) $a_user->email();
         $creation_date = $a_user->creationDate()->format('Y-m-d H:i:s');
+        $update_date   = $a_user->updateDate()->format('Y-m-d H:i:s');
         $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
         $statement->bindParam('name', $name, \PDO::PARAM_STR);
         $statement->bindParam('email', $email, \PDO::PARAM_STR);
         $statement->bindParam('creation_date', $creation_date, \PDO::PARAM_STR);
+        $statement->bindParam('update_date', $update_date, \PDO::PARAM_STR);
 
         $statement->execute();
 
@@ -137,7 +157,12 @@ SQL;
     private function hydrateItem(array $result)
     {
         $user = new User(
-            new UserId($result['id']), $result['name'], new Email($result['email']), new \DateTimeImmutable($result['creation_date'])
+            new UserId($result['id']),
+            $result['name'],
+            new Email($result['email']),
+            new \DateTimeImmutable($result['creation_date']),
+            new \DateTimeImmutable($result['update_date']),
+            new SkillCollection()
         );
 
         return $user;
