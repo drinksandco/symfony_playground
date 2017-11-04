@@ -1,4 +1,4 @@
-Playground\App\Infrastructure\Repository\Doctrine\_mapping\Skill\Skill:
+Playground\App\Domain\Model\Skill\Skill:
     type: entity
     id:
         id:

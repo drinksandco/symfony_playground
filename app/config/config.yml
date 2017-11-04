@@ -63,5 +63,5 @@ doctrine:
                 type: yml
                 dir: '%kernel.root_dir%/../src/Playground/App/Infrastructure/Repository/Doctrine/_mapping'
                 is_bundle: false
-                prefix: Playground\App\Infrastructure\Repository\Doctrine\_mapping
+                prefix: Playground\App\Domain\Model
                 alias: Playground

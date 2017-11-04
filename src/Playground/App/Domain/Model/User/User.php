@@ -2,6 +2,7 @@
 
 namespace Playground\App\Domain\Model\User;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Playground\App\Domain\Kernel\EventRecorder;
 use Playground\App\Domain\Model\Skill\Skill;
 use Playground\App\Domain\Model\Skill\SkillCollection;
@@ -32,7 +33,7 @@ class User
         $this->email         = $an_email;
         $this->creation_date = $a_creation_date;
         $this->update_date   = $an_update_date;
-        $this->skills        = $skills;
+        $this->skills        = new ArrayCollection($skills->items());
     }
 
     public static function create(UserId $a_user_id, $a_name, Email $an_email)
@@ -74,12 +75,12 @@ class User
 
     public function skills()
     {
-        return $this->skills;
+        return new SkillCollection($this->skills->toArray());
     }
 
     public function hasSkill(Skill $a_skill)
     {
-        return $this->skills->hasItem($a_skill);
+        return $this->skills->contains($a_skill);
     }
 
     public function changeName($a_name)
@@ -112,19 +113,19 @@ class User
     {
         $skill = Skill::learn($skill_description);
 
-        $this->skills->addItem($skill);
+        $this->skills->add($skill);
         $this->refreshUpdateDate();
     }
 
     public function forgetSkill(Skill $an_skill)
     {
-        $this->skills->removeItem($an_skill);
+        $this->skills->removeElement($an_skill);
         $this->refreshUpdateDate();
     }
 
     public function forgetSkills()
     {
-        $this->skills = new SkillCollection();
+        $this->skills->clear();
         $this->refreshUpdateDate();
     }
 
