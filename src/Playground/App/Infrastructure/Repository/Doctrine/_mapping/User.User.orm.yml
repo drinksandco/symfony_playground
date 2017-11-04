@@ -1,4 +1,4 @@
-Playground\App\Domain\Model\User\User:
+Playground\App\Infrastructure\Repository\Doctrine\_mapping\User\User:
     type: entity
     id:
         id:
@@ -16,7 +16,7 @@ Playground\App\Domain\Model\User\User:
 
     manyToMany:
         skills:
-            targetEntity: Playground\App\Domain\Model\Skill\Skill
+            targetEntity: Playground\App\Infrastructure\Repository\Doctrine\_mapping\Skill\Skill
             fetch: EAGER
             joinTable:
                 name: user_skill

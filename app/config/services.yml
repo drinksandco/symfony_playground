@@ -30,13 +30,19 @@ services:
             - { name: command_handler, handles: Playground\App\Application\Service\User\RemoveUserCommand }
 
     playground.repository.user:
-        alias: playground.repository.dbal.user
+        alias: playground.repository.orm_entities.user
 
     playground.repository.dbal.user:
         public: false
         class: Playground\App\Infrastructure\Repository\Doctrine\User\UserDbalRepository
         arguments:
             - "@doctrine.dbal.default_connection"
+
+    playground.repository.orm_entities.user:
+        public: false
+        class: Playground\App\Infrastructure\Repository\Doctrine\User\UserOrmEntitiesRepository
+        arguments:
+            - "@doctrine"
 
     playground.domain.event_dispatcher:
         class: Playground\App\Infrastructure\MessageBus\Symfony\EventDispatcher
