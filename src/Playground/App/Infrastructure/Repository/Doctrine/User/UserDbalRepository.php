@@ -5,6 +5,9 @@ namespace Playground\App\Infrastructure\Repository\Doctrine\User;
 use Doctrine\DBAL\Connection;
 use Playground\App\Domain\Infrastructure\Repository\User\UserRepository as UserRepositoryContract;
 use Playground\App\Domain\Kernel\EventRecorder;
+use Playground\App\Domain\Model\Skill\Skill;
+use Playground\App\Domain\Model\Skill\SkillCollection;
+use Playground\App\Domain\Model\Skill\SkillId;
 use Playground\App\Domain\Model\User\Email;
 use Playground\App\Domain\Model\User\Event\UserRemoved;
 use Playground\App\Domain\Model\User\User;
@@ -62,13 +65,8 @@ SQL;
 
     public function persist(User $a_user, $flush = true)
     {
-        if (!$this->db->isTransactionActive())
-        {
-            $this->db->beginTransaction();
-        }
-
         $sql = <<<SQL
-REPLACE INTO user (id, name, email, creation_date) VALUES (:user_id, :name, :email, :creation_date);
+REPLACE INTO user (id, name, email, creation_date, update_date) VALUES (:user_id, :name, :email, :creation_date, :update_date);
 SQL;
 
         $statement = $this->db->prepare($sql);
@@ -77,12 +75,17 @@ SQL;
         $name          = $a_user->name();
         $email         = (string) $a_user->email();
         $creation_date = $a_user->creationDate()->format('Y-m-d H:i:s');
+        $update_date   = $a_user->updateDate()->format('Y-m-d H:i:s');
+
         $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
         $statement->bindParam('name', $name, \PDO::PARAM_STR);
         $statement->bindParam('email', $email, \PDO::PARAM_STR);
         $statement->bindParam('creation_date', $creation_date, \PDO::PARAM_STR);
+        $statement->bindParam('update_date', $update_date, \PDO::PARAM_STR);
 
         $statement->execute();
+
+        $this->persistSkills($a_user);
 
         if (true === $flush)
         {
@@ -90,12 +93,39 @@ SQL;
         }
     }
 
+    private function persistSkills(User $a_user)
+    {
+        $this->removeUserSkills($a_user->userId());
+
+        $user_id = (string) $a_user->userId();
+
+        /** @var Skill $skill */
+        foreach ($a_user->skills() as $skill)
+        {
+            $skill_id          = (string) $skill->skillId();
+            $skill_description = $skill->description();
+
+            $sql       = <<<SQL
+INSERT INTO skill (id, description) VALUES ( :skill_id, :skill_description );
+SQL;
+            $statement = $this->db->prepare($sql);
+            $statement->bindParam('skill_id', $skill_id, \PDO::PARAM_STR);
+            $statement->bindParam('skill_description', $skill_description, \PDO::PARAM_STR);
+            $statement->execute();
+
+            $sql       = <<<SQL
+INSERT INTO user_skill (user_id, skill_id) VALUES ( :user_id, :skill_id );
+SQL;
+            $statement = $this->db->prepare($sql);
+            $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
+            $statement->bindParam('skill_id', $skill_id, \PDO::PARAM_STR);
+            $statement->execute();
+        }
+    }
+
     public function remove(UserId $a_user_id, $flush = true)
     {
-        if (!$this->db->isTransactionActive())
-        {
-            $this->db->beginTransaction();
-        }
+        $this->removeUserSkills($a_user_id);
 
         $sql = <<<SQL
 DELETE FROM user WHERE id = :user_id;
@@ -122,7 +152,7 @@ SQL;
     }
 
     /** @return User[] */
-    private function hydrateItems($results)
+    private function hydrateItems(array $results): array
     {
         $users = [];
         foreach ($results as $result)
@@ -134,12 +164,83 @@ SQL;
         return $users;
     }
 
-    private function hydrateItem(array $result)
+    private function hydrateItem(array $result): User
     {
+        $user_id = new UserId($result['id']);
+
+        $skills = $this->hydrateSkills($user_id);
+
         $user = new User(
-            new UserId($result['id']), $result['name'], new Email($result['email']), new \DateTimeImmutable($result['creation_date'])
+            $user_id,
+            $result['name'],
+            new Email($result['email']),
+            new \DateTimeImmutable($result['creation_date']),
+            new \DateTimeImmutable($result['update_date']),
+            $skills
         );
 
         return $user;
+    }
+
+    private function hydrateSkills(UserId $user_id): SkillCollection
+    {
+        $skills = new SkillCollection();
+
+        $sql = <<<SQL
+SELECT
+    s.*
+FROM
+    user_skill us
+        JOIN skill s ON s.id = us.skill_id
+WHERE
+    us.user_id = :user_id
+SQL;
+
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
+        $statement->execute();
+
+        $results = $statement->fetchAll();
+
+
+        if (empty($results))
+        {
+            return $skills;
+        }
+
+        foreach ($results as $skill)
+        {
+            $skills->addItem(new Skill(new SkillId($skill['id']), $skill['description']));
+        }
+
+        return $skills;
+
+    }
+
+    private function removeUserSkills(UserId $a_user_id)
+    {
+        $user_id = $a_user_id->id();
+
+        $sql = <<<SQL
+DELETE
+FROM 
+    skill 
+WHERE
+    id IN ( SELECT skill_id FROM user_skill WHERE user_id = :user_id )
+SQL;
+
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
+
+        $statement->execute();
+
+        $sql = <<<SQL
+DELETE FROM user_skill WHERE user_id = :user_id
+SQL;
+        $statement = $this->db->prepare($sql);
+        $statement->bindParam('user_id', $user_id, \PDO::PARAM_STR);
+
+        $statement->execute();
+
     }
 }

@@ -17,7 +17,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle(),
             new Playground\MainBundle\MainBundle(),
-//            new Playground\CacheBundle\CacheBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

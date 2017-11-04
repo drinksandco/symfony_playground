@@ -29,7 +29,7 @@ class ManageUserController extends Controller
         }
         catch (\Exception $e)
         {
-            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+            $this->addFlash('error', 'There was an error: [' . get_class($e).'] ' . $e->getMessage());
 
             return $this->redirectToRoute('app_homepage');
         }
@@ -48,7 +48,7 @@ class ManageUserController extends Controller
         }
         catch (\Exception $e)
         {
-            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+            $this->addFlash('error', 'There was an error: [' . get_class($e).'] ' . $e->getMessage());
 
             return $this->redirectToRoute('app_homepage');
         }
@@ -67,12 +67,12 @@ class ManageUserController extends Controller
         }
         catch (\Exception $e)
         {
-            $this->addFlash('error', 'There was an error: ' . $e->getMessage());
+            $this->addFlash('error', 'There was an error: [' . get_class($e).'] ' . $e->getMessage());
 
             return $this->redirectToRoute('app_homepage');
         }
 
-        $this->addFlash('success', 'Edited succesfully user with ID: ' . $edit_user_command->userId());
+        $this->addFlash('success', 'Edited successfully user with ID: ' . $edit_user_command->userId());
 
         return $this->redirectToRoute('app_homepage');
     }
